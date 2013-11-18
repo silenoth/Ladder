@@ -1,10 +1,14 @@
 <?php
 
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "ladder";
+$db = array
+(
+    'host' => 'localhost',
+    'user' => 'root',
+    'pass' => '',
+    'name' => 'ladder'
+);
 
 define('_DS', DIRECTORY_SEPARATOR);
 define('_LANGFOLDER', 'lang');
-define('_ERRORNOLANGFOLDERDB', 'Error: Base de datos vacía');
+define('_ERRNOLANGFOLDERDB', 'Error: Base de datos vacÃ­a');
+define('_ERRNOFILELANG', 'Error: No existe el archivo index.php en la carpeta '._LANGFOLDER);
