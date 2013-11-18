@@ -18,7 +18,25 @@ class lsSystem {
         }
     }
     
+    public function closeCon(){
+        $this->con = null;
+    }
     
+    public function setNames(){
+        return $this->con->query("SET NAMES 'utf8");
+    }
+    
+    public function getLang(){
+        $sql = "SELECT a.ajuste_lang FROM ajustes AS a";
+        $res = $this->con->query($sql);
+        $res->execute();
+        
+        while($row = $res->fetch()){
+            $array[] = $row;
+        }
+        
+        return $array[0];
+        self::closeCon();
+    }
 }
-
 ?>
