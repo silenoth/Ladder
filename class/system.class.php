@@ -3,3 +3,5 @@
 class lsSystem {
     var $con;
 }
+
+?>
