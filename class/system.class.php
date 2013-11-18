@@ -17,6 +17,8 @@ class lsSystem {
             echo "El archivo de configuracion no existe.";
         }
     }
+    
+    
 }
 
 ?>
