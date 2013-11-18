@@ -1,10 +1,7 @@
 <?php
+require_once("class/system.class.php");
+$home = new lsSystem();
 
-/**
- * @author Miguel
- * @copyright 2013
- */
 
-echo "hola mundo!";
 
 ?>
