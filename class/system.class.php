@@ -18,25 +18,35 @@ class lsSystem {
         }
     }
     
+    //cerrar conexion
     public function closeCon(){
         $this->con = null;
     }
     
+    //setnames
     public function setNames(){
-        return $this->con->query("SET NAMES 'utf8");
+        return $this->con->query("SET NAMES 'utf8'");
     }
     
+    //obtener lenguaje
     public function getLang(){
-        $sql = "SELECT a.ajuste_lang FROM ajustes AS a";
+        self::setNames();
+        $sql = "SELECT a.ajuste_lang AS lang FROM ajustes AS a";
         $res = $this->con->query($sql);
         $res->execute();
         
         while($row = $res->fetch()){
             $array[] = $row;
         }
+        $rowcount = $res->rowCount();
         
-        return $array[0];
-        self::closeCon();
+        if($rowcount > 0) {
+           return _LANGFOLDER._DS.$array[0]['lang']._DS.'index.php';
+            self::closeCon(); 
+        } else {
+            print(_ERRORNOLANGFOLDERDB);
+            self::closeCon();
+        }
+        
     }
 }
-?>
