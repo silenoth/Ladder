@@ -2,7 +2,7 @@
 
 class lsSystem {
     var $con;
-    
+    var $datos = array();
     public function __construct(){
         if(file_exists("config.php")){
             require_once("config.php");
@@ -18,13 +18,33 @@ class lsSystem {
         }
     }
     
+    //cargar twig
+    public function twigL($template,$header,$footer,$datos){
+        require_once 'lib/Twig/Autoloader.php';
+        Twig_Autoloader::register();
+        $loader = new Twig_Loader_Filesystem('template');
+        $twig = new Twig_Environment($loader, array(
+            'cache' => 'cache',
+            'debug' => 'true'
+        ));
+        $tem = $twig->loadTemplate($template);
+        
+        $array = array();
+        for($i=0;$i<sizeof($datos);$i++){
+            $array[] = $datos[$i];
+        }
+        
+        $ls = $array[0];
+        echo $tem->render(array('ls' => $ls, 'header' => $header, 'footer' => $footer));
+    }
+    
     //cerrar conexion
     public function closeCon(){
         return $this->con = null;
     }
     
     //setnames
-    public function setNames(){
+    function setNames(){
         return $this->con->query("SET NAMES 'utf8'");
     }
     
