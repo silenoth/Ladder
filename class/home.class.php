@@ -27,9 +27,7 @@ class lsHome extends lsSystem {
                 	n.noticia_id = ? ";
                     
         $res = $this->con->prepare($sql);
-        $res->bindParam(1, $id, PDO::PARAM_INT);
-        $res->execute();
-        
+
         if($res->execute(array($id))){
             while($row = $res->fetch()){
                 $array[] = $row;
