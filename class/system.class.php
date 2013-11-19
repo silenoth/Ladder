@@ -25,7 +25,7 @@ class lsSystem {
     
     //setnames
     public function setNames(){
-        return $this->con->query("SET NAMES utf8");
+        return $this->con->query("SET NAMES 'utf8'");
     }
     
     //obtener lenguaje
@@ -42,7 +42,7 @@ class lsSystem {
         $rowcount = $res->rowCount();
         
         if($rowcount > 0) {
-            if(file_exists(_LANGFOLDER._DS.$array[0]['lang']._DS.'indx.php')){
+            if(file_exists(_LANGFOLDER._DS.$array[0]['lang']._DS.'index.php')){
                 return _LANGFOLDER._DS.$array[0]['lang']._DS.'index.php';
                 self::closeCon();
             } else {
