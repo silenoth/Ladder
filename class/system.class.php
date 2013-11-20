@@ -3,7 +3,8 @@
 class lsSystem {
     var $con;
     var $datos = array();
-    public function __construct(){
+    
+    function __construct(){
         if(file_exists("config.php")){
             require_once("config.php");
                 try {
@@ -16,6 +17,16 @@ class lsSystem {
             } else {
             echo "El archivo de configuracion no existe.";
         }
+    }
+    
+    //cerrar conexion
+    public function closeCon(){
+        return $this->con = null;
+    }
+    
+    //setnames
+    function setNames(){
+        return $this->con->query("SET NAMES 'utf8'");
     }
     
     //leer carpetas de los templates
@@ -51,7 +62,7 @@ class lsSystem {
     public function loadTemplate($template,$header,$footer,$datos){
         require_once 'lib/Twig/Autoloader.php';
         Twig_Autoloader::register();
-        $loader = new Twig_Loader_Filesystem('template');
+        $loader = new Twig_Loader_Filesystem(_TEMPLATEFOLDER._DS.$this->templateFolder());
         $twig = new Twig_Environment($loader, array(
             'cache' => 'cache',
             'debug' => 'true'
@@ -63,18 +74,10 @@ class lsSystem {
         for($i=0;$i<sizeof($datos);$i++){
             $array[] = $datos[$i];
         }
+        $url = self::getUrl();
+        $tmplfldr = _TEMPLATEFOLDER._DS.$this->templateFolder();
         $ls = $array[0];
-        echo $tmpl->render(array('ls' => $ls, 'header' => $header._EXT, 'footer' => $footer._EXT));
-    }
-    
-    //cerrar conexion
-    public function closeCon(){
-        return $this->con = null;
-    }
-    
-    //setnames
-    function setNames(){
-        return $this->con->query("SET NAMES 'utf8'");
+        echo $tmpl->render(array('ls' => $ls, 'url' => $url, 'template' => $tmplfldr, 'header' => $header._EXT, 'footer' => $footer._EXT));
     }
     
     //obtener lenguaje
@@ -104,5 +107,20 @@ class lsSystem {
             self::closeCon();
         }
         
+    }
+    
+    //obtener ruta absoluta
+    private function getUrl(){
+        self::setNames();
+        $sql = "SELECT a.ajuste_url AS url FROM ajustes AS a";
+        $res = $this->con->query($sql);
+        $res->execute();
+        
+        while($row = $res->fetch()){
+            $array[] = $row;
+        }
+        
+        return $array[0]['url'];
+        self::closeCon();
     }
 }

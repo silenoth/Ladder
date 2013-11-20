@@ -8,7 +8,11 @@ $db = array
     'name' => 'ladder'
 );
 
-//carpeta de plantillas
+/////////////////////////////////////////////
+// se recomienda no modificar estos datos  //
+/////////////////////////////////////////////
+/*******************************************/
+// carpeta de plantillas
 define('_TEMPLATEFOLDER', 'templates');
 //extencion de las plantillas
 define('_EXT', '.tpl');

@@ -2,14 +2,20 @@
 
 class lsHome extends lsSystem {
     
-    public function __construct(){
+    function __construct(){
         parent::__construct();
         if (file_exists(parent::getLang())){
             parent::getLang();
         }  
     }
     
-    public function getNews($id){
+    // mostrar template home
+    function showHome(){
+        
+    }
+    
+    //ontener noticias por id
+    function getNews($id){
         parent::setNames();
         $sql = "SELECT
                 	n.noticia_titulo AS titulo,

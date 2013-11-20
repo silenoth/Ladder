@@ -1,1 +1,0 @@
-<strong>header</strong><br />
