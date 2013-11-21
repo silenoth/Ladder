@@ -20,7 +20,7 @@ class __TwigTemplate_e3ccb2a694d8954738b6f7ec211796d62cb26ecd991985d673d98c46ed6
         echo "<!DOCTYPE html>
 <html lang=\"en\">
   <head>
-    <meta charset=\"utf-8\">
+    <meta charset=\"utf-8\" />
     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
     <meta name=\"description\" content=\"\" />
@@ -39,7 +39,7 @@ class __TwigTemplate_e3ccb2a694d8954738b6f7ec211796d62cb26ecd991985d673d98c46ed6
     <link href=\"";
         // line 14
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-        echo "/css/bootstrap.min.css\" rel=\"stylesheet\" />
+        echo "/css/bootstrap.css\" rel=\"stylesheet\" />
 
     <!-- Custom styles for this template -->
     <link href=\"navbar-static-top.css\" rel=\"stylesheet\" />
@@ -57,6 +57,10 @@ class __TwigTemplate_e3ccb2a694d8954738b6f7ec211796d62cb26ecd991985d673d98c46ed6
         // line 28
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/bootstrap.min.js\"></script>
+    <script src=\"";
+        // line 29
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/js/bootbox.min.js\"></script>
   </head>
   <body>";
     }
@@ -81,6 +85,6 @@ class __TwigTemplate_e3ccb2a694d8954738b6f7ec211796d62cb26ecd991985d673d98c46ed6
 
     public function getDebugInfo()
     {
-        return array (  68 => 11,  65 => 10,  58 => 28,  41 => 14,  38 => 13,  36 => 10,  30 => 9,  20 => 1,);
+        return array (  72 => 11,  69 => 10,  62 => 29,  58 => 28,  41 => 14,  38 => 13,  36 => 10,  30 => 9,  20 => 1,  194 => 4,  190 => 3,  187 => 2,  143 => 101,  134 => 94,  126 => 92,  122 => 91,  118 => 90,  114 => 89,  110 => 88,  105 => 87,  101 => 86,  21 => 8,  19 => 1,);
     }
 }
