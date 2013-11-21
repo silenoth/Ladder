@@ -69,27 +69,27 @@
     <div class="row" style="margin-top: 30px; margin-bottom:30px;">
     {% set i = 1 %}
     {% for prev in ls.preview %}
-        
-          <div class="col-sm-6 col-md-4" id="preview{{i}}" data-toggle="tooltip" data-placement="bottom" title="Continuar leyendo {{prev.titulo|slice(0,25)}}..." style="word-break: break-word;">
+    <a href="news.php?id={{prev.id}}">
+        <div class="col-sm-6 col-md-4" id="preview{{i}}" data-toggle="tooltip" data-placement="bottom" title="Continuar leyendo {{prev.titulo|slice(0,25)}}..." style="word-break: break-word;">
             <div class="thumbnail">
-              <img src="http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg" alt="..." />
-              <div class="caption">
-                <div style="overflow:hidden;max-height:50px;min-height:50px">
-                    <h4>{{ prev.titulo }}</h4>
-                </div>
-                <div style="overflow:hidden;max-height:40px;">
-                    <p>{{ prev.preview }}</p>
-                </div>
-                <script>$('#preview{{i}}').tooltip('hide')</script>
-            <div class="row">
-                <div class="col-lg-9">
-                {{prev.fecha}}
-                </div>
-            </div>
+                <img src="http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg" alt="..." />
+                <div class="caption">
+                    <div style="overflow:hidden;max-height:50px;min-height:50px">
+                        <h4>{{ prev.titulo }}</h4>
+                    </div>
+                    <div style="overflow:hidden;max-height:40px;">
+                        <p>{{ prev.preview }}</p>
+                    </div>
+                    <script>$('#preview{{i}}').tooltip('hide')</script>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            {{prev.fecha}}
+                        </div>
+                    </div>
               </div>
             </div>
-          </div>
-
+        </div>
+        </a>
         {% set i = i + 1 %}
     {% endfor %}
     </div>

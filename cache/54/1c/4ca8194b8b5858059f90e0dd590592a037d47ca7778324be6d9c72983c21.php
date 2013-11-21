@@ -16,7 +16,7 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("home.tpl", "1967423760")->display($context);
+        $this->env->loadTemplate("home.tpl", "711470522")->display($context);
         // line 7
         echo "<nav class=\"navbar navbar-default navbar-static-top\" role=\"navigation\">
     <div class=\"container\" style=\"max-width:800px;\">
@@ -98,44 +98,46 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "preview"));
         foreach ($context['_seq'] as $context["_key"] => $context["prev"]) {
             // line 72
-            echo "        
-          <div class=\"col-sm-6 col-md-4\" id=\"preview";
+            echo "    <a href=\"news.php?id=";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "id"), "html", null, true);
+            echo "\">
+        <div class=\"col-sm-6 col-md-4\" id=\"preview";
             // line 73
             echo twig_escape_filter($this->env, (isset($context["i"]) ? $context["i"] : null), "html", null, true);
             echo "\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Continuar leyendo ";
             echo twig_escape_filter($this->env, twig_slice($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "titulo"), 0, 25), "html", null, true);
             echo "...\" style=\"word-break: break-word;\">
             <div class=\"thumbnail\">
-              <img src=\"http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg\" alt=\"...\" />
-              <div class=\"caption\">
-                <div style=\"overflow:hidden;max-height:50px;min-height:50px\">
-                    <h4>";
+                <img src=\"http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg\" alt=\"...\" />
+                <div class=\"caption\">
+                    <div style=\"overflow:hidden;max-height:50px;min-height:50px\">
+                        <h4>";
             // line 78
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "titulo"), "html", null, true);
             echo "</h4>
-                </div>
-                <div style=\"overflow:hidden;max-height:40px;\">
-                    <p>";
+                    </div>
+                    <div style=\"overflow:hidden;max-height:40px;\">
+                        <p>";
             // line 81
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "preview"), "html", null, true);
             echo "</p>
-                </div>
-                <script>\$('#preview";
+                    </div>
+                    <script>\$('#preview";
             // line 83
             echo twig_escape_filter($this->env, (isset($context["i"]) ? $context["i"] : null), "html", null, true);
             echo "').tooltip('hide')</script>
-            <div class=\"row\">
-                <div class=\"col-lg-9\">
-                ";
+                    <div class=\"row\">
+                        <div class=\"col-lg-9\">
+                            ";
             // line 86
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "fecha"), "html", null, true);
             echo "
-                </div>
-            </div>
+                        </div>
+                    </div>
               </div>
             </div>
-          </div>
-
+        </div>
+        </a>
         ";
             // line 93
             $context["i"] = ((isset($context["i"]) ? $context["i"] : null) + 1);
@@ -227,13 +229,13 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
 
     public function getDebugInfo()
     {
-        return array (  213 => 125,  210 => 124,  207 => 123,  205 => 122,  194 => 117,  187 => 113,  183 => 112,  179 => 111,  175 => 110,  166 => 104,  163 => 103,  158 => 102,  152 => 97,  149 => 95,  143 => 94,  141 => 93,  131 => 86,  125 => 83,  120 => 81,  114 => 78,  104 => 73,  101 => 72,  96 => 71,  94 => 70,  91 => 69,  89 => 68,  74 => 54,  65 => 47,  54 => 37,  51 => 35,  45 => 29,  28 => 13,  21 => 7,  19 => 1,);
+        return array (  215 => 125,  212 => 124,  209 => 123,  207 => 122,  196 => 117,  189 => 113,  185 => 112,  181 => 111,  177 => 110,  168 => 104,  165 => 103,  160 => 102,  154 => 97,  151 => 95,  145 => 94,  143 => 93,  133 => 86,  127 => 83,  122 => 81,  116 => 78,  106 => 73,  101 => 72,  96 => 71,  94 => 70,  91 => 69,  89 => 68,  74 => 54,  65 => 47,  54 => 37,  51 => 35,  45 => 29,  28 => 13,  21 => 7,  19 => 1,);
     }
 }
 
 
 /* home.tpl */
-class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c72983c21_1967423760 extends Twig_Template
+class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c72983c21_711470522 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -274,6 +276,6 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
 
     public function getDebugInfo()
     {
-        return array (  261 => 3,  258 => 2,  213 => 125,  210 => 124,  207 => 123,  205 => 122,  194 => 117,  187 => 113,  183 => 112,  179 => 111,  175 => 110,  166 => 104,  163 => 103,  158 => 102,  152 => 97,  149 => 95,  143 => 94,  141 => 93,  131 => 86,  125 => 83,  120 => 81,  114 => 78,  104 => 73,  101 => 72,  96 => 71,  94 => 70,  91 => 69,  89 => 68,  74 => 54,  65 => 47,  54 => 37,  51 => 35,  45 => 29,  28 => 13,  21 => 7,  19 => 1,);
+        return array (  263 => 3,  260 => 2,  215 => 125,  212 => 124,  209 => 123,  207 => 122,  196 => 117,  189 => 113,  185 => 112,  181 => 111,  177 => 110,  168 => 104,  165 => 103,  160 => 102,  154 => 97,  151 => 95,  145 => 94,  143 => 93,  133 => 86,  127 => 83,  122 => 81,  116 => 78,  106 => 73,  101 => 72,  96 => 71,  94 => 70,  91 => 69,  89 => 68,  74 => 54,  65 => 47,  54 => 37,  51 => 35,  45 => 29,  28 => 13,  21 => 7,  19 => 1,);
     }
 }
