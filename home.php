@@ -10,6 +10,4 @@ $home = new lsHome();
 //
 //echo $home->templateFolder();    
 
-$a = array('news' => $home->getNews(1));
-
-$home->loadTemplate('home', 'header', 'footer',array($a));
+$home->showHome();

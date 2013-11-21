@@ -65,31 +65,54 @@
         </a>
     </div>
     {# ****FIN SLIDER COROUSEL**** #}
+    {# INICIO ULTIMAS 3 PUBLICACIONES #}
     <div class="row">
-        <div class="col-lg-4">
-        jhajh
+    {% set i = 1 %}
+    {% for prev in ls.preview %}
+        <div id="preview{{i}}" data-toggle="tooltip" data-placement="bottom" title="Continuar leyendo {{prev.titulo|slice(0,25)}}" class="col-lg-4" style="word-break: break-word;">
+            <img src="http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg" alt="..." class="img-thumbnail" style="margin-top:20px" />  
+            <div style="overflow:hidden;max-height:50px;min-height:50px">
+                <h4>{{ prev.titulo }}</h4>
+            </div>
+            <div style="overflow:hidden;max-height:40px;">
+                <p>{{ prev.preview }}</p>
+            </div>
+            <script>$('#preview{{i}}').tooltip('hide')</script>
+            <div class="row">
+                <div class="col-lg-9">
+                {{prev.fecha}}
+                </div>
+            </div>
         </div>
+        {% set i = i + 1 %}
+    {% endfor %}
     </div>
+    {# **FIN ULTIMAS 3 PUBLICACIONES*** #}
     <div class="row">
         <div class="col-md-8"><h3>Artículos recientes</h3></div>
     </div>
     <div class="row">
         {# INICIO AGREGANDO NOTICIAS #}
-        <div class="panel-body">
-            <div class="col-lg-4">
-                <img src="http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg" alt="..." class="img-thumbnail" style="margin-top:20px" />  
-            </div>      
+        {% for noticia in ls.news %}
+        <div class="panel-body" style="word-break: break-word;">
+            <a href="news.php?id={{noticia.id}}" style="color:inherit; text-decoration:none;">
+                <div class="col-lg-4" style="padding-left:0;">
+                    <img src="http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg" alt="..." class="img-thumbnail" style="margin-top:20px" />  
+                </div>
+            </a>  
             <div class="col-lg-8">
-            {% for noticia in ls.news %}
-                <h3>{{noticia.titulo}}</h3>
-                <p>{{noticia.preview}}<br />
-                   {{noticia.imagen}}<br />
-                   {{noticia.contenido}}<br />
-                   {{noticia.autor}}<br />
-                   {{noticia.fecha}}</p>
-            {% endfor %}
-            </div>        
+                <a href="news.php?id={{noticia.id}}" style="color:inherit; text-decoration:none;">
+                    <h3 style="padding-top:0;">{{noticia.titulo}}</h3>
+                    <p style="padding-top:0;">{{noticia.preview|slice(0,300)}}<br />
+                       {{noticia.imagen}}<br />
+                       </p>
+                </a>
+                <div class="row">
+                    <div class="col-lg-8">{{noticia.fecha}}</div>
+                </div>
+            </div>   
         </div>
+        {% endfor %}
         {# FIN AGREGANDO NOTICIAS #}
     </div>
     {% include footer %}
