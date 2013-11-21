@@ -16,8 +16,9 @@ class __TwigTemplate_c8418aacc0655fd64c73540398c23988f393f43019f01e0ceebc170f239
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        echo "</body>
-</html>";
+        echo "<div style=\"border-top:1px solid #e5e5e5;\">
+footer :o
+</div>";
     }
 
     public function getTemplateName()

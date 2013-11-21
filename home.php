@@ -12,4 +12,4 @@ $home = new lsHome();
 
 $a = array('news' => $home->getNews(1));
 
-$home->loadTemplate('test2', 'header', 'footer',array($a));
+$home->loadTemplate('home', 'header', 'footer',array($a));
