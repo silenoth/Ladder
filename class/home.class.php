@@ -11,6 +11,7 @@ class lsHome extends lsSystem {
     
     // mostrar template home
     function showHome(){
+        
         $array = array(  
             'news' => $this->getNews(),
             'preview' => $this->last3Preview()               
@@ -28,9 +29,8 @@ class lsHome extends lsSystem {
                     n.noticia_preview AS preview,
                     n.noticia_fecha AS fecha
                     FROM noticias AS n ORDER BY n.noticia_id DESC LIMIT 3";
-        $res = $this->con->query($sql);
-        $res->execute();
-        while($row = $res->fetch()){
+        $res = $this->con->query($sql);                         
+        foreach($res->fetchAll(PDO::FETCH_ASSOC) as $row){
             $array[] = $row;
         }
         
@@ -55,10 +55,10 @@ class lsHome extends lsSystem {
                 	noticias AS n
                 INNER JOIN noticias_categorias AS nc ON n.noticia_id_cat = nc.cat_id";
                     
-        $res = $this->con->prepare($sql);
-
-        if($res->execute()){
-            while($row = $res->fetch()){
+        $res = $this->con->query($sql);
+        $res->execute();
+        
+            while($row = $res->fetch(PDO::FETCH_ASSOC)){
                 $array[] = $row;
             }
             $rowcount = $res->rowCount();
@@ -68,6 +68,6 @@ class lsHome extends lsSystem {
             } else {
                 parent::closeCon();
             } 
-        }
+        
     }
 }
