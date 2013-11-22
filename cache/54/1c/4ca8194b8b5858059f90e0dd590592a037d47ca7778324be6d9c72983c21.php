@@ -16,7 +16,7 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("home.tpl", "711470522")->display($context);
+        $this->env->loadTemplate("home.tpl", "1812498978")->display($context);
         // line 7
         echo "<nav class=\"navbar navbar-default navbar-static-top\" role=\"navigation\">
     <div class=\"container\" style=\"max-width:800px;\">
@@ -100,7 +100,7 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
             // line 72
             echo "    <a href=\"news.php?id=";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "id"), "html", null, true);
-            echo "\">
+            echo "\" style=\"text-decoration:none;\">
         <div class=\"col-sm-6 col-md-4\" id=\"preview";
             // line 73
             echo twig_escape_filter($this->env, (isset($context["i"]) ? $context["i"] : null), "html", null, true);
@@ -130,7 +130,7 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
                         <div class=\"col-lg-9\">
                             ";
             // line 86
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "fecha"), "html", null, true);
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "fecha"), "m/d/Y", false), "html", null, true);
             echo "
                         </div>
                     </div>
@@ -235,7 +235,7 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
 
 
 /* home.tpl */
-class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c72983c21_711470522 extends Twig_Template
+class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c72983c21_1812498978 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

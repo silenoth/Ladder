@@ -2,7 +2,7 @@
 
 class lsSystem {
     var $con;
-    var $datos = array();
+    //var $datos = array();
     
     function __construct(){
         if(file_exists("config.php")){
@@ -62,7 +62,7 @@ class lsSystem {
     public function loadTemplate($template,$header,$footer,$datos){
         require_once 'lib/Twig/Autoloader.php';
         Twig_Autoloader::register();
-        $loader = new Twig_Loader_Filesystem(_TEMPLATEFOLDER._DS.$this->templateFolder());
+        $loader = new Twig_Loader_Filesystem(_TEMPLATESFOLDER._DS.$this->templateFolder());
         $twig = new Twig_Environment($loader, array(
             'cache' => 'cache',
             'debug' => 'true'
@@ -70,14 +70,20 @@ class lsSystem {
                 
         $tmpl = $twig->loadTemplate($template._EXT);
         
-        $array = array();
-        for($i=0;$i<sizeof($datos);$i++){
-            $array[] = $datos[$i];
-        }
+        //for($i=0;$i<sizeof($datos);$i++){
+//            $array[] = $datos[$i];
+//        }
         $url = self::getUrl();
-        $tmplfldr = _TEMPLATEFOLDER._DS.$this->templateFolder();
-        $ls = $array[0];
-        echo $tmpl->render(array('ls' => $ls, 'url' => $url, 'template' => $tmplfldr, 'header' => $header._EXT, 'footer' => $footer._EXT));
+        $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
+        $ls = $datos;
+        echo $tmpl->render(
+            array(
+                'ls' => $ls,
+                'url' => $url,
+                'template' => $tmplfldr,
+                'header' => $header._EXT,
+                'footer' => $footer._EXT)
+            );
     }
     
     //obtener lenguaje
@@ -122,5 +128,12 @@ class lsSystem {
         
         return $array[0]['url'];
         self::closeCon();
+    }
+    
+    //dias trasncurridos
+    public function daysElapsed($desde, $hasta){
+        $dias	= (strtotime($desde)-strtotime($hasta))/86400;
+        $dias 	= abs($dias); $dias = floor($dias);		
+        return $dias;
     }
 }

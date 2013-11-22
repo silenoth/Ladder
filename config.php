@@ -13,7 +13,7 @@ $db = array
 /////////////////////////////////////////////
 /*******************************************/
 // carpeta de plantillas
-define('_TEMPLATEFOLDER', 'templates');
+define('_TEMPLATESFOLDER', 'templates');
 //extencion de las plantillas
 define('_EXT', '.tpl');
 
