@@ -75,10 +75,9 @@ class lsSystem {
 //        }
         $url = self::getUrl();
         $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
-        $ls = $datos;
         echo $tmpl->render(
             array(
-                'ls' => $ls,
+                'ls' => $datos,
                 'url' => $url,
                 'template' => $tmplfldr,
                 'header' => $header._EXT,
