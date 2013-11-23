@@ -14,7 +14,8 @@ class lsHome extends lsSystem {
         
         $array = array(  
             'news' => $this->getNews(),
-            'preview' => $this->last3Preview()               
+            'preview' => $this->last3Preview(),
+            'interval' => $this->getInterval()               
             );
         $this->loadTemplate('home', 'header', 'footer', $array);
     }
@@ -53,7 +54,8 @@ class lsHome extends lsSystem {
                 	n.noticia_activa AS activa
                 FROM
                 	noticias AS n
-                INNER JOIN noticias_categorias AS nc ON n.noticia_id_cat = nc.cat_id";
+                INNER JOIN noticias_categorias AS nc ON n.noticia_id_cat = nc.cat_id
+                ORDER BY n.noticia_id DESC";
                     
         $res = $this->con->query($sql);
         $res->execute();

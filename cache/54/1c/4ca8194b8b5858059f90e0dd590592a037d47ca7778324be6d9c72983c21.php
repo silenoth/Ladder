@@ -16,41 +16,52 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("home.tpl", "1699235229")->display($context);
+        $this->env->loadTemplate("home.tpl", "880036363")->display($context);
         // line 7
         echo "<nav class=\"navbar navbar-default navbar-static-top\" role=\"navigation\">
     <div class=\"container\" style=\"max-width:800px;\">
         <a class=\"navbar-brand\" href=\"#\">Ladder Script</a>
-        <p class=\"navbar-text\">Bienvenido invitad@</p>
-        <ul class=\"nav navbar-nav navbar-right\">
-            ";
-        // line 13
-        echo "            <li class=\"dropdown\" id=\"menu1\">
-                <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#menu1\">
-                    Iniciar sesión
-                    <b class=\"caret\"></b>
-                </a>
-             <div class=\"dropdown-menu\">
-                <form style=\"margin: 0px\" accept-charset=\"UTF-8\" action=\"/sessions\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input name=\"authenticity_token\" type=\"hidden\" value=\"4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=\" /></div>
-                    <fieldset class='textbox' style=\"padding:10px\">
-                        <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"text\" placeholder=\"Username\" />
-                        <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"password\" placeholder=\"Passsword\" />
-                        <input class=\"btn btn-primary btn-small btn-block\" name=\"commit\" type=\"submit\" value=\"Conectar\" />
-                    </fieldset>
-                </form>
-             </div>
-           </li>
-           ";
-        // line 29
-        echo "            <li><a href=\"register.php\">Registrarse</a></li>
+        
+        <button type=\"btn btn-navbar\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navHeaderCollapse\"> <span class=\"icon-bar\"></span>
+                    <span class=\"icon-bar\"></span>
+                    <span class=\"icon-bar\"></span>
+                    <span class=\"icon-bar\"></span>
+        </button>
+        <div class=\"collapse navbar-collapse navHeaderCollapse\">
+        <ul class=\"nav navbar-nav\">
+            <li class=\"active\"><a href=\"#\">Inicio</a></li>
+            <li><a href=\"#\">Foros</a></li>
         </ul>
+            <ul class=\"nav navbar-nav navbar-right\">
+                ";
+        // line 23
+        echo "                <li class=\"dropdown\" id=\"menu1\">
+                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#menu1\">
+                        Iniciar sesión
+                        <b class=\"caret\"></b>
+                    </a>
+                 <div class=\"dropdown-menu\">
+                    <form style=\"margin: 0px\" accept-charset=\"UTF-8\" action=\"/sessions\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input name=\"authenticity_token\" type=\"hidden\" value=\"4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=\" /></div>
+                        <fieldset class='textbox' style=\"padding:10px\">
+                            <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"text\" placeholder=\"Username\" />
+                            <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"password\" placeholder=\"Passsword\" />
+                            <input class=\"btn btn-primary btn-small btn-block\" name=\"commit\" type=\"submit\" value=\"Conectar\" />
+                        </fieldset>
+                    </form>
+                 </div>
+               </li>
+               ";
+        // line 39
+        echo "                <li><a href=\"register.php\">Registrarse</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 ";
-        // line 35
+        // line 46
         echo "<div class=\"container\" style=\"max-width:800px;\">
     ";
-        // line 37
+        // line 48
         echo "    <div id=\"carousel-example-generic\" class=\"carousel slide\" data-ride=\"carousel\">
         <!-- Indicators -->
         <ol class=\"carousel-indicators\">
@@ -61,7 +72,7 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
         <!-- Wrapper for slides -->
         <div class=\"carousel-inner\">
             ";
-        // line 47
+        // line 58
         echo "            <div class=\"item active\">
                 <img src=\"http://g3ar.co.za/wp-content/uploads/2013/09/Hearthstone-feature.jpg\" />
                 <div class=\"carousel-caption\">
@@ -70,11 +81,14 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
               </div>
             </div>
             ";
-        // line 54
+        // line 65
         echo " 
         </div>
         <script>\$('.carousel').carousel({
-          interval: 5000
+          interval: ";
+        // line 68
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "interval"), "html", null, true);
+        echo "
         })</script>
         <!-- Controls -->
         <a class=\"left carousel-control\" href=\"#carousel-example-generic\" data-slide=\"prev\">
@@ -85,24 +99,24 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
         </a>
     </div>
     ";
-        // line 68
+        // line 79
         echo "    ";
-        // line 69
+        // line 80
         echo "    <div class=\"row\" style=\"margin-top: 30px; margin-bottom:30px;\">
     ";
-        // line 70
+        // line 81
         $context["i"] = 1;
-        // line 71
+        // line 82
         echo "    ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "preview"));
         foreach ($context['_seq'] as $context["_key"] => $context["prev"]) {
-            // line 72
+            // line 83
             echo "    <a href=\"news.php?id=";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "id"), "html", null, true);
             echo "\" style=\"text-decoration:none;\">
         <div class=\"col-sm-6 col-md-4\" id=\"preview";
-            // line 73
+            // line 84
             echo twig_escape_filter($this->env, (isset($context["i"]) ? $context["i"] : null), "html", null, true);
             echo "\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Continuar leyendo ";
             echo twig_escape_filter($this->env, twig_slice($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "titulo"), 0, 25), "html", null, true);
@@ -112,24 +126,24 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
                 <div class=\"caption\">
                     <div style=\"overflow:hidden;max-height:50px;min-height:50px\">
                         <h4>";
-            // line 78
+            // line 89
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "titulo"), "html", null, true);
             echo "</h4>
                     </div>
                     <div style=\"overflow:hidden;max-height:40px;\">
                         <p>";
-            // line 81
+            // line 92
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "preview"), "html", null, true);
             echo "</p>
                     </div>
                     <script>\$('#preview";
-            // line 83
+            // line 94
             echo twig_escape_filter($this->env, (isset($context["i"]) ? $context["i"] : null), "html", null, true);
             echo "').tooltip('hide')</script>
                     <div class=\"row\">
                         <div class=\"col-lg-9\">
                             ";
-            // line 86
+            // line 97
             echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "fecha"), "m/d/Y", false), "html", null, true);
             echo "
                         </div>
@@ -139,60 +153,61 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
         </div>
         </a>
         ";
-            // line 93
+            // line 104
             $context["i"] = ((isset($context["i"]) ? $context["i"] : null) + 1);
-            // line 94
+            // line 105
             echo "    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['prev'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 95
+        // line 106
         echo "    </div>
     ";
-        // line 97
+        // line 108
         echo "    <div class=\"row\">
         <div class=\"col-md-8\"><h3 style=\"margin-bottom:0;\">Artículos recientes</h3></div>
     </div>
     <div class=\"row\">
         ";
-        // line 102
+        // line 113
         echo "        ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"));
         foreach ($context['_seq'] as $context["_key"] => $context["noticia"]) {
-            // line 103
-            echo "        <div class=\"panel-body\" style=\"word-break: break-word;padding-top:0;\">
+            // line 114
+            echo "        <div class=\"panel-body thumbnail\" style=\"word-break: break-word;padding-top:0;\">
             <a href=\"news.php?id=";
-            // line 104
+            // line 115
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
             echo "\" style=\"color:inherit; text-decoration:none;\">
                 <div class=\"col-lg-4\" style=\"padding-left:0;\">
-                    <img src=\"http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg\" alt=\"...\" class=\"img-thumbnail\" style=\"margin-top:20px\" />  
+                    <img src=\"";
+            // line 117
+            echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+            echo "/images/news/";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "imagen"), "html", null, true);
+            echo "\" alt=\"...\" class=\"img-thumbnail\" style=\"margin-top:20px\" />  
                 </div>
             </a>  
             <div class=\"col-lg-8\">
                 <a href=\"news.php?id=";
-            // line 110
+            // line 121
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
             echo "\" style=\"color:inherit; text-decoration:none;\">
                     <h3 style=\"padding-top:0;\">";
-            // line 111
+            // line 122
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "titulo"), "html", null, true);
             echo "</h3>
                     <p style=\"padding-top:0;\">";
-            // line 112
-            echo twig_escape_filter($this->env, twig_slice($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "preview"), 0, 300), "html", null, true);
-            echo "<br />
-                       ";
-            // line 113
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "imagen"), "html", null, true);
-            echo "<br />
+            // line 123
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "preview"), "html", null, true);
+            echo "
                        </p>
                 </a>
                 <div class=\"row\">
                     <div class=\"col-lg-8\">";
-            // line 117
+            // line 127
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "fecha"), "html", null, true);
             echo "</div>
                 </div>
@@ -203,15 +218,15 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['noticia'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 122
+        // line 132
         echo "        ";
-        // line 123
+        // line 133
         echo "    </div>
     ";
-        // line 124
+        // line 134
         $template = $this->env->resolveTemplate((isset($context["footer"]) ? $context["footer"] : null));
         $template->display($context);
-        // line 125
+        // line 135
         echo "</div>
 </body>
 </html>";
@@ -229,13 +244,13 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
 
     public function getDebugInfo()
     {
-        return array (  215 => 125,  212 => 124,  209 => 123,  207 => 122,  196 => 117,  189 => 113,  185 => 112,  181 => 111,  177 => 110,  168 => 104,  165 => 103,  160 => 102,  154 => 97,  151 => 95,  145 => 94,  143 => 93,  133 => 86,  127 => 83,  122 => 81,  116 => 78,  106 => 73,  101 => 72,  96 => 71,  94 => 70,  91 => 69,  89 => 68,  74 => 54,  65 => 47,  54 => 37,  51 => 35,  45 => 29,  28 => 13,  21 => 7,  19 => 1,);
+        return array (  230 => 135,  227 => 134,  224 => 133,  222 => 132,  211 => 127,  204 => 123,  200 => 122,  196 => 121,  187 => 117,  182 => 115,  179 => 114,  174 => 113,  168 => 108,  165 => 106,  159 => 105,  157 => 104,  147 => 97,  141 => 94,  136 => 92,  130 => 89,  120 => 84,  115 => 83,  110 => 82,  108 => 81,  105 => 80,  103 => 79,  90 => 68,  85 => 65,  76 => 58,  65 => 48,  62 => 46,  55 => 39,  38 => 23,  21 => 7,  19 => 1,);
     }
 }
 
 
 /* home.tpl */
-class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c72983c21_1699235229 extends Twig_Template
+class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c72983c21_880036363 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -276,6 +291,6 @@ class __TwigTemplate_541c4ca8194b8b5858059f90e0dd590592a037d47ca7778324be6d9c729
 
     public function getDebugInfo()
     {
-        return array (  263 => 3,  260 => 2,  215 => 125,  212 => 124,  209 => 123,  207 => 122,  196 => 117,  189 => 113,  185 => 112,  181 => 111,  177 => 110,  168 => 104,  165 => 103,  160 => 102,  154 => 97,  151 => 95,  145 => 94,  143 => 93,  133 => 86,  127 => 83,  122 => 81,  116 => 78,  106 => 73,  101 => 72,  96 => 71,  94 => 70,  91 => 69,  89 => 68,  74 => 54,  65 => 47,  54 => 37,  51 => 35,  45 => 29,  28 => 13,  21 => 7,  19 => 1,);
+        return array (  278 => 3,  275 => 2,  230 => 135,  227 => 134,  224 => 133,  222 => 132,  211 => 127,  204 => 123,  200 => 122,  196 => 121,  187 => 117,  182 => 115,  179 => 114,  174 => 113,  168 => 108,  165 => 106,  159 => 105,  157 => 104,  147 => 97,  141 => 94,  136 => 92,  130 => 89,  120 => 84,  115 => 83,  110 => 82,  108 => 81,  105 => 80,  103 => 79,  90 => 68,  85 => 65,  76 => 58,  65 => 48,  62 => 46,  55 => 39,  38 => 23,  21 => 7,  19 => 1,);
     }
 }

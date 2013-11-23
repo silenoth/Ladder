@@ -8,6 +8,8 @@ $home = new lsHome();
 //    echo $array[$i].'<br />';
 //} 
 //
-//echo $home->templateFolder();    
-
+//echo $home->templateFolder();
+//echo '<pre>';   
+//print_r($home->last3Preview());
+//print_r($home->getNews());
 $home->showHome();

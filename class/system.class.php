@@ -69,10 +69,6 @@ class lsSystem {
         ));
                 
         $tmpl = $twig->loadTemplate($template._EXT);
-        
-        //for($i=0;$i<sizeof($datos);$i++){
-//            $array[] = $datos[$i];
-//        }
         $url = self::getUrl();
         $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
                 
@@ -106,8 +102,7 @@ class lsSystem {
             } else {
                 print(_ERRNOFILELANG);
                 self::closeCon();                 
-            }
-            
+            }         
         } else {
             print(_ERRNOLANGFOLDERDB);
             self::closeCon();
@@ -130,6 +125,19 @@ class lsSystem {
         self::closeCon();
     }
     
+    //obtener intervalo de carousel
+    public function getInterval(){
+        $sql = "SELECT a.ajuste_interval_carousel AS carousel FROM ajustes AS a";
+        $res = $this->con->query($sql);
+        $res->execute();
+        
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $array[] = $row;
+        }
+        $interval = $array[0]['carousel'] * 1000;
+        return $interval;
+        self::closeCon();
+    }
     //dias trasncurridos
     public function daysElapsed($desde, $hasta){
         $dias	= (strtotime($desde)-strtotime($hasta))/86400;
