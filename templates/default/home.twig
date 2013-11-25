@@ -1,10 +1,10 @@
-{% embed header %}
+{% embed 'header.twig' %}
 {% block titulo %}
 <title>Inicio - Noticias</title>
 {% endblock %}
 {% endembed %}
 {# INICIO NAVBAR USUARIOS #}
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container" style="max-width:800px;">
         <a class="navbar-brand" href="#">Ladder Script</a>
         
@@ -17,6 +17,7 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Inicio</a></li>
             <li><a href="#">Foros</a></li>
+            <li><a href="#">Ladder</a></li>
         </ul>
             <ul class="nav navbar-nav navbar-right">
                 {# INICIO LOGIN USUARIOS #}
@@ -64,9 +65,11 @@
             </div>
             {# FIN AGREGANDO ITEMS #} 
         </div>
-        <script>$('.carousel').carousel({
+        <script>
+        $('.carousel').carousel({
           interval: {{ls.interval}}
-        })</script>
+        });
+        </script>
         <!-- Controls -->
         <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -83,7 +86,7 @@
     <a href="news.php?id={{prev.id}}" style="text-decoration:none;">
         <div class="col-sm-6 col-md-4" id="preview{{i}}" data-toggle="tooltip" data-placement="bottom" title="Continuar leyendo {{prev.titulo|slice(0,25)}}..." style="word-break: break-word;">
             <div class="thumbnail">
-                <img src="http://bnetcmsus-a.akamaihd.net/cms/connect_thumbnail/H7IHFYV5NZZ31370886281987.jpg" alt="..." />
+                <img src="{{url}}/images/news/{{prev.imagen}}" alt="..." />
                 <div class="caption">
                     <div style="overflow:hidden;max-height:50px;min-height:50px">
                         <h4>{{ prev.titulo }}</h4>
@@ -94,7 +97,7 @@
                     <script>$('#preview{{i}}').tooltip('hide')</script>
                     <div class="row">
                         <div class="col-lg-9">
-                            {{prev.fecha|date("m/d/Y", false)}}
+                            {{prev.fecha|date("d/m/Y")}}
                         </div>
                     </div>
               </div>
@@ -131,7 +134,7 @@
         {% endfor %}
         {# FIN AGREGANDO NOTICIAS #}
     </div>
-    {% include footer %}
+    {% include 'footer.twig' %}
 </div>
 </body>
 </html>

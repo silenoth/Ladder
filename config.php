@@ -15,7 +15,7 @@ $db = array
 // carpeta de plantillas
 define('_TEMPLATESFOLDER', 'templates');
 //extencion de las plantillas
-define('_EXT', '.tpl');
+define('_EXT', '.twig');
 
 define('_DS', DIRECTORY_SEPARATOR);
 

@@ -11,17 +11,16 @@ class lsHome extends lsSystem {
     
     // mostrar template home
     function showHome(){
-        
         $array = array(  
             'news' => $this->getNews(),
             'preview' => $this->last3Preview(),
             'interval' => $this->getInterval()               
             );
-        $this->loadTemplate('home', 'header', 'footer', $array);
+        $this->loadTemplate('home', $array);
     }
     
     //obtener ultimas 3 noticias
-    function last3Preview(){
+    private function last3Preview(){
         parent::setNames();
         $sql = "SELECT 
                     n.noticia_id AS id,
@@ -40,7 +39,7 @@ class lsHome extends lsSystem {
     }
                      
     //ontener noticia
-    function getNews(){ 
+    private function getNews(){ 
         parent::setNames();
         $sql = "SELECT
                     n.noticia_id AS id,

@@ -10,7 +10,6 @@ class lsSystem {
                 try {
                     $this->con = new PDO ('mysql:host='.$db['host'].';dbname='.$db['name'], $db['user'], $db['pass']);
                     $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
                 }catch(PDOException $e){
                     echo "ERROR: " . $e->getMessage();
                 }            
@@ -59,7 +58,7 @@ class lsSystem {
     }
     
     //cargar template
-    public function loadTemplate($template,$header,$footer,$datos){
+    public function loadTemplate($template,$datos){
         require_once 'lib/Twig/Autoloader.php';
         Twig_Autoloader::register();
         $loader = new Twig_Loader_Filesystem(_TEMPLATESFOLDER._DS.$this->templateFolder());
@@ -76,9 +75,7 @@ class lsSystem {
             array(
                 'ls' => $datos,
                 'url' => $url,
-                'template' => $tmplfldr,
-                'header' => $header._EXT,
-                'footer' => $footer._EXT)
+                'template' => $tmplfldr)
             );
     }
     
