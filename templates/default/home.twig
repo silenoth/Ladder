@@ -1,50 +1,9 @@
+{% set active = 'home' %}
 {% embed 'header.twig' %}
 {% block titulo %}
 <title>Inicio - Noticias</title>
 {% endblock %}
 {% endembed %}
-{# INICIO NAVBAR USUARIOS #}
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-    <div class="container" style="max-width:800px;">
-        <a class="navbar-brand" href="#">Ladder Script</a>
-        
-        <button type="btn btn-navbar" class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse"> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-        </button>
-        <div class="collapse navbar-collapse navHeaderCollapse">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Inicio</a></li>
-            <li><a href="#">Foros</a></li>
-            <li><a href="#">Ladder</a></li>
-        </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {# INICIO LOGIN USUARIOS #}
-                <li class="dropdown" id="menu1">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-                        Iniciar sesión
-                        <b class="caret"></b>
-                    </a>
-                 <div class="dropdown-menu">
-                    <form style="margin: 0px" accept-charset="UTF-8" action="/sessions" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" /></div>
-                        <fieldset class='textbox' style="padding:10px">
-                            <input class="form-control input-sm" style="margin-bottom:10px" type="text" placeholder="Username" />
-                            <input class="form-control input-sm" style="margin-bottom:10px" type="password" placeholder="Passsword" />
-                            <input class="btn btn-primary btn-small btn-block" name="commit" type="submit" value="Conectar" />
-                        </fieldset>
-                    </form>
-                 </div>
-               </li>
-               {# ***FIN LOGIN USUARIOS** #}
-                <li><a href="register.php">Registrarse</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-{# FIN NAVBAR USUARIOS #}
-{# INICIO CONTENEDOR PRINCIPAL #}
-<div class="container" style="max-width:800px;">
     {# INICIO SLIDER CAROUSEL #}
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -135,6 +94,3 @@
         {# FIN AGREGANDO NOTICIAS #}
     </div>
     {% include 'footer.twig' %}
-</div>
-</body>
-</html>

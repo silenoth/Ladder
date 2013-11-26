@@ -12,11 +12,16 @@ class lsNews extends lsSystem {
     //mostrar plantilla
     function showNews(){
         $id = $_GET['id'];
+        if (is_numeric($id)) {
+            $array = array(
+                'news' => self::getNewsById($id),
+                'list' => self::getLastNewsList()
+            );
+            $this->loadTemplate('news', $array);
+        } else {
+            header("Location: home.php");
+        }
         
-        $array = array(
-            'news' => $this->getNewsById($id)
-        );
-        $this->loadTemplate('news', $array);
     }
     
     //obtener noticias por id
@@ -45,10 +50,33 @@ class lsNews extends lsSystem {
         }
         $rowcount = $res->rowCount();
         if ($rowcount > 0) {
-            return $array;
+            return $array[0];
             parent::closeCon();
         } else {
             parent::closeCon();
         }
+    }
+    
+    //obtener ultimas 40 noticias
+    private function getLastNewsList(){
+        parent::setNames();
+        $sql = "SELECT
+                    n.noticia_id AS id,
+                	n.noticia_titulo AS titulo,
+                	n.noticia_imagen AS imagen,
+                	n.noticia_fecha AS fecha,
+                	n.noticia_activa AS activa
+                FROM
+                	noticias AS n
+                ORDER BY n.noticia_id DESC
+                LIMIT 40";
+        $res = $this->con->query($sql);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $array[] = $row;
+        }
+        
+        return $array;
+        parent::closeCon();
     }
 }

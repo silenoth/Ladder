@@ -1,5 +1,56 @@
+{% set active = 'news' %}
 {% embed 'header.twig' %}
 {% block titulo %}
-<title>Inicio - Noticias</title>
+<title>{{ls.news.titulo}}</title>
+<style type="text/css">
+.fb-comments, .fb-comments span, .fb-comments iframe {
+    width: 100% !important;
+}
+</style>
 {% endblock %}
-{% endembed %}k
+{% endembed %}
+{# INICIO FACEBOOK #}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=240362496094800";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+{# FIN FACEBOOK #}
+<div class="row">
+    <ol class="breadcrumb">
+      <li><a href="home.php">Inicio</a></li>
+      <li class="active">Noticias</li>
+    </ol>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <h2>{{ls.news.titulo}}</h2>
+        <div style="padding-bottom:30px;">{{ls.news.fecha}}</div>
+        <div style="padding-bottom:40px;"><img src="{{url}}/images/news/{{ls.news.imagen}}" class="center-block"/></div>
+        <p>{{ls.news.contenido}}</p>
+        {# INICIO LIKES FACEBOOK #}
+        <div class="fb-like" data-href="{{url}}/news.php?id={{ls.news.id}}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+        {# INICIO COMENTARIOS FACEBOOK #}
+        <div class="fb-comments col-lg-4" data-href="{{url}}/news.php?id={{ls.news.id}}" data-numposts="20" data-colorscheme="light"></div>
+        {# FIN FACEBOOK #}
+    </div>
+    <div class="col-lg-4" style="padding-top:20px;">
+    <h4>Articulos recientes</h4>
+        <div class="list-group">
+        {% set x = 1 %}
+        {% for lista in ls.list %}
+        <a href="news.php?id={{lista.id}}" class="list-group-item {% if ls.news.id == lista.id %}active{% endif %}" style="overflow:hidden;">
+        <div style="background: url({{url}}/images/news/{{lista.imagen}});-webkit-background-size: contain; -moz-background-size: contain; -o-background-size: contain;background-size:contain; float:left; width:80px;height:50px;margin-right:10px;"></div>
+        <h5 class="list-group-item-heading">{{lista.titulo}}</h5>
+        </a>
+        {% endfor %}
+        </div>
+    <button type="button" id="vermas" class="btn btn-default btn-lg btn-block" data-toggle="tooltip" data-placement="top" title="Ver más" style="margin-top:30px;"><span class="glyphicon glyphicon-chevron-down"></span></button>
+    <script>$('#vermas').tooltip('hide')</script>
+    </div>
+</div>
+{% include 'footer.twig' %}

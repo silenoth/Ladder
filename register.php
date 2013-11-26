@@ -4,5 +4,3 @@ require_once("class/news.class.php");
 
 $news = new lsNews();
 $news->showNews();
-//debug
-//print_r($news->getNewsById(2));

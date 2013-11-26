@@ -1,10 +1,10 @@
 <?php
 
 class lsSystem {
-    var $con;
+    protected $con;
     //var $datos = array();
     
-    function __construct(){
+    protected function __construct(){
         if(file_exists("config.php")){
             require_once("config.php");
                 try {
@@ -122,6 +122,13 @@ class lsSystem {
         self::closeCon();
     }
     
+    //obtener app id
+    public function getAppId(){
+        self::setNames();
+        $sql = "SELECT a.ajuste_app_id AS appid FROM ajustes AS a";
+        $res = $this->con->query($sql);
+    }
+    
     //obtener intervalo de carousel
     public function getInterval(){
         $sql = "SELECT a.ajuste_interval_carousel AS carousel FROM ajustes AS a";
@@ -135,6 +142,7 @@ class lsSystem {
         return $interval;
         self::closeCon();
     }
+    
     //dias trasncurridos
     public function daysElapsed($desde, $hasta){
         $dias	= (strtotime($desde)-strtotime($hasta))/86400;
