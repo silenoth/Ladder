@@ -18,7 +18,7 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         // line 1
         $context["active"] = "home";
         // line 2
-        $this->env->loadTemplate("home.twig", "669481018")->display($context);
+        $this->env->loadTemplate("home.twig", "1658271859")->display($context);
         // line 7
         echo "    ";
         // line 8
@@ -191,7 +191,7 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         echo "    </div>
     ";
         // line 96
-        $this->env->loadTemplate("footer.twig")->display($context);
+        $this->env->loadTemplate("_footer.twig")->display($context);
     }
 
     public function getTemplateName()
@@ -212,13 +212,13 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
 
 
 /* home.twig */
-class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e060885521_669481018 extends Twig_Template
+class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e060885521_1658271859 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("header.twig");
+        $this->parent = $this->env->loadTemplate("_header.twig");
 
         $this->blocks = array(
             'titulo' => array($this, 'block_titulo'),
@@ -227,7 +227,7 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
 
     protected function doGetParent(array $context)
     {
-        return "header.twig";
+        return "_header.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())

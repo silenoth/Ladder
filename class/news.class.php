@@ -8,20 +8,19 @@ class lsNews extends lsSystem {
         }
     }
     
-    
     //mostrar plantilla
     function showNews(){
         $id = $_GET['id'];
         if (is_numeric($id)) {
             $array = array(
-                'news' => self::getNewsById($id),
-                'list' => self::getLastNewsList()
+                'news' => $this->getNewsById($id),
+                'list' => $this->getLastNewsList(),
+                'app' => $this->getAppId()
             );
             $this->loadTemplate('news', $array);
         } else {
             header("Location: home.php");
         }
-        
     }
     
     //obtener noticias por id

@@ -1,7 +1,7 @@
 <?php
 
-/* header.twig */
-class __TwigTemplate_fc830b7fd2f5c85a83093f37c5777d22f3f496d37fc8d009074b35f01e29118b extends Twig_Template
+/* _header.twig */
+class __TwigTemplate_5874a2803f6738d44fd5b988c124cd26db8aeed7a216f2a65e37a8ba03487314 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -58,10 +58,14 @@ class __TwigTemplate_fc830b7fd2f5c85a83093f37c5777d22f3f496d37fc8d009074b35f01e2
         // line 26
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/bootbox.min.js\"></script>
+    <script src=\"";
+        // line 27
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/js/jquery.validate.js\"></script>
   </head>
   <body>
 ";
-        // line 30
+        // line 31
         echo "<nav class=\"navbar navbar-inverse navbar-static-top\" role=\"navigation\">
     <div class=\"container\" style=\"max-width:1000px;\">
         <a class=\"navbar-brand\" href=\"home.php\">Ladder Script</a>
@@ -73,19 +77,19 @@ class __TwigTemplate_fc830b7fd2f5c85a83093f37c5777d22f3f496d37fc8d009074b35f01e2
         <div class=\"collapse navbar-collapse navHeaderCollapse\">
         <ul class=\"nav navbar-nav\">
             <li ";
-        // line 40
+        // line 41
         if (((isset($context["active"]) ? $context["active"] : null) == "home")) {
             echo " class=\"active\"";
         }
         echo "><a href=\"home.php\">Inicio</a></li>
             <li ";
-        // line 41
+        // line 42
         if (((isset($context["active"]) ? $context["active"] : null) == "forum")) {
             echo " class=\"active\"";
         }
         echo "><a href=\"#\">Foros</a></li>
             <li ";
-        // line 42
+        // line 43
         if (((isset($context["active"]) ? $context["active"] : null) == "ladder")) {
             echo " class=\"active\"";
         }
@@ -93,7 +97,7 @@ class __TwigTemplate_fc830b7fd2f5c85a83093f37c5777d22f3f496d37fc8d009074b35f01e2
         </ul>
             <ul class=\"nav navbar-nav navbar-right\">
                 ";
-        // line 46
+        // line 47
         echo "                <li class=\"dropdown\" id=\"menu1\">
                     <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#menu1\">
                         Iniciar sesión
@@ -110,14 +114,14 @@ class __TwigTemplate_fc830b7fd2f5c85a83093f37c5777d22f3f496d37fc8d009074b35f01e2
                  </div>
                </li>
                ";
-        // line 62
+        // line 63
         echo "                <li><a href=\"register.php\">Registrarse</a></li>
             </ul>
         </div>
     </div>
 </nav>
 ";
-        // line 69
+        // line 70
         echo "<div class=\"container\" style=\"max-width:1000px;\">";
     }
 
@@ -131,7 +135,7 @@ class __TwigTemplate_fc830b7fd2f5c85a83093f37c5777d22f3f496d37fc8d009074b35f01e2
 
     public function getTemplateName()
     {
-        return "header.twig";
+        return "_header.twig";
     }
 
     public function isTraitable()
@@ -141,6 +145,6 @@ class __TwigTemplate_fc830b7fd2f5c85a83093f37c5777d22f3f496d37fc8d009074b35f01e2
 
     public function getDebugInfo()
     {
-        return array (  128 => 11,  125 => 10,  121 => 69,  114 => 62,  97 => 46,  89 => 42,  83 => 41,  77 => 40,  65 => 30,  59 => 26,  55 => 25,  41 => 14,  38 => 13,  36 => 10,  30 => 9,  20 => 1,);
+        return array (  132 => 11,  129 => 10,  125 => 70,  118 => 63,  101 => 47,  93 => 43,  87 => 42,  81 => 41,  69 => 31,  63 => 27,  59 => 26,  55 => 25,  41 => 14,  38 => 13,  36 => 10,  30 => 9,  20 => 1,  126 => 4,  123 => 3,  78 => 100,  48 => 73,  23 => 50,  21 => 2,  19 => 1,);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-/* news.twig */
-class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872c9279 extends Twig_Template
+/* news.tpl */
+class __TwigTemplate_f5f5a3af95d90069f87ca9c13fb4441dfc7ff74bb7ce0fd48e648765aca02ae5 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -18,7 +18,7 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
         // line 1
         $context["active"] = "news";
         // line 2
-        $this->env->loadTemplate("news.twig", "1326773479")->display($context);
+        $this->env->loadTemplate("news.tpl", "52127113")->display($context);
         // line 13
         echo "<div id=\"fb-root\"></div>
 <script>(function(d, s, id) {
@@ -120,12 +120,12 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
 </div>
 ";
         // line 56
-        $this->env->loadTemplate("_footer.tpl")->display($context);
+        $this->env->loadTemplate("footer.tpl")->display($context);
     }
 
     public function getTemplateName()
     {
-        return "news.twig";
+        return "news.tpl";
     }
 
     public function isTraitable()
@@ -140,14 +140,14 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
 }
 
 
-/* news.twig */
-class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872c9279_1326773479 extends Twig_Template
+/* news.tpl */
+class __TwigTemplate_f5f5a3af95d90069f87ca9c13fb4441dfc7ff74bb7ce0fd48e648765aca02ae5_52127113 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("_header.tpl");
+        $this->parent = $this->env->loadTemplate("header.tpl");
 
         $this->blocks = array(
             'titulo' => array($this, 'block_titulo'),
@@ -156,7 +156,7 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
 
     protected function doGetParent(array $context)
     {
-        return "_header.tpl";
+        return "header.tpl";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -181,7 +181,7 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
 
     public function getTemplateName()
     {
-        return "news.twig";
+        return "news.tpl";
     }
 
     public function isTraitable()

@@ -1,9 +1,9 @@
 {% set active = 'news' %}
-{% embed 'header.twig' %}
+{% embed '_header.tpl' %}
 {% block titulo %}
 <title>{{ls.news.titulo}}</title>
 <style type="text/css">
-.fb-comments, .fb-comments span, .fb-comments iframe {
+.fb-like, .fb-comments, .fb-comments span, .fb-comments iframe {
     width: 100% !important;
 }
 </style>
@@ -15,7 +15,7 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=240362496094800";
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId={{ls.app.id}}";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
@@ -53,4 +53,4 @@
     <script>$('#vermas').tooltip('hide')</script>
     </div>
 </div>
-{% include 'footer.twig' %}
+{% include '_footer.tpl' %}
