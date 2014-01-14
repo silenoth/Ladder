@@ -18,77 +18,123 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
         // line 1
         $context["active"] = "news";
         // line 2
-        $this->env->loadTemplate("register.twig", "818747863")->display($context);
-        // line 26
+        $this->env->loadTemplate("register.twig", "1161827693")->display($context);
+        // line 20
         echo "<div class=\"row\">
     <div class=\"col-lg-8\">
-    ";
-        // line 28
-        if ($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error")) {
-            // line 29
-            echo "    <div class=\"alert alert-danger\">
-        ";
-            // line 30
-            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == 1)) {
-                // line 31
-                echo "        <p>Debes ingresar un nombre.</p>
-        ";
+    <h2>Crear una nueva cuenta</h2>
+    <div class=\"alert alert-info\">Al crear una cuenta te permitirá tener acceso a contenido exclusivo para usuarios registrados, modificar tu perfil, participar en los foros y mucho mas.</div>
+        <noscript class=\"alert-danger\"><h3>Se recomienda tener activado javascript</h3></noscript>
+            ";
+        // line 26
+        echo "            ";
+        if ((!twig_test_empty($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error")))) {
+            // line 27
+            echo "            <div class=\"alert alert-danger\">
+                ";
+            // line 28
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "name")) {
+                // line 29
+                echo "                <p>Debes ingresar un nombre.</p>
+                ";
             }
-            // line 33
-            echo "        ";
-            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == 2)) {
-                // line 34
-                echo "        <p>Debes ingresar un nick.</p>
-        ";
+            // line 31
+            echo "                ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "email")) {
+                // line 32
+                echo "                <p>Debes ingresar un email.</p>
+                ";
             }
-            // line 36
-            echo "        ";
-            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == 3)) {
-                // line 37
-                echo "        <p>Debes ingresar un email.</p>
-        ";
+            // line 34
+            echo "                ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "nick")) {
+                // line 35
+                echo "                <p>Debes ingresar un nick.</p>
+                ";
             }
-            // line 39
-            echo "        ";
-            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == 4)) {
-                // line 40
-                echo "        <p>Debes ingresar una contraseña.</p>
-        ";
+            // line 37
+            echo "                ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "pass")) {
+                // line 38
+                echo "                <p>Debes ingresar una contraseña.</p>
+                ";
             }
-            // line 42
-            echo "        ";
-            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == 5)) {
-                // line 43
-                echo "        <p>Captcha incorrecto.</p>
-        ";
+            // line 40
+            echo "                ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "captcha")) {
+                // line 41
+                echo "                <p>Captcha incorrecto.</p>
+                ";
             }
-            // line 45
-            echo "    </div>
-    ";
+            // line 43
+            echo "                ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "existemail")) {
+                // line 44
+                echo "                <p>El email que ingresaste ya está en uso, intenta con otro email.</p>
+                ";
+            }
+            // line 46
+            echo "                ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "emailsyntax")) {
+                // line 47
+                echo "                <p>El email que ingresaste no es válido, intenta escribirlo correctamente.</p>
+                ";
+            }
+            // line 49
+            echo "                ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "existuser")) {
+                // line 50
+                echo "                <p>El nick que ingresaste ya está en uso, intenta con otro nick.</p>
+                ";
+            }
+            // line 52
+            echo "            </div>
+            ";
         }
-        // line 47
-        echo "    <form class=\"form-horizontal\" role=\"form\" method=\"post\" id=\"formulario\">
+        // line 54
+        echo "            ";
+        // line 55
+        echo "        
+    <form class=\"form-horizontal\" role=\"form\" method=\"post\" id=\"formulario\" name=\"formulario\">
         <div class=\"form-group ";
-        // line 48
-        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == 1)) {
+        // line 57
+        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "name")) {
             echo "has-error";
         }
         echo "\">
-            <input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Nombre\" name=\"name\" />                               
+            <input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Nombre\" name=\"name\" required=\"required\" />                               
         </div>
         <div class=\"form-group ";
-        // line 51
-        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == 2)) {
+        // line 60
+        if ((($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "email") || ($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "emailsyntax"))) {
             echo "has-error";
         }
         echo "\">
-            <input type=\"text\" id=\"email\" class=\"form-control\" placeholder=\"Email\" name=\"email\" />                               
+            <input type=\"text\" id=\"email\" class=\"form-control\" placeholder=\"Email\" name=\"email\" required=\"required\" />                               
         </div>
-        <div class=\"form-group\">
-            <input type=\"text\" id=\"nick\" class=\"form-control\" placeholder=\"Nick\" name=\"nick\" />                               
+        <div class=\"form-group ";
+        // line 63
+        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "nick")) {
+            echo "has-error";
+        }
+        echo "\">
+            <input type=\"text\" id=\"nick\" class=\"form-control\" placeholder=\"Nick\" name=\"nick\" required=\"required\" />                               
         </div>
-        <div class=\"form-group\">
-            <input type=\"password\" id=\"pass\" class=\"form-control\" placeholder=\"Password\" name=\"pass\" />                               
+        <div class=\"form-group ";
+        // line 66
+        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "pass")) {
+            echo "has-error";
+        }
+        echo "\">
+            <input type=\"password\" id=\"pass1\" class=\"form-control\" placeholder=\"Contraseña\" name=\"pass1\" required=\"required\" />                               
+        </div>
+        <div class=\"form-group ";
+        // line 69
+        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "pass")) {
+            echo "has-error";
+        }
+        echo "\">
+            <input type=\"password\" id=\"pass\" class=\"form-control\" placeholder=\"Confirmar contraseña\" name=\"pass\" required=\"required\" />                               
         </div>
         <div class=\"form-group\">
             <select name=\"type\" class=\"form-control\">
@@ -96,10 +142,15 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
               <option value=\"0\">Mujer</option>
             </select>
         </div>
-         <div class=\"form-group\">
+         <div class=\"form-group";
+        // line 78
+        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "captcha")) {
+            echo "has-error";
+        }
+        echo "\">
             <div style=\"float:left;padding-left: 15px;padding-bottom: 15px;\">
                 <img id=\"captcha\" src=\"";
-        // line 68
+        // line 80
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "captcha"), "html", null, true);
         echo "\" class=\"img-thumbnail\" />
             </div>
@@ -120,16 +171,104 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
                     setTimeout(\"\$('#captcha').show();\", 1500);
                 }); 
             </script>
-            <input type=\"text\" id=\"captcha\" class=\"form-control\" placeholder=\"Captcha\" name=\"captcha\" />
+            <input type=\"text\" id=\"captcha\" class=\"form-control\" placeholder=\"Captcha\" name=\"captcha\" required=\"required\" />
         </div>
         <div class=\"form-group\">
-            <button type=\"submit\" class=\"btn btn-primary btn-lg\">Registrar</button>
+            <button type=\"submit\" class=\"btn btn-primary btn-lg\" id=\"enviar\">Registrar</button>
         </div>
     </form>        
     </div>
 </div>
+<script type=\"text/javascript\">
+\$(document).ready(function() {
+    \$('#formulario').bootstrapValidator({
+        message: 'El valor no es valido',
+        //campos
+        fields: {
+            name: {
+                message: 'El nombre no es válido.',
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre no debe estar vacío.'
+                    },
+                stringLength: {
+                        min: 3,
+                        max: 40,
+                        message: 'El nombre no debe tener menos de 3 o mas de 40 carácteres.'
+                    },
+                regexp: {
+                        regexp: /^[a-zA-Z \\.]+\$/,
+                        message: 'El nombre no puede contener caracteres en blanco ni especiales.'
+                    }
+                }
+            },
+            email :{
+                validators: {
+                    notEmpty: {
+                        message: 'El email no debe estar en blanco.'
+                    },
+                    emailAddress: {
+                        message: 'El email ingresado no es valido'
+                    }
+                }  
+            },
+            nick: {
+                message: 'El nick no es válido.',
+                validators: {
+                    notEmpty: {
+                        message: 'El nick no debe estar vacío.'
+                    },
+                stringLength: {
+                        min: 3,
+                        max: 40,
+                        message: 'El nick no debe tener menos de 3 o mas de 40 carácteres.'
+                    }
+                }
+            },
+            pass1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Contraseña no puede quedar en blanco.'
+                    },
+                    identical: {
+                        field: 'pass',
+                        message: 'La contraseña y confirmar contraseña no coinciden.'
+                    },
+                    different: {
+                        field: 'nick',
+                        message: 'La contraseña no puede ser igual al nick.'
+                    }
+                }
+            },
+            pass: {
+                validators: {
+                    notEmpty: {
+                        message: 'Contraseña no puede quedar en blanco.'
+                    },
+                    identical: {
+                        field: 'pass',
+                        message: 'La contraseña y confirmar contraseña no coinciden.'
+                    },
+                    different: {
+                        field: 'nick',
+                        message: 'La contraseña no puede ser igual al nick.'
+                    }
+                }
+            },
+            captcha: {
+                validators: {
+                    notEmpty: {
+                        message: 'El capcha no debe estar en blanco.'
+                    }
+                }
+            }
+        }
+    });
+});
+    
+</script>
 ";
-        // line 95
+        // line 195
         $this->env->loadTemplate("_footer.twig")->display($context);
     }
 
@@ -145,13 +284,13 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
 
     public function getDebugInfo()
     {
-        return array (  133 => 95,  103 => 68,  81 => 51,  73 => 48,  70 => 47,  66 => 45,  62 => 43,  59 => 42,  55 => 40,  52 => 39,  48 => 37,  45 => 36,  41 => 34,  38 => 33,  34 => 31,  32 => 30,  29 => 29,  27 => 28,  23 => 26,  21 => 2,  19 => 1,);
+        return array (  272 => 195,  154 => 80,  147 => 78,  133 => 69,  125 => 66,  117 => 63,  109 => 60,  101 => 57,  97 => 55,  95 => 54,  91 => 52,  87 => 50,  84 => 49,  80 => 47,  77 => 46,  73 => 44,  70 => 43,  66 => 41,  63 => 40,  59 => 38,  56 => 37,  52 => 35,  49 => 34,  45 => 32,  42 => 31,  38 => 29,  36 => 28,  33 => 27,  30 => 26,  23 => 20,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* register.twig */
-class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9460c6_818747863 extends Twig_Template
+class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9460c6_1161827693 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -178,9 +317,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
     public function block_titulo($context, array $blocks = array())
     {
         // line 4
-        echo "<title>";
-        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "titulo"), "html", null, true);
-        echo "</title>
+        echo "<title>Crear nueva cuenta</title>
 <style type=\"text/css\">
 #fb-root {
   display: none;
@@ -193,13 +330,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
     display:none;
 }
 </style>
-<script type=\"text/javascript\">
-  <script>
-    \$(function(){
-        \$('#formulario').validate();
-    });
-</script>
-    
+ 
 ";
     }
 
@@ -215,6 +346,6 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
 
     public function getDebugInfo()
     {
-        return array (  181 => 4,  178 => 3,  133 => 95,  103 => 68,  81 => 51,  73 => 48,  70 => 47,  66 => 45,  62 => 43,  59 => 42,  55 => 40,  52 => 39,  48 => 37,  45 => 36,  41 => 34,  38 => 33,  34 => 31,  32 => 30,  29 => 29,  27 => 28,  23 => 26,  21 => 2,  19 => 1,);
+        return array (  320 => 4,  317 => 3,  272 => 195,  154 => 80,  147 => 78,  133 => 69,  125 => 66,  117 => 63,  109 => 60,  101 => 57,  97 => 55,  95 => 54,  91 => 52,  87 => 50,  84 => 49,  80 => 47,  77 => 46,  73 => 44,  70 => 43,  66 => 41,  63 => 40,  59 => 38,  56 => 37,  52 => 35,  49 => 34,  45 => 32,  42 => 31,  38 => 29,  36 => 28,  33 => 27,  30 => 26,  23 => 20,  21 => 2,  19 => 1,);
     }
 }

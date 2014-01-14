@@ -5,28 +5,43 @@ require_once("class/system.class.php");
 require_once("class/register.class.php");
 
 $reg = new lsRegister();
-$reg->showRegister();
 
-if($_POST){
-    if($_POST['name'] == ""){
-        $_SESSION['error'] = 1;
-    } else {
-        unset($_SESSION['error']);
+$reg->showRegister();
+print_r($reg->whereuFrom());
+if(empty($_SESSION['usuario'])){
+    if($_POST){
+        if(($_POST['name'] == "") or (count($_POST['name']) > 3) or (count($_POST['name']) > 40)){
+            header("Location: register.php?error=name");
+            exit();
+        }
+        if ($_POST['email'] == "") {
+            header("Location: register.php?error=email");
+            exit();
+        }
+        if ($_POST['nick'] == "") {
+            header("Location: register.php?error=nick");
+            exit();
+        }
+        if ($_POST['pass'] == "") {
+            header("Location: register.php?error=pass");
+            exit();
+        }
+        $array = array(
+            'name'   => $_POST['name'],
+            'email'  => $_POST['email'],
+            'nick'   => $_POST['nick'],
+            'pass'   => $_POST['pass']
+            );
+        if ($_POST['captcha'] == $_SESSION['captcha']){
+            $reg->register($array['name'], $array['email'], $array['nick'], $array['pass']); 
+            $_SESSION['registro'] = session_id();
+        } else {
+            header("Location: register.php?error=captcha");
+            exit();
+        }
+        
     }
-    if ($_POST['email'] == "") {
-        $_SESSION['error'] = 2;
-    }
-    $array = array(
-        'name'   => $_POST['name'],
-        'email'  => $_POST['email'],
-        'nick'   => $_POST['nick'],
-        'pass'   => $_POST['pass']
-        );
-    if ($_POST['captcha'] == $_SESSION['captcha']){
-        $reg->register($array['name'], $array['email'], $array['nick'], $array['pass']);  
-    } else {
-        echo "Captcha malo rectm";
-    }
-    
-}
+ } else {
+    header("Location: home.php");    
+  }
 ob_end_flush();

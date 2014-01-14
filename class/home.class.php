@@ -27,8 +27,13 @@ class lsHome extends lsSystem {
                     n.noticia_titulo AS titulo,
                     n.noticia_imagen AS imagen,
                     n.noticia_preview AS preview,
-                    n.noticia_fecha AS fecha
-                    FROM noticias AS n ORDER BY n.noticia_id DESC LIMIT 3";
+                    n.noticia_fecha AS fecha,
+                    u.usuario_nick AS nick
+                    FROM noticias AS n
+                    INNER JOIN usuarios AS u ON u.usuario_id = n.noticia_autor
+                    ORDER BY n.noticia_id DESC LIMIT 3
+                    ";
+                    
         $res = $this->con->query($sql);                         
         foreach($res->fetchAll(PDO::FETCH_ASSOC) as $row){
             $array[] = $row;
@@ -47,12 +52,13 @@ class lsHome extends lsSystem {
                 	n.noticia_imagen AS imagen,
                 	n.noticia_preview AS preview,
                 	n.noticia_contenido AS contenido,
-                	n.noticia_autor AS autor,
+                	u.usuario_nick AS autor,
                 	n.noticia_fecha AS fecha,
                 	nc.cat_nombre AS categoria,
                 	n.noticia_activa AS activa
                 FROM
                 	noticias AS n
+                INNER JOIN usuarios AS u ON n.noticia_autor = u.usuario_id
                 INNER JOIN noticias_categorias AS nc ON n.noticia_id_cat = nc.cat_id
                 ORDER BY n.noticia_id DESC";
                     

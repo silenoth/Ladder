@@ -1,7 +1,7 @@
 {% set active = 'news' %}
 {% embed '_header.twig' %}
 {% block titulo %}
-<title>{{ls.news.titulo}}</title>
+<title>Crear nueva cuenta</title>
 <style type="text/css">
 #fb-root {
   display: none;
@@ -14,48 +14,60 @@
     display:none;
 }
 </style>
-<script type="text/javascript">
-  <script>
-    $(function(){
-        $('#formulario').validate();
-    });
-</script>
-    
+ 
 {% endblock %}
 {% endembed %}
 <div class="row">
     <div class="col-lg-8">
-    {% if ls.error %}
-    <div class="alert alert-danger">
-        {% if ls.error == 1 %}
-        <p>Debes ingresar un nombre.</p>
-        {% endif %}
-        {% if ls.error == 2 %}
-        <p>Debes ingresar un nick.</p>
-        {% endif %}
-        {% if ls.error == 3 %}
-        <p>Debes ingresar un email.</p>
-        {% endif %}
-        {% if ls.error == 4 %}
-        <p>Debes ingresar una contraseña.</p>
-        {% endif %}
-        {% if ls.error == 5 %}
-        <p>Captcha incorrecto.</p>
-        {% endif %}
-    </div>
-    {% endif %}
-    <form class="form-horizontal" role="form" method="post" id="formulario">
-        <div class="form-group {%if ls.error == 1%}has-error{% endif %}">
-            <input type="text" id="name" class="form-control" placeholder="Nombre" name="name" />                               
+    <h2>Crear una nueva cuenta</h2>
+    <div class="alert alert-info">Al crear una cuenta te permitirá tener acceso a contenido exclusivo para usuarios registrados, modificar tu perfil, participar en los foros y mucho mas.</div>
+        <noscript class="alert-danger"><h3>Se recomienda tener activado javascript</h3></noscript>
+            {# VALIDACION PHP #}
+            {% if ls.error is not empty %}
+            <div class="alert alert-danger">
+                {% if ls.error == "name" %}
+                <p>Debes ingresar un nombre.</p>
+                {% endif %}
+                {% if ls.error == "email" %}
+                <p>Debes ingresar un email.</p>
+                {% endif %}
+                {% if ls.error == "nick" %}
+                <p>Debes ingresar un nick.</p>
+                {% endif %}
+                {% if ls.error == "pass" %}
+                <p>Debes ingresar una contraseña.</p>
+                {% endif %}
+                {% if ls.error == "captcha" %}
+                <p>Captcha incorrecto.</p>
+                {% endif %}
+                {% if ls.error == "existemail" %}
+                <p>El email que ingresaste ya está en uso, intenta con otro email.</p>
+                {% endif %}
+                {% if ls.error == "emailsyntax" %}
+                <p>El email que ingresaste no es válido, intenta escribirlo correctamente.</p>
+                {% endif %}
+                {% if ls.error == "existuser" %}
+                <p>El nick que ingresaste ya está en uso, intenta con otro nick.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+            {# //VALIDACION PHP #}
+        
+    <form class="form-horizontal" role="form" method="post" id="formulario" name="formulario">
+        <div class="form-group {%if ls.error == "name"%}has-error{% endif %}">
+            <input type="text" id="name" class="form-control" placeholder="Nombre" name="name" required="required" />                               
         </div>
-        <div class="form-group {%if ls.error == 2%}has-error{% endif %}">
-            <input type="text" id="email" class="form-control" placeholder="Email" name="email" />                               
+        <div class="form-group {%if ls.error == "email" or ls.error == "emailsyntax"%}has-error{% endif %}">
+            <input type="text" id="email" class="form-control" placeholder="Email" name="email" required="required" />                               
         </div>
-        <div class="form-group">
-            <input type="text" id="nick" class="form-control" placeholder="Nick" name="nick" />                               
+        <div class="form-group {%if ls.error == "nick"%}has-error{% endif %}">
+            <input type="text" id="nick" class="form-control" placeholder="Nick" name="nick" required="required" />                               
         </div>
-        <div class="form-group">
-            <input type="password" id="pass" class="form-control" placeholder="Password" name="pass" />                               
+        <div class="form-group {%if ls.error == "pass"%}has-error{% endif %}">
+            <input type="password" id="pass1" class="form-control" placeholder="Contraseña" name="pass1" required="required" />                               
+        </div>
+        <div class="form-group {%if ls.error == "pass"%}has-error{% endif %}">
+            <input type="password" id="pass" class="form-control" placeholder="Confirmar contraseña" name="pass" required="required" />                               
         </div>
         <div class="form-group">
             <select name="type" class="form-control">
@@ -63,7 +75,7 @@
               <option value="0">Mujer</option>
             </select>
         </div>
-         <div class="form-group">
+         <div class="form-group{%if ls.error == "captcha"%}has-error{% endif %}">
             <div style="float:left;padding-left: 15px;padding-bottom: 15px;">
                 <img id="captcha" src="{{ls.captcha}}" class="img-thumbnail" />
             </div>
@@ -84,12 +96,100 @@
                     setTimeout("$('#captcha').show();", 1500);
                 }); 
             </script>
-            <input type="text" id="captcha" class="form-control" placeholder="Captcha" name="captcha" />
+            <input type="text" id="captcha" class="form-control" placeholder="Captcha" name="captcha" required="required" />
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
+            <button type="submit" class="btn btn-primary btn-lg" id="enviar">Registrar</button>
         </div>
     </form>        
     </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#formulario').bootstrapValidator({
+        message: 'El valor no es valido',
+        //campos
+        fields: {
+            name: {
+                message: 'El nombre no es válido.',
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre no debe estar vacío.'
+                    },
+                stringLength: {
+                        min: 3,
+                        max: 40,
+                        message: 'El nombre no debe tener menos de 3 o mas de 40 carácteres.'
+                    },
+                regexp: {
+                        regexp: /^[a-zA-Z \.]+$/,
+                        message: 'El nombre no puede contener caracteres en blanco ni especiales.'
+                    }
+                }
+            },
+            email :{
+                validators: {
+                    notEmpty: {
+                        message: 'El email no debe estar en blanco.'
+                    },
+                    emailAddress: {
+                        message: 'El email ingresado no es valido'
+                    }
+                }  
+            },
+            nick: {
+                message: 'El nick no es válido.',
+                validators: {
+                    notEmpty: {
+                        message: 'El nick no debe estar vacío.'
+                    },
+                stringLength: {
+                        min: 3,
+                        max: 40,
+                        message: 'El nick no debe tener menos de 3 o mas de 40 carácteres.'
+                    }
+                }
+            },
+            pass1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Contraseña no puede quedar en blanco.'
+                    },
+                    identical: {
+                        field: 'pass',
+                        message: 'La contraseña y confirmar contraseña no coinciden.'
+                    },
+                    different: {
+                        field: 'nick',
+                        message: 'La contraseña no puede ser igual al nick.'
+                    }
+                }
+            },
+            pass: {
+                validators: {
+                    notEmpty: {
+                        message: 'Contraseña no puede quedar en blanco.'
+                    },
+                    identical: {
+                        field: 'pass',
+                        message: 'La contraseña y confirmar contraseña no coinciden.'
+                    },
+                    different: {
+                        field: 'nick',
+                        message: 'La contraseña no puede ser igual al nick.'
+                    }
+                }
+            },
+            captcha: {
+                validators: {
+                    notEmpty: {
+                        message: 'El capcha no debe estar en blanco.'
+                    }
+                }
+            }
+        }
+    });
+});
+    
+</script>
 {% include '_footer.twig' %}

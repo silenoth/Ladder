@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("class/system.class.php");
 require_once("class/news.class.php");
 

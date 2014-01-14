@@ -76,7 +76,7 @@
         <div class="panel-body thumbnail" style="word-break: break-word;padding-top:0;">
             <a href="news.php?id={{noticia.id}}" style="color:inherit; text-decoration:none;">
                 <div class="col-lg-4" style="padding-left:0;">
-                    <img src="{{url}}/images/news/{{noticia.imagen}}" alt="..." class="img-thumbnail" style="margin-top:20px" />  
+                    <img src="{{url}}/images/news/{{noticia.imagen}}" alt="{{noticia.titulo}}" class="img-thumbnail" style="margin-top:20px" />  
                 </div>
             </a>  
             <div class="col-lg-8">
@@ -86,7 +86,7 @@
                        </p>
                 </a>
                 <div class="row">
-                    <div class="col-lg-8">{{noticia.fecha}}</div>
+                    <div class="col-lg-8">Escrito por {{noticia.autor}} el {{noticia.fecha}}</div>
                 </div>
             </div>   
         </div>

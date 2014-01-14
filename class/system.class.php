@@ -70,13 +70,24 @@ class lsSystem {
         $tmpl = $twig->loadTemplate($template._EXT);
         $url = self::getUrl();
         $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
-                
-        echo $tmpl->render(
+        
+        if(!empty($_SESSION['usuario'])){
+           echo $tmpl->render(
+            array(
+                'ls' => $datos,
+                'url' => $url,
+                'sesion' => $_SESSION['usuario'],
+                'template' => $tmplfldr)
+            ); 
+        } else {
+            echo $tmpl->render(
             array(
                 'ls' => $datos,
                 'url' => $url,
                 'template' => $tmplfldr)
-            );
+            ); 
+        }     
+        
     }
     
     //obtener lenguaje
@@ -163,37 +174,26 @@ class lsSystem {
     //cadena aleatoria
     public function randString($lenghtChars, $type){
         $chars = array(
-        'upper' => "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        'lower' => "abcdefghijklmnopqrstuvwxyz",
-        'number' => "1234567890"
+        1 => "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        2 => "abcdefghijklmnopqrstuvwxyz",
+        3 => "1234567890",
+        4 => "abcdefghijklmnopqrstuvwxyz1234567890"
         );
         switch ($type) {
-            case 'upper':
-            $char = $chars['upper'];
+            case 1:
+            $char = $chars[1];
             break;
             
-            case 'lower':
-            $char = $chars['lower'];
+            case 2:
+            $char = $chars[2];
             break;
             
-            case 'number':
-            $char = $chars['number'];
+            case 3:
+            $char = $chars[3];
             break;
             
-            case 'number;upper' || 'upper;number':
-            $char = $chars['upper'].$chars['number'];
-            break;
-            
-            case 'number;lower' || 'lower;number':
-            $char = $chars['lower'].$chars['number'];
-            break;
-            
-            case 'upper;lower' || 'lower;upper':
-            $char = $chars['lower'].$chars['upper'];
-            break;
-            
-            case 'all':
-            $char = $chars['lower'].$chars['number'].$chars['upper'];
+            case 4:
+            $char = $chars[4];
             break;
         }
         
@@ -326,6 +326,7 @@ class lsSystem {
     		}
 	   }
     
+    //limpiar texto
     function cleanString($string){
         $string = trim($string);
     
@@ -381,8 +382,73 @@ class lsSystem {
         return strtolower($string);
     }
 
-    
+    //mostrar success
+    function showSuccess(){
+        $datos = array(
+            'titulo' => 'Registro correcto!'
+        );
+        $this->loadTemplate('success', $datos);
+    }
    
+   //verificar si existe nick
+    function checkNick($nick){
+        self::setNames();
+        $sql = "SELECT u.usuario_nick FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1, $nick, PDO::PARAM_STR);
+        $res->execute();
+        
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+            return true;
+        }
+    }
+    
+   function checkPass($pass){
+        self::setNames();
+        $sql = "SELECT u.usuario_pass FROM usuarios AS u WHERE u.usuario_pass = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1, $pass, PDO::PARAM_STR);
+        $res->execute();
+        
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+            return true;
+        }
+   }
+   //iniciar session
+   function sessionStart($nick,$pass){
+        $checkuser = $this->checkNick($nick);
+        $checkpass = $this->checkPass($pass);
+        if ($checkuser & $checkpass){
+            $_SESSION['usuario'] = $nick;
+            unset($_SESSION['captcha']);
+            unset($_SERVER['registro']);
+            $back = $this->whereuFrom();
+            header("Location: ".$back);
+        } else {
+            $back = $this->whereuFrom();
+            header("Location: ".$back);
+        }
+   }
+
+    function whereuFrom(){
+        self::setNames();
+        $sql2 = "SELECT a.ajuste_donde_vengo AS donde FROM ajustes AS a";
+        $res2 = $this->con->query($sql2);
+        $res2->execute();
+        while($row = $res2->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        
+        $url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        $sql = "UPDATE ajustes  SET ajuste_donde_vengo = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$url,PDO::PARAM_STR);
+        $res->execute();
+        
+        return $datos[0]['donde'];
+    }
         //dias trasncurridos
     public function daysElapsed($desde, $hasta){
         $dias	= (strtotime($desde)-strtotime($hasta))/86400;
