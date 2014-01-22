@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+LimitRequestBody 102400
+
+Rewriterule ^inicio$  home.php
+Rewriterule ^articulo/(.+)/(.+)$ news.php?id=$1&title=$2
+Rewriterule ^perfil/(.+)$ profile.php?user=$1
+Rewriterule ^conectar$ session.php
+Rewriterule ^destruir$ session.php?session=destroy
+Rewriterule ^registro$ register.php
+#ErrorDocument nroError /err404.php
+ErrorDocument 404 /err404.php

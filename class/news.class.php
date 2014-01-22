@@ -11,24 +11,26 @@ class lsNews extends lsSystem {
     //mostrar plantilla
     function showNews(){
         $id = $_GET['id'];
+        $title = $_GET['title'];
         if (is_numeric($id)) {
             $array = array(
-                'news' => $this->getNewsById($id),
+                'news' => $this->getNewsById($id,$title),
                 'list' => $this->getLastNewsList(),
                 'app' => $this->getAppId()
             );
             $this->loadTemplate('news', $array);
         } else {
-            header("Location: home.php");
+            header("Location: ".$this->whereuFrom());
         }
     }
     
     //obtener noticias por id
-    private function getNewsById($id){
+    private function getNewsById($id,$title){
         parent::setNames();
         $sql="SELECT
                     n.noticia_id AS id,
                 	n.noticia_titulo AS titulo,
+                    n.noticia_titulo_clean AS url,
                 	n.noticia_imagen AS imagen,
                 	n.noticia_preview AS preview,
                 	n.noticia_contenido AS contenido,
@@ -39,9 +41,10 @@ class lsNews extends lsSystem {
                 FROM
                 	noticias AS n
                 INNER JOIN noticias_categorias AS nc ON n.noticia_id_cat = nc.cat_id
-                WHERE n.noticia_id = ?";
+                WHERE n.noticia_id = ? AND n.noticia_titulo_clean = ?";
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$id,PDO::PARAM_INT);
+        $res->bindParam(2,$title,PDO::PARAM_STR);
         $res->execute();
         
         while ($row = $res->fetch(PDO::FETCH_ASSOC)){
@@ -52,7 +55,7 @@ class lsNews extends lsSystem {
             return $array[0];
             parent::closeCon();
         } else {
-            parent::closeCon();
+            header("Location: ".$this->whereuFrom());
         }
     }
     
@@ -62,6 +65,7 @@ class lsNews extends lsSystem {
         $sql = "SELECT
                     n.noticia_id AS id,
                 	n.noticia_titulo AS titulo,
+                    n.noticia_titulo_clean AS url,
                 	n.noticia_imagen AS imagen,
                 	n.noticia_fecha AS fecha,
                 	n.noticia_activa AS activa

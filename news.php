@@ -5,5 +5,7 @@ require_once("class/news.class.php");
 
 $news = new lsNews();
 $news->showNews();
+$news->whereuFrom();
 //debug
+
 //print_r($news->getNewsById(2));

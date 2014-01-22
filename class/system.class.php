@@ -2,7 +2,6 @@
 
 class lsSystem {
     protected $con;
-    //var $datos = array();
     
     function __construct(){
         if(file_exists("config.php")){
@@ -66,6 +65,7 @@ class lsSystem {
             'cache' => 'cache',
             'debug' => 'true'
         ));
+        $twig->getExtension('core')->setTimeZone('America/Santiago');
                 
         $tmpl = $twig->loadTemplate($template._EXT);
         $url = self::getUrl();
@@ -77,6 +77,9 @@ class lsSystem {
                 'ls' => $datos,
                 'url' => $url,
                 'sesion' => $_SESSION['usuario'],
+                'nickclean' => $this->getNickClean($_SESSION['usuario']),
+                'online' => $this->online(),
+                'uonline' => $this->nickUserOnline(),
                 'template' => $tmplfldr)
             ); 
         } else {
@@ -84,10 +87,23 @@ class lsSystem {
             array(
                 'ls' => $datos,
                 'url' => $url,
+                'online' => $this->online(),
+                'uonline' => $this->nickUserOnline(),
                 'template' => $tmplfldr)
             ); 
         }     
         
+    }
+    
+    //bbcode
+    function bbcode($text){
+        require_once 'lib/jBBcode/Parser.php';
+        $parser = new JBBCode\Parser();
+        $parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
+        $builder = new JBBCode\CodeDefinitionBuilder('center', '<center>{param}</center>');
+        $parser->addCodeDefinition($builder->build());
+        $bbcode = $parser->getAsHtml($parser->parse($text));
+        return $bbcode;
     }
     
     //obtener lenguaje
@@ -375,17 +391,21 @@ class lsSystem {
                  "¿", "[", "^", "`", "]",
                  "+", "}", "{", "¨", "´",
                  ">", "< ", ";", ",", ":",
-                 ".", " "),
+                 ".","™"),
             '',
             $string
         );
+        
+        $string = str_replace(" ","-",$string);
         return strtolower($string);
     }
 
     //mostrar success
     function showSuccess(){
+        $where = $this->whereuFrom();
         $datos = array(
-            'titulo' => 'Registro correcto!'
+            'titulo' => 'Registro correcto!',
+            'vengo' => $where
         );
         $this->loadTemplate('success', $datos);
     }
@@ -393,7 +413,7 @@ class lsSystem {
    //verificar si existe nick
     function checkNick($nick){
         self::setNames();
-        $sql = "SELECT u.usuario_nick FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
+        $sql = "SELECT u.usuario_nick FROM usuarios AS u WHERE u.usuario_nick = ?";
         $res = $this->con->prepare($sql);
         $res->bindParam(1, $nick, PDO::PARAM_STR);
         $res->execute();
@@ -404,7 +424,24 @@ class lsSystem {
         }
     }
     
+   function getNickClean($nick){
+        self::setNames();
+        $sql = "SELECT u.usuario_nick_clean AS nickclean FROM usuarios AS u WHERE u.usuario_nick = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1, $nick, PDO::PARAM_STR);
+        $res->execute();
+        
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+            return $datos[0]['nickclean'];
+        }
+   }
+   
    function checkPass($pass){
+    if($pass == ""){
+        echo "<script>alert('No pude quedar en blanco este campo'); return false;</script>";
+        exit();
+    } else {
         self::setNames();
         $sql = "SELECT u.usuario_pass FROM usuarios AS u WHERE u.usuario_pass = ?";
         $res = $this->con->prepare($sql);
@@ -415,15 +452,24 @@ class lsSystem {
             $datos[] = $row;
             return true;
         }
+    }
    }
    //iniciar session
    function sessionStart($nick,$pass){
         $checkuser = $this->checkNick($nick);
         $checkpass = $this->checkPass($pass);
+        $ip = $_SERVER['REMOTE_ADDR'];
         if ($checkuser & $checkpass){
             $_SESSION['usuario'] = $nick;
             unset($_SESSION['captcha']);
             unset($_SERVER['registro']);
+            //actualizamos ultima visita
+            $sql = "UPDATE usuarios SET usuario_ultima_vis = NOW(), usuario_ip = ? WHERE usuario_nick = ?";
+            $res = $this->con->prepare($sql);
+            $res->bindParam(1,$ip,PDO::PARAM_STR);
+            $res->bindParam(2,$nick,PDO::PARAM_STR);
+            $res->execute();
+            
             $back = $this->whereuFrom();
             header("Location: ".$back);
         } else {
@@ -431,23 +477,136 @@ class lsSystem {
             header("Location: ".$back);
         }
    }
-
-    function whereuFrom(){
+    
+    public function whereuFrom(){
+        if (!empty($_SERVER['HTTP_REFERER'])){
+            $_SESSION['donde'] = $_SERVER['HTTP_REFERER'];
+        } else {
+            $_SESSION['donde'] = $this->getUrl();
+        }
+        $url = $_SESSION['donde'];
+        return $url;
+    }
+    
+    //obtener valor de reputacion maxima
+    function getMaxRepLvl(){
         self::setNames();
-        $sql2 = "SELECT a.ajuste_donde_vengo AS donde FROM ajustes AS a";
-        $res2 = $this->con->query($sql2);
-        $res2->execute();
-        while($row = $res2->fetch(PDO::FETCH_ASSOC)){
+        $sql = "SELECT a.ajuste_max_rep AS maxrep, a.ajuste_max_lvl AS maxlvl, a.ajuste_max_din AS maxdin FROM ajustes AS a";
+        $res = $this->con->query($sql);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
+        return $datos[0];
+        self::closeCon();
+    }
+    
+    //quien esta online
+    function online(){
+        //tiempo en minutos de usuairo activo
+        $time = 20;
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $date = time();
+        $limite = $date-$time*60;
         
-        $url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-        $sql = "UPDATE ajustes  SET ajuste_donde_vengo = ?";
+        if(!empty($_SESSION['usuario'])){
+            $nickclean = $this->getNickClean($_SESSION['usuario']);
+            $w = "SELECT u.usuario_nick AS nick, u.usuario_nick_clean AS nickclean, u.usuario_grupo AS grupo FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
+            $t = $this->con->prepare($w);
+            $t->bindParam(1,$nickclean,PDO::PARAM_STR);
+            $t->execute();
+            while($rws = $t->fetch(PDO::FETCH_ASSOC)){
+                $dts[] = $rws;
+            }
+            $grupo = $dts[0]['grupo'];
+            $nickclean = $dts[0]['nickclean'];
+            $nick = $dts[0]['nick'];
+        } else {
+            $_SESSION['invitado'] = "Invitado";
+            $nickclean = $_SESSION['invitado'];
+            $nick = $_SESSION['invitado'];
+            $grupo = 4;
+        }
+        //borramos usuarios que han exedido del tiempo maximo
+        $l = "DELETE FROM online WHERE online_last < ?";
+        $x = $this->con->prepare($l);
+        $x->bindParam(1,$limite,PDO::PARAM_INT);
+        $x->execute();
+        
+        $sql = "SELECT * FROM online AS o WHERE o.online_ip = ?";
         $res = $this->con->prepare($sql);
-        $res->bindParam(1,$url,PDO::PARAM_STR);
+        $res->bindParam(1,$ip,PDO::PARAM_STR);
+        
+        $res->execute();
+        $rc = $res->rowCount();
+        
+        if($rc != 0){
+            //actualizar visitante
+            $s = "UPDATE online SET online_grupo = ?, online_nick = ?, online_nick_clean = ?, online_last = ? WHERE online_ip = ?";
+            $r = $this->con->prepare($s);
+            $r->bindParam(1,$grupo,PDO::PARAM_STR);
+            $r->bindParam(2,$nick,PDO::PARAM_STR);
+            $r->bindParam(3,$nickclean,PDO::PARAM_STR);
+            $r->bindParam(4,$date,PDO::PARAM_INT);
+            $r->bindParam(5,$ip,PDO::PARAM_STR);
+            $r->execute();
+        } else {
+            $q = "INSERT INTO online (online_grupo, online_nick, online_nick_clean, online_ip, online_last) VALUES (?,?,?,?,?)";
+            $e = $this->con->prepare($q);
+            $e->bindParam(1,$grupo,PDO::PARAM_STR);
+            $e->bindParam(2,$nick,PDO::PARAM_STR);
+            $e->bindParam(3,$nickclean,PDO::PARAM_STR);
+            $e->bindParam(4,$ip,PDO::PARAM_STR);
+            $e->bindParam(5,$date,PDO::PARAM_INT);
+            $e->execute();
+        }
+        
+    }
+    
+    //obtener nick de usuarios viendo la pagina
+    function nickUserOnline(){
+        self::setNames();
+        $sql = "SELECT
+                	o.online_nick AS nick,
+                    o.online_nick_clean AS nickclean,
+                    g.grupo_color AS color
+                FROM
+                	online AS o
+                INNER JOIN grupos AS g ON (g.grupo_id = o.online_grupo)
+                    ";
+        $res = $this->con->query($sql);
+        $res->execute();
+        $rc = $res->rowCount();
+        if($rc>0){
+            while($row = $res->fetch(PDO::FETCH_ASSOC)){
+                $datos[]=$row;
+            }
+            return $datos;
+            self::closeCon();
+        }
+        
+    }
+    
+    //obtener usuario conectado
+    function getUserOnline($nick){
+        self::setNames();
+        $sql = "SELECT
+                	u.usuario_nick
+                FROM
+                	usuarios AS u, online AS o
+                WHERE
+                	u.usuario_nick_clean = ?
+                AND o.online_nick_clean = u.usuario_nick_clean";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$nick,PDO::PARAM_STR);
         $res->execute();
         
-        return $datos[0]['donde'];
+        $rc = $res->rowCount();
+        if($rc > 0 ){
+            return true;
+        } else {
+            return false;
+        }
     }
         //dias trasncurridos
     public function daysElapsed($desde, $hasta){

@@ -18,7 +18,7 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
         // line 1
         $context["active"] = "news";
         // line 2
-        $this->env->loadTemplate("news.twig", "1654023505")->display($context);
+        $this->env->loadTemplate("news.twig", "793884420")->display($context);
         // line 13
         echo "<div id=\"fb-root\"></div>
 <script>(function(d, s, id) {
@@ -36,7 +36,10 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
         // line 23
         echo "<div class=\"row\">
     <ol class=\"breadcrumb\">
-      <li><a href=\"home.php\">Inicio</a></li>
+      <li><a href=\"";
+        // line 25
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/inicio\">Inicio</a></li>
       <li class=\"active\">Noticias</li>
     </ol>
 </div>
@@ -48,7 +51,7 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
         echo "</h2>
         <div style=\"padding-bottom:30px;\">";
         // line 32
-        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "fecha"), "html", null, true);
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "fecha"), "d \\d\\e M \\d\\e Y"), "html", null, true);
         echo "</div>
         <div style=\"padding-bottom:40px;\"><img src=\"";
         // line 33
@@ -64,15 +67,19 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
         // line 36
         echo "        <div class=\"fb-like\" data-href=\"";
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-        echo "/news.php?id=";
+        echo "/articulo/";
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "id"), "html", null, true);
+        echo "/";
+        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "url"), "html", null, true);
         echo "\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>
         ";
         // line 38
         echo "        <div class=\"fb-comments col-lg-4\" data-href=\"";
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-        echo "/news.php?id=";
+        echo "/articulo/";
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "id"), "html", null, true);
+        echo "/";
+        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "url"), "html", null, true);
         echo "\" data-numposts=\"20\" data-colorscheme=\"light\"></div>
         ";
         // line 40
@@ -89,8 +96,12 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "list"));
         foreach ($context['_seq'] as $context["_key"] => $context["lista"]) {
             // line 46
-            echo "        <a href=\"news.php?id=";
+            echo "        <a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+            echo "/articulo/";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["lista"]) ? $context["lista"] : null), "id"), "html", null, true);
+            echo "/";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["lista"]) ? $context["lista"] : null), "url"), "html", null, true);
             echo "\" class=\"list-group-item ";
             if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"), "id") == $this->getAttribute((isset($context["lista"]) ? $context["lista"] : null), "id"))) {
                 echo "active";
@@ -135,13 +146,13 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
 
     public function getDebugInfo()
     {
-        return array (  123 => 56,  116 => 51,  107 => 48,  101 => 47,  92 => 46,  87 => 45,  85 => 44,  79 => 40,  72 => 38,  65 => 36,  61 => 34,  55 => 33,  51 => 32,  47 => 31,  37 => 23,  30 => 18,  23 => 13,  21 => 2,  19 => 1,);
+        return array (  134 => 56,  127 => 51,  118 => 48,  112 => 47,  99 => 46,  94 => 45,  92 => 44,  86 => 40,  77 => 38,  68 => 36,  64 => 34,  58 => 33,  54 => 32,  50 => 31,  41 => 25,  37 => 23,  30 => 18,  23 => 13,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* news.twig */
-class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872c9279_1654023505 extends Twig_Template
+class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872c9279_793884420 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -191,6 +202,6 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
 
     public function getDebugInfo()
     {
-        return array (  171 => 4,  168 => 3,  123 => 56,  116 => 51,  107 => 48,  101 => 47,  92 => 46,  87 => 45,  85 => 44,  79 => 40,  72 => 38,  65 => 36,  61 => 34,  55 => 33,  51 => 32,  47 => 31,  37 => 23,  30 => 18,  23 => 13,  21 => 2,  19 => 1,);
+        return array (  182 => 4,  179 => 3,  134 => 56,  127 => 51,  118 => 48,  112 => 47,  99 => 46,  94 => 45,  92 => 44,  86 => 40,  77 => 38,  68 => 36,  64 => 34,  58 => 33,  54 => 32,  50 => 31,  41 => 25,  37 => 23,  30 => 18,  23 => 13,  21 => 2,  19 => 1,);
     }
 }

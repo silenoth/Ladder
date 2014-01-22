@@ -25,6 +25,7 @@ class lsHome extends lsSystem {
         $sql = "SELECT 
                     n.noticia_id AS id,
                     n.noticia_titulo AS titulo,
+                    n.noticia_titulo_clean AS url,
                     n.noticia_imagen AS imagen,
                     n.noticia_preview AS preview,
                     n.noticia_fecha AS fecha,
@@ -49,6 +50,7 @@ class lsHome extends lsSystem {
         $sql = "SELECT
                     n.noticia_id AS id,
                 	n.noticia_titulo AS titulo,
+                    n.noticia_titulo_clean AS url,
                 	n.noticia_imagen AS imagen,
                 	n.noticia_preview AS preview,
                 	n.noticia_contenido AS contenido,

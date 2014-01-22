@@ -18,7 +18,7 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         // line 1
         $context["active"] = "home";
         // line 2
-        $this->env->loadTemplate("home.twig", "87019278")->display($context);
+        $this->env->loadTemplate("home.twig", "98421861")->display($context);
         // line 7
         echo "    ";
         // line 8
@@ -74,8 +74,10 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "preview"));
         foreach ($context['_seq'] as $context["_key"] => $context["prev"]) {
             // line 45
-            echo "    <a href=\"news.php?id=";
+            echo "    <a href=\"articulo/";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "id"), "html", null, true);
+            echo "/";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "url"), "html", null, true);
             echo "\" style=\"text-decoration:none;\">
         <div class=\"col-sm-6 col-md-4\" id=\"preview";
             // line 46
@@ -111,7 +113,7 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
                         <div class=\"col-lg-9\">
                             ";
             // line 59
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "fecha"), "d/m/Y"), "html", null, true);
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "fecha"), "d \\d\\e M \\d\\e Y"), "html", null, true);
             echo "
                         </div>
                     </div>
@@ -144,9 +146,11 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         foreach ($context['_seq'] as $context["_key"] => $context["noticia"]) {
             // line 76
             echo "        <div class=\"panel-body thumbnail\" style=\"word-break: break-word;padding-top:0;\">
-            <a href=\"news.php?id=";
+            <a href=\"articulo/";
             // line 77
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
+            echo "/";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "url"), "html", null, true);
             echo "\" style=\"color:inherit; text-decoration:none;\">
                 <div class=\"col-lg-4\" style=\"padding-left:0;\">
                     <img src=\"";
@@ -160,9 +164,11 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
                 </div>
             </a>  
             <div class=\"col-lg-8\">
-                <a href=\"news.php?id=";
+                <a href=\"articulo/";
             // line 83
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
+            echo "/";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "url"), "html", null, true);
             echo "\" style=\"color:inherit; text-decoration:none;\">
                     <h3 style=\"padding-top:0;\">";
             // line 84
@@ -179,7 +185,7 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
             // line 89
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "autor"), "html", null, true);
             echo " el ";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "fecha"), "html", null, true);
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "fecha"), "d \\d\\e M \\d\\e Y"), "html", null, true);
             echo "</div>
                 </div>
             </div>   
@@ -210,13 +216,13 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
 
     public function getDebugInfo()
     {
-        return array (  198 => 96,  195 => 95,  193 => 94,  180 => 89,  173 => 85,  169 => 84,  165 => 83,  154 => 79,  149 => 77,  146 => 76,  141 => 75,  135 => 70,  132 => 68,  126 => 67,  124 => 66,  114 => 59,  108 => 56,  103 => 54,  97 => 51,  89 => 48,  82 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  204 => 96,  201 => 95,  199 => 94,  186 => 89,  179 => 85,  175 => 84,  169 => 83,  158 => 79,  151 => 77,  148 => 76,  143 => 75,  137 => 70,  134 => 68,  128 => 67,  126 => 66,  116 => 59,  110 => 56,  105 => 54,  99 => 51,  91 => 48,  84 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* home.twig */
-class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e060885521_87019278 extends Twig_Template
+class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e060885521_98421861 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -259,6 +265,6 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
 
     public function getDebugInfo()
     {
-        return array (  246 => 4,  243 => 3,  198 => 96,  195 => 95,  193 => 94,  180 => 89,  173 => 85,  169 => 84,  165 => 83,  154 => 79,  149 => 77,  146 => 76,  141 => 75,  135 => 70,  132 => 68,  126 => 67,  124 => 66,  114 => 59,  108 => 56,  103 => 54,  97 => 51,  89 => 48,  82 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  252 => 4,  249 => 3,  204 => 96,  201 => 95,  199 => 94,  186 => 89,  179 => 85,  175 => 84,  169 => 83,  158 => 79,  151 => 77,  148 => 76,  143 => 75,  137 => 70,  134 => 68,  128 => 67,  126 => 66,  116 => 59,  110 => 56,  105 => 54,  99 => 51,  91 => 48,  84 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
     }
 }

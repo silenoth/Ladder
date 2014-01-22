@@ -1,8 +1,26 @@
-    <div class="bs-footer" role="contentinfo" style="border-top:1px solid #e5e5e5;">
-    footer :o
-    </div>
+<hr />
+<h5><b>125 Usuario(s) conectado(s) los ultimos 20 min.</b></h5>
+<h6>4 miembro(s), 134 invitado(s)</h6>
+{% for u in uonline %}
+<span class="label small" style="font-size: 70%;background:#{{u.color}};">{%if u.nickclean == "Invitado"%}{{u.nick}}{%else%}<a href="{{url}}/perfil/{{u.nickclean}}" id="onlineuser" data-toggle="tooltip" data-placement="top" title="Ver perfil de {{u.nick}}">{{u.nick}}</a>{%endif%}</span> 
+{%endfor%}
+<div id="online"><h6><span class="label label-danger">Admin</span> | <span class="label label-primary">Moderadores</span> | <span class="label label-default">Miembros</span> | <span class="label label-default" style="background-color: #99A8BB;">Invitados</span></h6></div>
 </div>
 {# FIN CONTENEDOR PRINCIPAL #}
-<script src="{{url}}/js/bootstrapValidator.js" type="text/javascript"></script>
+<div class="bs-footer">
+    <div class="container"  style="max-width:1060px;">
+        <p class="navbar-text">Ladder Script versión 1.0 &copy; 2014.</p>
+    </div>
+</div>
+<style type="text/css">
+#online a:link, a:visited, a:active, a:hover{
+    text-decoration: inherit;
+    color:inherit;
+}
+</style>
+<script type="text/javascript">
+$('#onlineuser').tooltip('hide');
+</script>
+<script src="{{url}}/js/holder.js" type="text/javascript"></script>
 </body>
 </html>

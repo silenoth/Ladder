@@ -1,0 +1,32 @@
+id: 1
+nombre: Reputacion
+descripcion: Sube la reputacion cuando haces un aporte para la comunidad.
+max: 1000
+
+
+id: 2
+nombre: Nivel
+descripcion: Subes nivel posteando.
+max: 1000
+
+
+
+reputacion
+
+-0 99 Malo
+-100 199 Regular
+-200 499 Normal
+-400 699 Buena
+-700 899 Muy Buena
+-900 1000 Execelente
+
+
+niveles
+-0 124 Aprendiz
+-125 249 Jornalero
+-250 374 Cobre
+-375 499 Plata
+-500 624 Oro
+-625 749 Platino
+-750 874 Diamante
+-875 1000 Maestro

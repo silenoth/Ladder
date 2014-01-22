@@ -16,15 +16,15 @@ class __TwigTemplate_8ee72ff4364c387bf0bf5eccacaac6fd990eea001ecc65b1b0027a28a27
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("success.twig", "729171974")->display($context);
+        $this->env->loadTemplate("success.twig", "428655237")->display($context);
         // line 6
         echo "<script language=\"javascript\"> 
- var segundos = 15; //Segundos de la cuenta atrás 
+ var segundos = 15; //Segundos de la cuenta atrÃ¡s 
     function tiempo(){  
   var t = setTimeout(\"tiempo()\",1000);  
-  document.getElementById('contenedor').innerHTML = 'o esperar '+segundos--+\" segundos.\";  
+  document.getElementById('contenedor').innerHTML = 'o esperar a que te redirija automaticamente en '+segundos--+\" segundos.\";  
   if (segundos==0){
-        window.location.href='home.php';  //Págiana a la que redireccionará a X segundos
+        window.location.href='home.php';  //PÃ¡giana a la que redireccionarÃ¡ a X segundos
   
    clearTimeout(t);  
   }  
@@ -35,7 +35,7 @@ class __TwigTemplate_8ee72ff4364c387bf0bf5eccacaac6fd990eea001ecc65b1b0027a28a27
 <div class=\"alert alert-success\">
     <div style=\"margin:0 auto;\">
       <p><span class=\"glyphicon glyphicon-ok-circle\" style=\"padding-right:20px;\"></span>Tu registro se ha realizado satisfactoriamente, el siguiente paso es verificar tu email para activar tu cuenta.</p>
-      <p><a href=\"home.php\"><button type=\"button\" class=\"btn btn-primary btn-xs\">Quieres salir de aqui ahora?</button></a> <span id=\"contenedor\"></span></p>
+      <p><a href=\"home.php\"><button type=\"button\" class=\"btn btn-primary btn-xs\">Â¿Ir a la pÃ¡gina de inicio?</button></a> <span id=\"contenedor\"></span></p>
     </div>
 </div>
 ";
@@ -61,7 +61,7 @@ class __TwigTemplate_8ee72ff4364c387bf0bf5eccacaac6fd990eea001ecc65b1b0027a28a27
 
 
 /* success.twig */
-class __TwigTemplate_8ee72ff4364c387bf0bf5eccacaac6fd990eea001ecc65b1b0027a28a27853ed_729171974 extends Twig_Template
+class __TwigTemplate_8ee72ff4364c387bf0bf5eccacaac6fd990eea001ecc65b1b0027a28a27853ed_428655237 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

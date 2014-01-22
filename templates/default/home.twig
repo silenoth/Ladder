@@ -42,7 +42,7 @@
     <div class="row" style="margin-top: 30px; margin-bottom:30px;">
     {% set i = 1 %}
     {% for prev in ls.preview %}
-    <a href="news.php?id={{prev.id}}" style="text-decoration:none;">
+    <a href="articulo/{{prev.id}}/{{prev.url}}" style="text-decoration:none;">
         <div class="col-sm-6 col-md-4" id="preview{{i}}" data-toggle="tooltip" data-placement="bottom" title="Continuar leyendo {{prev.titulo|slice(0,25)}}..." style="word-break: break-word;">
             <div class="thumbnail">
                 <img src="{{url}}/images/news/{{prev.imagen}}" alt="..." />
@@ -56,7 +56,7 @@
                     <script>$('#preview{{i}}').tooltip('hide')</script>
                     <div class="row">
                         <div class="col-lg-9">
-                            {{prev.fecha|date("d/m/Y")}}
+                            {{prev.fecha|date("d \\d\\e M \\d\\e Y")}}
                         </div>
                     </div>
               </div>
@@ -74,19 +74,19 @@
         {# INICIO AGREGANDO NOTICIAS #}
         {% for noticia in ls.news %}
         <div class="panel-body thumbnail" style="word-break: break-word;padding-top:0;">
-            <a href="news.php?id={{noticia.id}}" style="color:inherit; text-decoration:none;">
+            <a href="articulo/{{noticia.id}}/{{noticia.url}}" style="color:inherit; text-decoration:none;">
                 <div class="col-lg-4" style="padding-left:0;">
                     <img src="{{url}}/images/news/{{noticia.imagen}}" alt="{{noticia.titulo}}" class="img-thumbnail" style="margin-top:20px" />  
                 </div>
             </a>  
             <div class="col-lg-8">
-                <a href="news.php?id={{noticia.id}}" style="color:inherit; text-decoration:none;">
+                <a href="articulo/{{noticia.id}}/{{noticia.url}}" style="color:inherit; text-decoration:none;">
                     <h3 style="padding-top:0;">{{noticia.titulo}}</h3>
                     <p style="padding-top:0;">{{noticia.preview}}
                        </p>
                 </a>
                 <div class="row">
-                    <div class="col-lg-8">Escrito por {{noticia.autor}} el {{noticia.fecha}}</div>
+                    <div class="col-lg-8">Escrito por {{noticia.autor}} el {{noticia.fecha|date("d \\d\\e M \\d\\e Y")}}</div>
                 </div>
             </div>   
         </div>

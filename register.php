@@ -5,9 +5,8 @@ require_once("class/system.class.php");
 require_once("class/register.class.php");
 
 $reg = new lsRegister();
-
+$reg->whereuFrom();
 $reg->showRegister();
-print_r($reg->whereuFrom());
 if(empty($_SESSION['usuario'])){
     if($_POST){
         if(($_POST['name'] == "") or (count($_POST['name']) > 3) or (count($_POST['name']) > 40)){
@@ -42,6 +41,6 @@ if(empty($_SESSION['usuario'])){
         
     }
  } else {
-    header("Location: home.php");    
+    header("Location: ".$this->whereuFrom());    
   }
 ob_end_flush();

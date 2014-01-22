@@ -1,0 +1,55 @@
+{# INICIO NAVBAR USUARIOS #}
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container" style="max-width:1000px;">
+        <a class="navbar-brand" href="{{url}}/inicio">Hearthstone Chile</a>
+        <button type="btn btn-navbar" class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse"> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse navHeaderCollapse">
+        <ul class="nav navbar-nav">
+            <li {% if active == 'home' %} class="active"{% endif %}><a href="{{url}}/inicio">Inicio</a></li>
+            <li {% if active == 'forum' %} class="active"{% endif %}><a href="{{url}}/foros">Foros</a></li>
+            <li {% if active == 'ladder' %} class="active"{% endif %}><a href="{{url}}/competencia">Competencias</a></li>
+        </ul>
+        
+            <ul class="nav navbar-nav navbar-right">
+            {% if sesion is empty %}
+                {# INICIO LOGIN USUARIOS #}
+                <li class="dropdown" id="menu1">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+                        Iniciar sesión
+                        <b class="caret"></b>
+                    </a>
+                 <div class="dropdown-menu">
+                    <form style="margin: 0px" accept-charset="UTF-8" action="{{url}}/conectar" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" /></div>
+                        <fieldset class='textbox' style="padding:10px">
+                            <input class="form-control input-sm" style="margin-bottom:10px" type="text" placeholder="Nick" name="nick" />
+                            <input class="form-control input-sm" style="margin-bottom:10px" type="password" placeholder="Contraseña" name="pass" />
+                            <input class="btn btn-primary btn-small btn-block" name="iniciar" type="submit" value="Conectar" />
+                        </fieldset>
+                    </form>
+                 </div>
+               </li>
+               {# ***FIN LOGIN USUARIOS** #}
+                <li><a href="{{url}}/registro">Registrarse</a></li>
+            {% else %}
+            <li><a href="#">Bienvenid@ </a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{sesion}}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{{url}}/perfil/{{nickclean}}">Perfil</a></li>
+                      <li><a href="#">Mensajes <span class="badge">0</span></a></li>
+                      <li><a href="#">Mi página</a></li>
+                      <li class="divider"></li>
+                      <li><a href="{{url}}/destruir">Cerrar sesión</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+            </ul>
+        
+        </div>
+    </div>
+</nav>
+{# FIN NAVBAR USUARIOS #}

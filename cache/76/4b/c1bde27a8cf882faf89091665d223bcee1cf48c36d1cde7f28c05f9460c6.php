@@ -18,86 +18,86 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
         // line 1
         $context["active"] = "news";
         // line 2
-        $this->env->loadTemplate("register.twig", "1161827693")->display($context);
-        // line 20
+        $this->env->loadTemplate("register.twig", "1095129317")->display($context);
+        // line 19
         echo "<div class=\"row\">
     <div class=\"col-lg-8\">
     <h2>Crear una nueva cuenta</h2>
     <div class=\"alert alert-info\">Al crear una cuenta te permitirá tener acceso a contenido exclusivo para usuarios registrados, modificar tu perfil, participar en los foros y mucho mas.</div>
         <noscript class=\"alert-danger\"><h3>Se recomienda tener activado javascript</h3></noscript>
             ";
-        // line 26
+        // line 25
         echo "            ";
         if ((!twig_test_empty($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error")))) {
-            // line 27
+            // line 26
             echo "            <div class=\"alert alert-danger\">
                 ";
-            // line 28
+            // line 27
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "name")) {
-                // line 29
+                // line 28
                 echo "                <p>Debes ingresar un nombre.</p>
                 ";
             }
-            // line 31
+            // line 30
             echo "                ";
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "email")) {
-                // line 32
+                // line 31
                 echo "                <p>Debes ingresar un email.</p>
                 ";
             }
-            // line 34
+            // line 33
             echo "                ";
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "nick")) {
-                // line 35
+                // line 34
                 echo "                <p>Debes ingresar un nick.</p>
                 ";
             }
-            // line 37
+            // line 36
             echo "                ";
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "pass")) {
-                // line 38
+                // line 37
                 echo "                <p>Debes ingresar una contraseña.</p>
                 ";
             }
-            // line 40
+            // line 39
             echo "                ";
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "captcha")) {
-                // line 41
+                // line 40
                 echo "                <p>Captcha incorrecto.</p>
                 ";
             }
-            // line 43
+            // line 42
             echo "                ";
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "existemail")) {
-                // line 44
+                // line 43
                 echo "                <p>El email que ingresaste ya está en uso, intenta con otro email.</p>
                 ";
             }
-            // line 46
+            // line 45
             echo "                ";
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "emailsyntax")) {
-                // line 47
+                // line 46
                 echo "                <p>El email que ingresaste no es válido, intenta escribirlo correctamente.</p>
                 ";
             }
-            // line 49
+            // line 48
             echo "                ";
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "existuser")) {
-                // line 50
+                // line 49
                 echo "                <p>El nick que ingresaste ya está en uso, intenta con otro nick.</p>
                 ";
             }
-            // line 52
+            // line 51
             echo "            </div>
             ";
         }
-        // line 54
+        // line 53
         echo "            ";
-        // line 55
+        // line 54
         echo "        
     <form class=\"form-horizontal\" role=\"form\" method=\"post\" id=\"formulario\" name=\"formulario\">
         <div class=\"form-group ";
-        // line 57
+        // line 56
         if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "name")) {
             echo "has-error";
         }
@@ -105,7 +105,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
             <input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Nombre\" name=\"name\" required=\"required\" />                               
         </div>
         <div class=\"form-group ";
-        // line 60
+        // line 59
         if ((($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "email") || ($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "emailsyntax"))) {
             echo "has-error";
         }
@@ -113,7 +113,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
             <input type=\"text\" id=\"email\" class=\"form-control\" placeholder=\"Email\" name=\"email\" required=\"required\" />                               
         </div>
         <div class=\"form-group ";
-        // line 63
+        // line 62
         if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "nick")) {
             echo "has-error";
         }
@@ -121,7 +121,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
             <input type=\"text\" id=\"nick\" class=\"form-control\" placeholder=\"Nick\" name=\"nick\" required=\"required\" />                               
         </div>
         <div class=\"form-group ";
-        // line 66
+        // line 65
         if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "pass")) {
             echo "has-error";
         }
@@ -129,7 +129,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
             <input type=\"password\" id=\"pass1\" class=\"form-control\" placeholder=\"Contraseña\" name=\"pass1\" required=\"required\" />                               
         </div>
         <div class=\"form-group ";
-        // line 69
+        // line 68
         if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "pass")) {
             echo "has-error";
         }
@@ -143,14 +143,14 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
             </select>
         </div>
          <div class=\"form-group";
-        // line 78
+        // line 77
         if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "error") == "captcha")) {
             echo "has-error";
         }
         echo "\">
             <div style=\"float:left;padding-left: 15px;padding-bottom: 15px;\">
                 <img id=\"captcha\" src=\"";
-        // line 80
+        // line 79
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "captcha"), "html", null, true);
         echo "\" class=\"img-thumbnail\" />
             </div>
@@ -171,7 +171,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
                     setTimeout(\"\$('#captcha').show();\", 1500);
                 }); 
             </script>
-            <input type=\"text\" id=\"captcha\" class=\"form-control\" placeholder=\"Captcha\" name=\"captcha\" required=\"required\" />
+            <input type=\"text\" id=\"captcha\" class=\"form-control\" placeholder=\"Captcha\" name=\"captcha\" required />
         </div>
         <div class=\"form-group\">
             <button type=\"submit\" class=\"btn btn-primary btn-lg\" id=\"enviar\">Registrar</button>
@@ -197,7 +197,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
                         message: 'El nombre no debe tener menos de 3 o mas de 40 carácteres.'
                     },
                 regexp: {
-                        regexp: /^[a-zA-Z \\.]+\$/,
+                        regexp: /^[a-zA-Z]+\$/,
                         message: 'El nombre no puede contener caracteres en blanco ni especiales.'
                     }
                 }
@@ -254,13 +254,6 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
                         message: 'La contraseña no puede ser igual al nick.'
                     }
                 }
-            },
-            captcha: {
-                validators: {
-                    notEmpty: {
-                        message: 'El capcha no debe estar en blanco.'
-                    }
-                }
             }
         }
     });
@@ -268,7 +261,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
     
 </script>
 ";
-        // line 195
+        // line 187
         $this->env->loadTemplate("_footer.twig")->display($context);
     }
 
@@ -284,13 +277,13 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
 
     public function getDebugInfo()
     {
-        return array (  272 => 195,  154 => 80,  147 => 78,  133 => 69,  125 => 66,  117 => 63,  109 => 60,  101 => 57,  97 => 55,  95 => 54,  91 => 52,  87 => 50,  84 => 49,  80 => 47,  77 => 46,  73 => 44,  70 => 43,  66 => 41,  63 => 40,  59 => 38,  56 => 37,  52 => 35,  49 => 34,  45 => 32,  42 => 31,  38 => 29,  36 => 28,  33 => 27,  30 => 26,  23 => 20,  21 => 2,  19 => 1,);
+        return array (  265 => 187,  154 => 79,  147 => 77,  133 => 68,  125 => 65,  117 => 62,  109 => 59,  101 => 56,  97 => 54,  95 => 53,  91 => 51,  87 => 49,  84 => 48,  80 => 46,  77 => 45,  73 => 43,  70 => 42,  66 => 40,  63 => 39,  59 => 37,  56 => 36,  52 => 34,  49 => 33,  45 => 31,  42 => 30,  38 => 28,  36 => 27,  33 => 26,  30 => 25,  23 => 19,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* register.twig */
-class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9460c6_1161827693 extends Twig_Template
+class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9460c6_1095129317 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -330,7 +323,6 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
     display:none;
 }
 </style>
- 
 ";
     }
 
@@ -346,6 +338,6 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
 
     public function getDebugInfo()
     {
-        return array (  320 => 4,  317 => 3,  272 => 195,  154 => 80,  147 => 78,  133 => 69,  125 => 66,  117 => 63,  109 => 60,  101 => 57,  97 => 55,  95 => 54,  91 => 52,  87 => 50,  84 => 49,  80 => 47,  77 => 46,  73 => 44,  70 => 43,  66 => 41,  63 => 40,  59 => 38,  56 => 37,  52 => 35,  49 => 34,  45 => 32,  42 => 31,  38 => 29,  36 => 28,  33 => 27,  30 => 26,  23 => 20,  21 => 2,  19 => 1,);
+        return array (  313 => 4,  310 => 3,  265 => 187,  154 => 79,  147 => 77,  133 => 68,  125 => 65,  117 => 62,  109 => 59,  101 => 56,  97 => 54,  95 => 53,  91 => 51,  87 => 49,  84 => 48,  80 => 46,  77 => 45,  73 => 43,  70 => 42,  66 => 40,  63 => 39,  59 => 37,  56 => 36,  52 => 34,  49 => 33,  45 => 31,  42 => 30,  38 => 28,  36 => 27,  33 => 26,  30 => 25,  23 => 19,  21 => 2,  19 => 1,);
     }
 }

@@ -25,7 +25,19 @@ class lsRegister extends lsSystem {
         }
         $this->loadTemplate('register', $datos);
     }
-    
+    //verificar si existe nick
+    function checkNick($nick){
+        parent::setNames();
+        $sql = "SELECT u.usuario_nick FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1, $nick, PDO::PARAM_STR);
+        $res->execute();
+        
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+            return true;
+        }
+    }
     //verificar si existe mail
     function checkEmail($email){
         parent::setNames();
