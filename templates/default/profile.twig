@@ -1,7 +1,7 @@
-{% set active = 'home' %}
+{% set active = 'profile' %}
 {% embed '_header.twig' %}
 {% block titulo %}
-<title>Bienvenido {{ls.usuario}}</title>
+<title>{%if sesion == ls.nick%}Bienvenido {{ls.nick}}{%else%}Perfil de {{ls.nick}}{%endif%}</title>
 {% endblock %}
 {% endembed %}
 {% if ls.alerta == 1%}
@@ -15,8 +15,10 @@
   <li class="active"><a href="#perfil" data-toggle="tab">Perfil</a></li>
   <li><a href="#mensajes" data-toggle="tab">Mensajes</a></li>
   <li><a href="#actividad" data-toggle="tab">Actividad</a></li>
+  {%if sesion is not empty and sesion == ls.nick%}
   <li><a href="#pagina" data-toggle="tab">Mi página</a></li>
   <li><a href="#misc" data-toggle="tab">Otras opciones</a></li>
+  {%endif%}
 </ul>
 
 <!-- Tab panels -->
@@ -84,29 +86,144 @@
                     <img  src="{{url}}/images/user/{{ls.avatar}}" alt="{{ls.nick}}" title="{{ls.nick}}" style="height: 180px; width: 180px; display: block;" />
                 </a>
             </div>
+            {# INICIO FIRMA #}
             <div class="col-xs-12 col-md-8">
-                Firma
-                <p>{{ls.firma|raw}}</p>
+                <h5>Firma {%if sesion is not empty and sesion == ls.nick%}- Vista previa{%endif%}</h5>
+                <div id="sig">{{ls.firma|raw}}</div>
+                <br />
+                {%if sesion is not empty and sesion == ls.nick%}
+                <form method="post" id="firmaform" name="firmaform">
+                <textarea id="firma" name="firma" style="width:100%; height:200px;">{{ls.firmaclean}}</textarea>
+                <script>
+                $(function() {
+                    $("#firma").sceditor({
+                        plugins: "bbcode"
+                    });
+                });
+                </script>
+                <div id="contador">500 carácteres maximo.</div>
+                <br />
+                <input type="hidden" name="signature" value="1" />
+                <button class="btn btn-primary" style="float:right;" type="submit" name="modificar">Modificar firma</button>
+                </form>
+                {%endif%}
             </div>
+            {# FIN FIRMA #}
             <div class="col-xs-6 col-md-4">
-                Contacto
-                <p></p>
+                <h5>Contacto</h5>
+                {%if ls.opciones.chkgametag == '1'%}
+                <h5><img src="{{url}}/{{template}}/img/icons/gamer_square.png" />Gametag: {{ls.gametag}}</h5>
+                {%endif%}
+                {%if ls.opciones.chkskype == '1'%}
+                <h5><img src="{{url}}/{{template}}/img/icons/skype_square_16.png" />Skype: <a href="skype:{{ls.skype}}?call">{{ls.skype}}</a></h5>
+                {%endif%}
+                {%if ls.opciones.chkfacebook == '1'%}
+                <h5><img src="{{url}}/{{template}}/img/icons/facebook_square_16.png" />Facebook: <a href="{{ls.facebook}}" target="_blank" id="linkfacebook" data-toggle="tooltip" data-placement="top" title="Ir al facebook de {{ls.nick}}">{{ls.facebook}}</a></h5>
+                {%endif%}
+                {%if ls.opciones.chktwitter == '1'%}
+                <h5><img src="{{url}}/{{template}}/img/icons/twitter_square_16.png" />Twitter: <a href="http://twitter.com/{{ls.twitter}}" target="_blank" id="linktwitter" data-toggle="tooltip" data-placement="top" title="Ir a @{{ls.twitter}}">@{{ls.twitter}}</a></h5>
+                {%endif%}
+                {%if ls.opciones.chkweb == '1'%}
+                <h5><img src="{{url}}/{{template}}/img/icons/chrome_16.png" />Web: <a href="{{ls.web}}" target="_blank" id="linkweb" data-toggle="tooltip" data-placement="top" title="Visitar página de {{ls.nick}}">{{ls.web}}</a></h5>
+                {%endif%}
             </div>
     </div>
   </div>
 {# FIN PANEL PERFIL #}
-  <div class="tab-pane fade in" id="mensajes">que</div>
-  <div class="tab-pane fade in" id="actividad">que</div>
-  <div class="tab-pane fade in" id="pagina">tal</div>
-  <div class="tab-pane fade in" id="misc">...</div>
+  <div class="tab-pane fade in" id="mensajes">Mensajes</div>
+  <div class="tab-pane fade in" id="actividad">Actividad</div>
+{%if sesion is not empty and sesion == ls.nick%}
+{#INICIO PANEL MI PAGINA#}
+  <div class="tab-pane fade in" id="pagina">
+  mi pagina
+  </div>
+{# FIN PANEL MI PAGINA#}
+{#INICIO PANEL MIS OPCIONES#}
+  <div class="tab-pane fade in" id="misc">
+  <div class="col-md-6" style="padding-right:20px;">
+  <h5>Datos personales</h5>
+      <form class="form-horizontal" method="post" name="contacto" id="contacto">
+          <div class="form-group">
+              <label for="name">Nombre</label>
+              <input type="text" id="name" class="form-control" disabled="disabled" placeholder="Nombre" name="name" required="required" value="{{ls.nombre}}" />                               
+          </div>
+          <div class="form-group">
+              <label for="lastname">Apellido</label>
+              <input type="text" id="lastname" class="form-control" placeholder="Apellido" name="lastname" value="{{ls.apellido}}" />                               
+          </div>
+          <div class="form-group">
+              <label for="lastname">Ciudad</label>
+              <input type="text" id="city" class="form-control" placeholder="Ciudad" name="city" disabled="disabled" required="required" value="{{ls.ciudad}}" />                               
+          </div>
+      </form>
+      </div>
+      <div class="col-md-6" style="padding-left:20px;">
+      <h5>Contacto</h5>
+      <form class="form-horizontal" method="post" name="contacto" id="contacto">
+          <div class="form-group">
+              <label for="gametag">Gametag</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" id="chkgametag" name="chkgametag" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" value="{{ls.valores.chkgametag}}" {%if ls.opciones.chkgametag == '1'%}checked{%endif%} data-toggle="tooltip" data-placement="top" title="Hacer pública" />
+                </span>
+                    <input type="text" id="gametag" class="form-control" placeholder="Gametag" name="gametag" value="{{ls.gametag}}" />                               
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="skype">Skype</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" id="chkskype" name="chkskype" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" value="{{ls.valores.chkskype}}" {%if ls.opciones.chkskype == '1'%}checked{%endif%} data-toggle="tooltip" data-placement="top" title="Hacer pública" />
+                </span>
+              <input type="text" id="skype" class="form-control" placeholder="Skype" name="skype" value="{{ls.skype}}" />                               
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="facebook">Facebook</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" id="chkfacebook" name="chkfacebook" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" value="{{ls.valores.chkfacebook}}" {%if ls.opciones.chkfacebook == '1'%}checked{%endif%} data-toggle="tooltip" data-placement="top" title="Hacer pública" />
+                </span>
+              <input type="text" id="facebook" class="form-control" placeholder="Facebook" name="facebook" value="{{ls.facebook}}" />                               
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="twitter">Twitter</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" id="chktwitter" name="chktwitter" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" value="{{ls.valores.chktwitter}}" {%if ls.opciones.chktwitter == '1'%}checked{%endif%} data-toggle="tooltip" data-placement="top" title="Hacer pública" />
+                </span>
+              <input type="text" id="twitter" class="form-control" placeholder="Twitter" name="twitter" value="{{ls.twitter}}" />                               
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="web">Web</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" id="chkweb" name="chkweb" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" value="{{ls.valores.chkweb}}" {%if ls.opciones.chkweb == '1'%}checked{%endif%} data-toggle="tooltip" data-placement="top" title="Hacer pública" />
+                </span>
+              <input type="text" id="web" class="form-control" placeholder="Web" name="web" value="{{ls.web}}" />
+              </div>                              
+          </div>
+          <input type="hidden" name="contact" value="1" />
+          <button class="btn btn-primary" style="float:right;" type="submit" name="guardar">Guardar</button>
+      </form>
+            </div>
+  </div>
+{#FIN PANEL MIS OPCIONES#}
+{%endif%}
 </div>
 <script type="text/javascript">
 $('#reputacion').tooltip('hide');
 $('#nivel').tooltip('hide');
 $('#dinero').tooltip('hide');
-$('#perfil a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-});
+$('#linkfacebook').tooltip('hide');
+$('#linktwitter').tooltip('hide');
+$('#linkweb').tooltip('hide');
+$('#chkgametag').tooltip('hide');
+$('#chkskype').tooltip('hide');
+$('#chkfacebook').tooltip('hide');
+$('#chktwitter').tooltip('hide');
+$('#chkweb').tooltip('hide');
 </script>
 {% include '_footer.twig' %}

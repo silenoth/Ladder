@@ -40,7 +40,6 @@ class __TwigTemplate_5874a2803f6738d44fd5b988c124cd26db8aeed7a216f2a65e37a8ba034
         // line 14
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/css/bootstrap.css\" rel=\"stylesheet\" />
-    
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src=\"https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js\"></script>
@@ -48,24 +47,24 @@ class __TwigTemplate_5874a2803f6738d44fd5b988c124cd26db8aeed7a216f2a65e37a8ba034
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src=\"";
-        // line 22
+        // line 21
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-        echo "/js/jquery-1.9.0.min.js\" type=\"text/javascript\"></script>
+        echo "/js/jquery-2.1.0.min.js\" type=\"text/javascript\"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src=\"";
-        // line 24
+        // line 23
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/bootstrap.min.js\"></script>
     <script src=\"";
-        // line 25
+        // line 24
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/bootbox.min.js\"></script>
     <link type=\"text/css\" href=\"";
-        // line 26
+        // line 25
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/css/bootstrapValidator.css\" rel=\"stylesheet\" />
     <script src=\"";
-        // line 27
+        // line 26
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/bootstrapValidator.js\" type=\"text/javascript\"></script>
     <style id=\"holderjs-style\" type=\"text/css\"></style>
@@ -82,12 +81,20 @@ class __TwigTemplate_5874a2803f6738d44fd5b988c124cd26db8aeed7a216f2a65e37a8ba034
         border-top: 1px solid #e5e5e5;
         }
     </style>
+    <script src=\"";
+        // line 41
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/plugins/editor/minified/jquery.sceditor.bbcode.js\"></script>
+    <link rel=\"stylesheet\" href=\"";
+        // line 42
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/plugins/editor/minified/themes/default.css\" type=\"text/css\" media=\"all\" />
   </head>
   <body>
 ";
-        // line 44
+        // line 45
         $this->env->loadTemplate("navbar.twig")->display($context);
-        // line 46
+        // line 47
         echo "<div class=\"container\" style=\"max-width:1000px;\">";
     }
 
@@ -112,6 +119,6 @@ class __TwigTemplate_5874a2803f6738d44fd5b988c124cd26db8aeed7a216f2a65e37a8ba034
 
     public function getDebugInfo()
     {
-        return array (  98 => 11,  95 => 10,  91 => 46,  89 => 44,  69 => 27,  65 => 26,  61 => 25,  57 => 24,  52 => 22,  41 => 14,  38 => 13,  36 => 10,  30 => 9,  20 => 1,);
+        return array (  105 => 11,  102 => 10,  98 => 47,  96 => 45,  90 => 42,  86 => 41,  68 => 26,  64 => 25,  60 => 24,  56 => 23,  51 => 21,  41 => 14,  38 => 13,  36 => 10,  30 => 9,  20 => 1,);
     }
 }

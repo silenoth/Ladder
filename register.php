@@ -5,7 +5,8 @@ require_once("class/system.class.php");
 require_once("class/register.class.php");
 
 $reg = new lsRegister();
-$reg->whereuFrom();
+$where = $reg->whereuFrom();
+$url = $reg->getUrl().'/registro';
 $reg->showRegister();
 if(empty($_SESSION['usuario'])){
     if($_POST){
@@ -41,6 +42,12 @@ if(empty($_SESSION['usuario'])){
         
     }
  } else {
+    if($where == $url){
+        header("Location: ".$reg->getUrl());
+      }else {
+            header("Location: ".$where);
+      }       
+    
     header("Location: ".$this->whereuFrom());    
   }
 ob_end_flush();

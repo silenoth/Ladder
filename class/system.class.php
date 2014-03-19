@@ -72,14 +72,16 @@ class lsSystem {
         $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
         
         if(!empty($_SESSION['usuario'])){
+            
            echo $tmpl->render(
             array(
                 'ls' => $datos,
                 'url' => $url,
                 'sesion' => $_SESSION['usuario'],
                 'nickclean' => $this->getNickClean($_SESSION['usuario']),
-                'online' => $this->online(),
+                'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
+                'total' => $this->countOnline(),
                 'template' => $tmplfldr)
             ); 
         } else {
@@ -87,8 +89,9 @@ class lsSystem {
             array(
                 'ls' => $datos,
                 'url' => $url,
-                'online' => $this->online(),
+                'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
+                'total' => $this->countOnline(),                
                 'template' => $tmplfldr)
             ); 
         }     
@@ -100,10 +103,37 @@ class lsSystem {
         require_once 'lib/jBBcode/Parser.php';
         $parser = new JBBCode\Parser();
         $parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
-        $builder = new JBBCode\CodeDefinitionBuilder('center', '<center>{param}</center>');
-        $parser->addCodeDefinition($builder->build());
+        
         $bbcode = $parser->getAsHtml($parser->parse($text));
         return $bbcode;
+    }
+    
+    //emot
+    public function getSmilies($smilies){
+        $folder = $this->getUrl().'/emoticons/';
+        $smilies = str_replace(
+            array(
+                ':)',
+                ':angel:',
+                ':angry:',
+                '8-)',
+                ':\'(',
+                ':ermm:',
+                ':D',
+                '&lt;3'
+            ), array(
+                '<img src="'.$folder.'smile.png" alt=":)" title=":)">',
+                '<img src="'.$folder.'angel.png" alt="angel" title="angel">',
+                '<img src="'.$folder.'angry.png" alt="angry" title="angry">',
+                '<img src="'.$folder.'cool.png" alt="8-)" title="8-)">',
+                '<img src="'.$folder.'cwy.png" alt=":\'(" title=":\'(">',
+                '<img src="'.$folder.'ermm.png" alt="ermm" title="ermm">',
+                '<img src="'.$folder.'grin.png" alt=":D" title=":D">',
+                '<img src="'.$folder.'heart.png" alt="<3" title="<3">',
+            ), $smilies  
+        );
+        
+        return $smilies;
     }
     
     //obtener lenguaje
@@ -135,7 +165,7 @@ class lsSystem {
     }
     
     //obtener ruta absoluta
-    private function getUrl(){
+    public function getUrl(){
         self::setNames();
         $sql = "SELECT a.ajuste_url AS url FROM ajustes AS a";
         $res = $this->con->query($sql);
@@ -176,17 +206,6 @@ class lsSystem {
         self::closeCon();
     }
     
-/**
-* @param int $lenghtChars
-* Tamaño de la cadena.
-* 
-* @param string $type
-* upper: Solo carácteres en mayusculas.
-* lower: Solo carácteres en minúsculas.
-* number: Solo caracteres numéricos.
-* upper;lower - lower;upper: Mayusculas y minusculas.
-* all: Carácteres mayusculas, minusculas y numéricos.
-*/
     //cadena aleatoria
     public function randString($lenghtChars, $type){
         $chars = array(
@@ -501,8 +520,8 @@ class lsSystem {
         self::closeCon();
     }
     
-    //quien esta online
-    function online(){
+    //Agregar a la bd usuarios conectados
+    function addOnline(){
         //tiempo en minutos de usuairo activo
         $time = 20;
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -607,6 +626,35 @@ class lsSystem {
         } else {
             return false;
         }
+    }
+    
+    //contar usuarios visitas
+    function countOnline(){
+        $sql = "SELECT
+        	(
+        		SELECT COUNT(*)
+        		FROM `online`
+        		WHERE	`online`.online_nick <> 'invitado'
+        	) AS registrado,
+        	(
+        		SELECT COUNT(*)
+        		FROM `online`
+        		WHERE	`online`.online_nick = 'invitado'
+        	) AS invitado,
+        	(
+        		SELECT COUNT(*) FROM `online`
+        	) AS total
+        	
+        FROM
+        	`online`";
+        $res = $this->con->query($sql);
+        $res->execute();
+        
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        
+        return $datos[0];
     }
         //dias trasncurridos
     public function daysElapsed($desde, $hasta){

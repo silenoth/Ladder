@@ -1,0 +1,15 @@
+<hr />
+<div style="float:left;">
+<h5><b>{{total.total}} Usuario(s) conectado(s) los ultimos 20 min.</b></h5>
+<h6>{{total.registrado}} miembro(s), {{total.invitado}} invitado(s)</h6>
+{% for u in uonline %}
+<span class="label small" style="font-size: 70%;background:#{{u.color}};">{%if u.nickclean == "Invitado"%}{{u.nick}}{%else%}<a href="{{url}}/perfil/{{u.nickclean}}" id="onlineuser" data-toggle="tooltip" data-placement="top" title="Ver perfil de {{u.nick}}">{{u.nick}}</a>{%endif%}</span> 
+{%endfor%}
+<div id="online"><h6><span class="label label-danger">Admin</span> | <span class="label label-primary">Moderadores</span> | <span class="label label-default">Miembros</span> | <span class="label label-default" style="background-color: #99A8BB;">Invitados</span></h6></div>
+</div>
+<style type="text/css">
+#online a:link, a:visited, a:active, a:hover{
+    text-decoration: inherit;
+    color:inherit;
+}
+</style>

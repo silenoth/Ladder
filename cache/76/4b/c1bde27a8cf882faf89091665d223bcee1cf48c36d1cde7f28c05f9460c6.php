@@ -18,7 +18,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
         // line 1
         $context["active"] = "news";
         // line 2
-        $this->env->loadTemplate("register.twig", "1095129317")->display($context);
+        $this->env->loadTemplate("register.twig", "1083232993")->display($context);
         // line 19
         echo "<div class=\"row\">
     <div class=\"col-lg-8\">
@@ -246,7 +246,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
                         message: 'Contraseña no puede quedar en blanco.'
                     },
                     identical: {
-                        field: 'pass',
+                        field: 'pass1',
                         message: 'La contraseña y confirmar contraseña no coinciden.'
                     },
                     different: {
@@ -283,7 +283,7 @@ class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9
 
 
 /* register.twig */
-class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9460c6_1095129317 extends Twig_Template
+class __TwigTemplate_764bc1bde27a8cf882faf89091665d223bcee1cf48c36d1cde7f28c05f9460c6_1083232993 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

@@ -1,11 +1,13 @@
 <?php
 
 class lsProfile extends lsSystem {
+    private $values;
     function __construct(){
         parent::__construct();
         if (file_exists(parent::getLang())){
             parent::getLang();
         }
+        $this->values=array();
     }
     
     function showProfile(){
@@ -13,6 +15,7 @@ class lsProfile extends lsSystem {
         $repmax = $this->getMaxRepLvl();
         $us = $_GET['user'];
         $user = $this->getProfile($_GET['user']);
+        $expl = explode(';',$user['opciones']);
         
         $datos = array(
             'online' => $this->getUserOnline($us),
@@ -25,7 +28,8 @@ class lsProfile extends lsSystem {
             'nick' => $user['nick'],
             'email' => $user['email'],
             'avatar' => $user['avatar'],
-            'firma' => $this->bbcode($user['firma']),
+            'firma' => $this->bbcode(str_replace(PHP_EOL, '<br />',$this->getSmilies($user['firma']))),
+            'firmaclean' => $user['firma'],
             'nombre' => $user['nombre'],
             'apellido' => $user['apellido'],
             'ciudad' => $user['ciudad'],
@@ -34,7 +38,7 @@ class lsProfile extends lsSystem {
             'nacimiento' => $user['nacimiento'],
             'ingreso' => $user['ingreso'],
             'ip' => $user['ip'],
-            'skype' => $user['gametag'],
+            'skype' => $user['skype'],
             'gametag' => $user['gametag'],
             'reputacion' => $repmax['maxrep'] * $user['reputacion'] / 100 * 0.01,
             'nivel' => $repmax['maxlvl'] * $user['nivel'] / 100 * 0.01,
@@ -46,7 +50,21 @@ class lsProfile extends lsSystem {
             'ultimopost' => $user['ultimopost'],
             'advertencia' => $user['advertencia'],
             'web' => $user['web'],
-            'alerta' => $user['alerta']
+            'alerta' => $user['alerta'],
+            'opciones' => array(
+                'chkgametag' => $expl[0],
+                'chkskype' => $expl[1],
+                'chkfacebook' => $expl[2],
+                'chktwitter' => $expl[3],
+                'chkweb' => $expl[4]
+            ),
+            'valores' => array(
+                'chkgametag' => $expl[0],
+                'chkskype' => $expl[1],
+                'chkfacebook' => $expl[2],
+                'chktwitter' => $expl[3],
+                'chkweb' => $expl[4]
+            )
         );
         $this->loadTemplate('profile', $datos);
     }
@@ -84,7 +102,8 @@ class lsProfile extends lsSystem {
         u.usuario_ultimo_post AS ultimopost,
         u.usuario_ultima_adv AS advertencia,
         u.usuario_sitio_web AS web,
-        u.usuario_alert AS alerta
+        u.usuario_alert AS alerta,
+        u.usuario_opciones AS opciones
         FROM usuarios AS u
         INNER JOIN grupos AS g ON (g.grupo_id = u.usuario_grupo)
         WHERE u.usuario_nick_clean = ?
@@ -103,7 +122,44 @@ class lsProfile extends lsSystem {
         } else {
             header("Location: ".$this->whereuFrom());
         }
-        
-        
+    }
+    //acualizar firma
+    function updateSignature($value,$nick){
+        parent::setNames();
+        $sql = "UPDATE usuarios SET usuarios.usuario_firma = ? WHERE usuarios.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,htmlspecialchars(addslashes(stripslashes(trim($value))),ENT_QUOTES),PDO::PARAM_STR);
+        $res->bindParam(2,$nick,PDO::PARAM_STR);
+        $res->execute();
+        header("Location: ".$this->getUrl()."/perfil/".$nick);
+    }
+    
+    function updateContact($values,$nick){
+        $chkgametag = $values['opciones']['chkgametag'];
+        $chkskype = $values['opciones']['chkskype'];
+        $chkfacebook = $values['opciones']['chkfacebook'];
+        $chktwitter = $values['opciones']['chktwitter'];
+        $chkweb = $values['opciones']['chkweb'];
+        $todo = $chkgametag.$chkskype.$chkfacebook.$chktwitter.$chkweb;
+        parent::setNames();
+        $sql = "UPDATE usuarios
+        SET 
+        usuarios.usuario_gametag = ?,
+        usuarios.usuario_skype = ?,
+        usuarios.usuario_facebook = ?,
+        usuarios.usuario_twitter = ?,
+        usuarios.usuario_sitio_web = ?,
+        usuarios.usuario_opciones = ?
+        WHERE usuarios.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$values['gametag'],PDO::PARAM_STR);
+        $res->bindParam(2,$values['skype'],PDO::PARAM_STR);
+        $res->bindParam(3,$values['facebook'],PDO::PARAM_STR);
+        $res->bindParam(4,$values['twitter'],PDO::PARAM_STR);
+        $res->bindParam(5,$values['web'],PDO::PARAM_STR);
+        $res->bindParam(6,$todo,PDO::PARAM_STR);
+        $res->bindParam(7,$nick,PDO::PARAM_STR);
+        $res->execute();
+        header("Location: ".$this->getUrl()."/perfil/".$nick);
     }
 }

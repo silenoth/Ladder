@@ -14,16 +14,21 @@ class lsRegister extends lsSystem {
     
     //mostrar plantilla de registro
     public function showRegister(){
-        $captcha = 'captcha.php';
+        if(empty($_SESSION['usuario'])){
+            $captcha = 'captcha.php';
          
-        $datos = array(
-            'captcha' => $captcha
-        );
-        
-        if(!empty($_GET['error'])){
-            $datos['error'] = $_GET['error'];
+            $datos = array(
+                'captcha' => $captcha
+            );
+            
+            if(!empty($_GET['error'])){
+                $datos['error'] = $_GET['error'];
+            }
+            $this->loadTemplate('register', $datos);
+        } else {
+            header("Location: ".$this->whereuFrom());
         }
-        $this->loadTemplate('register', $datos);
+        
     }
     //verificar si existe nick
     function checkNick($nick){
@@ -110,8 +115,10 @@ class lsRegister extends lsSystem {
             $activo = 0;
             $reputa = 0;
             $nivel  = 0;
+            $grupo = 3;
             parent::setNames();
             $sql = "INSERT INTO usuarios (
+                        usuario_grupo,
                     	usuario_acceso,
                     	usuario_hash,
                     	usuario_activo,
@@ -124,26 +131,27 @@ class lsRegister extends lsSystem {
                     	usuario_fecha_ingreso,
                     	usuario_ip,
                     	usuario_reputacion,
-                    	usuario_nivel)
+                    	usuario_nivel,
+                        usuario_opciones)
                     VALUES
-                    	(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?)";
+                    	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?,'0;0;0;0;0')";
             
             $res = $this->con->prepare($sql);
-            $res->bindParam(1,$acceso, PDO::PARAM_INT);
-            $res->bindParam(2,$hash, PDO::PARAM_STR);
-            $res->bindParam(3,$activo,PDO::PARAM_INT);
-            $res->bindParam(4,$nick,PDO::PARAM_STR);
-            $res->bindParam(5,$nclean,PDO::PARAM_STR);
-            $res->bindParam(6,$md5psw,PDO::PARAM_STR);
-            $res->bindParam(7,$email,PDO::PARAM_STR);
-            $res->bindParam(8,$noavatar,PDO::PARAM_STR);
-            $res->bindParam(9,$nombre,PDO::PARAM_STR);
-            $res->bindParam(10,$myip,PDO::PARAM_STR);
-            $res->bindParam(11,$reputa,PDO::PARAM_INT);
-            $res->bindParam(12,$nivel,PDO::PARAM_INT);
+            $res->bindParam(1,$grupo,PDO::PARAM_INT);
+            $res->bindParam(2,$acceso, PDO::PARAM_INT);
+            $res->bindParam(3,$hash, PDO::PARAM_STR);
+            $res->bindParam(4,$activo,PDO::PARAM_INT);
+            $res->bindParam(5,$nick,PDO::PARAM_STR);
+            $res->bindParam(6,$nclean,PDO::PARAM_STR);
+            $res->bindParam(7,$md5psw,PDO::PARAM_STR);
+            $res->bindParam(8,$email,PDO::PARAM_STR);
+            $res->bindParam(9,$noavatar,PDO::PARAM_STR);
+            $res->bindParam(10,$nombre,PDO::PARAM_STR);
+            $res->bindParam(11,$myip,PDO::PARAM_STR);
+            $res->bindParam(12,$reputa,PDO::PARAM_INT);
+            $res->bindParam(13,$nivel,PDO::PARAM_INT);
             $res->execute();
-            parent::closeCon();
-            header('Location: success.php');
+            header('Location: '.$this->getUrl().'/exito');
         } else {
             header("Location: register.php?error=emailsyntax");
             exit();

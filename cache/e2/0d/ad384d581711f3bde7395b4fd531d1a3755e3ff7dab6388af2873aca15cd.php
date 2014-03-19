@@ -22,7 +22,8 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
         // line 4
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/inicio\">Hearthstone Chile</a>
-        <button type=\"btn btn-navbar\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navHeaderCollapse\"> <span class=\"icon-bar\"></span>
+        <button type=\"btn btn-navbar\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navHeaderCollapse\">
+        <span class=\"icon-bar\"></span>
                     <span class=\"icon-bar\"></span>
                     <span class=\"icon-bar\"></span>
                     <span class=\"icon-bar\"></span>
@@ -30,7 +31,7 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
         <div class=\"collapse navbar-collapse navHeaderCollapse\">
         <ul class=\"nav navbar-nav\">
             <li ";
-        // line 12
+        // line 13
         if (((isset($context["active"]) ? $context["active"] : null) == "home")) {
             echo " class=\"active\"";
         }
@@ -38,7 +39,7 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/inicio\">Inicio</a></li>
             <li ";
-        // line 13
+        // line 14
         if (((isset($context["active"]) ? $context["active"] : null) == "forum")) {
             echo " class=\"active\"";
         }
@@ -46,7 +47,7 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/foros\">Foros</a></li>
             <li ";
-        // line 14
+        // line 15
         if (((isset($context["active"]) ? $context["active"] : null) == "ladder")) {
             echo " class=\"active\"";
         }
@@ -57,46 +58,33 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
         
             <ul class=\"nav navbar-nav navbar-right\">
             ";
-        // line 18
+        // line 19
         if (twig_test_empty((isset($context["sesion"]) ? $context["sesion"] : null))) {
-            // line 19
-            echo "                ";
             // line 20
-            echo "                <li class=\"dropdown\" id=\"menu1\">
-                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#menu1\">
+            echo "                ";
+            // line 21
+            echo "                <li>
+                    <a href=\"#\" data-toggle=\"modal\" data-target=\"#mlogin\">
                         Iniciar sesión
-                        <b class=\"caret\"></b>
                     </a>
-                 <div class=\"dropdown-menu\">
-                    <form style=\"margin: 0px\" accept-charset=\"UTF-8\" action=\"";
-            // line 26
-            echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-            echo "/conectar\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input name=\"authenticity_token\" type=\"hidden\" value=\"4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=\" /></div>
-                        <fieldset class='textbox' style=\"padding:10px\">
-                            <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"text\" placeholder=\"Nick\" name=\"nick\" />
-                            <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"password\" placeholder=\"Contraseña\" name=\"pass\" />
-                            <input class=\"btn btn-primary btn-small btn-block\" name=\"iniciar\" type=\"submit\" value=\"Conectar\" />
-                        </fieldset>
-                    </form>
-                 </div>
                </li>
                ";
-            // line 36
+            // line 27
             echo "                <li><a href=\"";
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "/registro\">Registrarse</a></li>
             ";
         } else {
-            // line 38
+            // line 29
             echo "            <li><a href=\"#\">Bienvenid@ </a></li>
                 <li class=\"dropdown\">
                     <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">";
-            // line 40
+            // line 31
             echo twig_escape_filter($this->env, (isset($context["sesion"]) ? $context["sesion"] : null), "html", null, true);
             echo "<b class=\"caret\"></b></a>
                     <ul class=\"dropdown-menu\">
                       <li><a href=\"";
-            // line 42
+            // line 33
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "/perfil/";
             echo twig_escape_filter($this->env, (isset($context["nickclean"]) ? $context["nickclean"] : null), "html", null, true);
@@ -105,20 +93,52 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
                       <li><a href=\"#\">Mi página</a></li>
                       <li class=\"divider\"></li>
                       <li><a href=\"";
-            // line 46
+            // line 37
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "/destruir\">Cerrar sesión</a></li>
                     </ul>
                 </li>
             ";
         }
-        // line 50
+        // line 41
         echo "            </ul>
         
         </div>
     </div>
 </nav>
 ";
+        // line 48
+        echo "<!-- Modal -->
+<div class=\"modal fade\" id=\"mlogin\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
+  <div class=\"modal-dialog\">
+    <div class=\"modal-content\">
+      <div class=\"modal-header\">
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
+        <h4 class=\"modal-title\" id=\"myModalLabel\">Iniciar sesión</h4>
+      </div>
+      <form style=\"margin: 0px\" accept-charset=\"UTF-8\" action=\"";
+        // line 56
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/conectar\" method=\"post\">
+      <div class=\"modal-body\">
+          <div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input name=\"authenticity_token\" type=\"hidden\" value=\"4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=\" /></div>
+              <fieldset class='textbox' style=\"padding:10px\">
+                  <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"text\" placeholder=\"Nick\" name=\"nick\" />
+                  <input class=\"form-control input-sm\" style=\"margin-bottom:10px\" type=\"password\" placeholder=\"Contraseña\" name=\"pass\" />
+              </fieldset>
+              <p><a href=\"\">Olvidé mi contraseña</a> - <a href=\"";
+        // line 63
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/registro\">Crear una cuenta</a></p>
+      </div>
+      <div class=\"modal-footer\">
+        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cerrar</button>
+        <button class=\"btn btn-primary\" name=\"iniciar\" type=\"submit\">Conectar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>";
     }
 
     public function getTemplateName()
@@ -133,6 +153,6 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
 
     public function getDebugInfo()
     {
-        return array (  116 => 50,  109 => 46,  100 => 42,  95 => 40,  91 => 38,  85 => 36,  73 => 26,  65 => 20,  63 => 19,  61 => 18,  50 => 14,  42 => 13,  34 => 12,  23 => 4,  19 => 2,);
+        return array (  131 => 63,  121 => 56,  111 => 48,  104 => 41,  97 => 37,  88 => 33,  83 => 31,  79 => 29,  73 => 27,  66 => 21,  64 => 20,  62 => 19,  51 => 15,  43 => 14,  35 => 13,  23 => 4,  19 => 2,);
     }
 }
