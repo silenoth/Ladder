@@ -656,6 +656,20 @@ class lsSystem {
         
         return $datos[0];
     }
+    
+    //obtener nombre del canal twich de usuario
+    public function getTwichChannel($user){
+        self::setNames();
+        $sql = "SELECT u.usuario_twichtv AS twich FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$user,PDO::PARAM_STR);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        
+        return $datos[0]['twich'];
+    }
         //dias trasncurridos
     public function daysElapsed($desde, $hasta){
         $dias	= (strtotime($desde)-strtotime($hasta))/86400;

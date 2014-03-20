@@ -11,17 +11,25 @@ class lsProfile extends lsSystem {
     }
     
     function showProfile(){
+        require('lib/twitch_interface.php');
+        // Instancize the class as an object
+        $interface = new twitch();
         
         $repmax = $this->getMaxRepLvl();
         $us = $_GET['user'];
         $user = $this->getProfile($_GET['user']);
         $expl = explode(';',$user['opciones']);
-        
+        //twich
+        $canal = $this->getTwichChannel($us);
+        $twich = $interface->getUserObject($canal);
+           //echo '<pre>';
+//           print_r($twich);     
         $datos = array(
             'online' => $this->getUserOnline($us),
             'id' => $user['id'],
             'fid' => $user['fid'],
             'acceso' => $user['acceso'],
+            'token' => $user['token'],
             'grupo' => $user['grupo'],
             'color' => $user['color'],
             'activo' => $user['activo'],
@@ -64,7 +72,18 @@ class lsProfile extends lsSystem {
                 'chkfacebook' => $expl[2],
                 'chktwitter' => $expl[3],
                 'chkweb' => $expl[4]
-            )
+            ),
+            /*twich*/
+            'twich_channel' => $canal,
+            'twich_type' => !empty($twich['type']) ? $twich['type'] : NULL,
+            'twich_created_at' => !empty($twich['created_at']) ? $twich['created_at'] : NULL,
+            'twich_updated_at' => !empty($twich['updated_at']) ? $twich['updated_at'] : NULL,
+            'twich_links_self' => !empty($twich['_links']['self']) ? $twich['_links']['self'] : NULL,
+            'twich_logo' => !empty($twich['logo']) ? $twich['logo'] : NULL,
+            'twich_id' => !empty($twich['_id']) ? $twich['_id'] : NULL,
+            'twich_display_name' => !empty($twich['display_name']) ? $twich['display_name'] : NULL,
+            'twich_bio' => !empty($twich['bio']) ? $twich['bio'] : NULL,
+            /*endtwich*/
         );
         $this->loadTemplate('profile', $datos);
     }
@@ -75,6 +94,7 @@ class lsProfile extends lsSystem {
         u.usuario_id AS id,
         u.usuario_fb_id AS fid,
         u.usuario_acceso AS acceso,
+        u.usuario_hash AS token,
         g.grupo_nombre AS grupo,
         g.grupo_color AS color,
         u.usuario_activo AS activo,
@@ -159,6 +179,16 @@ class lsProfile extends lsSystem {
         $res->bindParam(5,$values['web'],PDO::PARAM_STR);
         $res->bindParam(6,$todo,PDO::PARAM_STR);
         $res->bindParam(7,$nick,PDO::PARAM_STR);
+        $res->execute();
+        header("Location: ".$this->getUrl()."/perfil/".$nick);
+    }
+    
+    function updateTwichChannel($value,$nick){
+        parent::setNames();
+        $sql = "UPDATE usuarios SET usuarios.usuario_twichtv = ? WHERE usuarios.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$value,PDO::PARAM_STR);
+        $res->bindParam(2,$nick,PDO::PARAM_STR);
         $res->execute();
         header("Location: ".$this->getUrl()."/perfil/".$nick);
     }

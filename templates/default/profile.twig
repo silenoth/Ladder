@@ -17,6 +17,7 @@
   <li><a href="#actividad" data-toggle="tab">Actividad</a></li>
   {%if sesion is not empty and sesion == ls.nick%}
   <li><a href="#pagina" data-toggle="tab">Mi página</a></li>
+  <li><a href="#stream" data-toggle="tab">Twich TV</a></li>
   <li><a href="#misc" data-toggle="tab">Otras opciones</a></li>
   {%endif%}
 </ul>
@@ -109,6 +110,7 @@
                 {%endif%}
             </div>
             {# FIN FIRMA #}
+            {# INICIO CONTACTO #}
             <div class="col-xs-6 col-md-4">
                 <h5>Contacto</h5>
                 {%if ls.opciones.chkgametag == '1'%}
@@ -127,15 +129,95 @@
                 <h5><img src="{{url}}/{{template}}/img/icons/chrome_16.png" />Web: <a href="{{ls.web}}" target="_blank" id="linkweb" data-toggle="tooltip" data-placement="top" title="Visitar página de {{ls.nick}}">{{ls.web}}</a></h5>
                 {%endif%}
             </div>
+            {# FIN CONTACTO #}
     </div>
   </div>
 {# FIN PANEL PERFIL #}
-  <div class="tab-pane fade in" id="mensajes">Mensajes</div>
+{# INICIO PANEL MSJ #}
+  <div class="tab-pane fade in" id="mensajes">
+      <div class="row">
+      </div>
+  </div>
+{# FIN PANEL MSJ #}
+{# INICIO PANEL ACTIVIDAD #}
   <div class="tab-pane fade in" id="actividad">Actividad</div>
+{# FIN PANEL ACTIVIDAD #}
 {%if sesion is not empty and sesion == ls.nick%}
 {#INICIO PANEL MI PAGINA#}
   <div class="tab-pane fade in" id="pagina">
-  mi pagina
+    
+  </div>
+{# FIN PANEL MI PAGINA#}
+{#INICIO PANEL MI PAGINA#}
+  <div class="tab-pane fade in" id="stream">
+    <div class="panel panel-default" style="margin-top:10px;">
+    <div class="panel-heading" style="height: 40px;">
+    <h3 class="panel-title" style="float: left;">Twich TV </h3>
+        <div class="checkbox" style="float:right;margin-top:0;">
+          <label>
+            <input type="checkbox"/>Mostrar stream
+          </label>
+        </div>
+    </div>
+      <div class="panel-body">
+      {%if ls.twich_id is null%}
+      <div class="alert alert-warning">
+      Al parecer el canal {{ls.twich_channel}} no existe, asegurate de que esté correctamente escrito el nombre de tu canal.
+      </div>
+      {%endif%}
+      <div class="alert alert-warning">
+      Como obtener Client ID y Client Secret
+      </div>
+        <form class="form-horizontal" role="form" method="post" name="formtwich" id="formtwich">
+        <div class="form-group">
+            <label for="twichchannel" class="col-sm-2 control-label">Twich Channel:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="twichchannel" name="twichchannel" placeholder="Twich Channel" value="{{ls.twich_channel}}"/>
+            </div>
+        </div>
+        {%if ls.twich_id is not null%}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Twich ID:</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ls.twich_id}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Type:</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ls.twich_type}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Display Name:</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ls.twich_display_name}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Bio:</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ls.twich_bio}}</p>
+            </div>
+        </div>
+        {%endif%}
+        <div class="form-group">
+            <label for="clientid" class="col-sm-2 control-label">Client ID:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="clientid" name="clientid" placeholder="Client ID"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="clientsecret" class="col-sm-2 control-label">Client Secret:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="clientsecret" name="clientsecret" placeholder="Client Secret"/>
+        </div>
+          </div>
+          <input type="hidden" name="twichtv" value="1" />
+          <button type="submit" class="btn btn-primary" style="float:right;" name="savetwich">Guardar</button>
+        </form>
+      </div>
+    </div>
   </div>
 {# FIN PANEL MI PAGINA#}
 {#INICIO PANEL MIS OPCIONES#}
@@ -143,6 +225,12 @@
   <div class="col-md-6" style="padding-right:20px;">
   <h5>Datos personales</h5>
       <form class="form-horizontal" method="post" name="contacto" id="contacto">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Hash:</label>
+            <div>
+              <p class="form-control-static">{{ls.token}}</p>
+            </div>
+        </div>
           <div class="form-group">
               <label for="name">Nombre</label>
               <input type="text" id="name" class="form-control" disabled="disabled" placeholder="Nombre" name="name" required="required" value="{{ls.nombre}}" />                               

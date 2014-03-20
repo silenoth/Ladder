@@ -11,6 +11,10 @@ if($_POST){
         $profile->updateSignature($_POST['firma'],$_SESSION['usuario']);
         exit();        
     }
+    if($_POST['twichtv'] == 1){
+        $profile->updateTwichChannel($_POST['twichchannel'],$_SESSION['usuario']);
+        exit();
+    }
     if($_POST['contact'] == 1) {
         $values = array(
         'gametag' => $_POST['gametag'],
