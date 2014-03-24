@@ -658,22 +658,31 @@ class lsSystem {
     }
     
     //obtener nombre del canal twich de usuario
-    public function getTwichChannel($user){
+    public function getTwichClientSecret(){
         self::setNames();
-        $sql = "SELECT u.usuario_twichtv AS twich FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
-        $res = $this->con->prepare($sql);
-        $res->bindParam(1,$user,PDO::PARAM_STR);
+        $sql = "SELECT a.ajuste_twich_client_id AS twich_id, a.ajuste_twich_client_secret AS twich_secret FROM ajustes AS a";
+        $res = $this->con->query($sql);
         $res->execute();
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
         
-        return $datos[0]['twich'];
+        return $datos[0];
+    }
+    
+    function updateTwichChannel($value,$nick){
+        self::setNames();
+        $sql = "UPDATE usuarios SET usuarios.usuario_twitch_code = ? WHERE usuarios.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$value,PDO::PARAM_STR);
+        $res->bindParam(2,$nick,PDO::PARAM_STR);
+        $res->execute();
+        //header("Location: ".$this->getUrl()."/perfil/".$nick);
     }
         //dias trasncurridos
-    public function daysElapsed($desde, $hasta){
-        $dias	= (strtotime($desde)-strtotime($hasta))/86400;
-        $dias 	= abs($dias); $dias = floor($dias);		
-        return $dias;
-    }
+   // public function daysElapsed($desde, $hasta){
+//        $dias	= (strtotime($desde)-strtotime($hasta))/86400;
+//        $dias 	= abs($dias); $dias = floor($dias);		
+//        return $dias;
+//    }
 }

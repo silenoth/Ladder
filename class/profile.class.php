@@ -1,7 +1,7 @@
 <?php
 
 class lsProfile extends lsSystem {
-    private $values;
+    
     function __construct(){
         parent::__construct();
         if (file_exists(parent::getLang())){
@@ -20,10 +20,13 @@ class lsProfile extends lsSystem {
         $user = $this->getProfile($_GET['user']);
         $expl = explode(';',$user['opciones']);
         //twich
-        $canal = $this->getTwichChannel($us);
-        $twich = $interface->getUserObject($canal);
-           //echo '<pre>';
-//           print_r($twich);     
+        
+        $tsecret = $this->getTwichClientSecret();
+        $twitchaccess = $interface->generateAuthorizationURL(array('user_read', 'user_blocks_edit'));
+        
+        //$twichaccess = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=".$tsecret['twich_id']."&redirect_uri=".$this->getUrl()."&scope=user_read+channel_read+channel_subscriptions+channel_check_subscription+chat_login";
+        //$twich = $interface;
+        
         $datos = array(
             'online' => $this->getUserOnline($us),
             'id' => $user['id'],
@@ -73,8 +76,9 @@ class lsProfile extends lsSystem {
                 'chktwitter' => $expl[3],
                 'chkweb' => $expl[4]
             ),
-            /*twich*/
-            'twich_channel' => $canal,
+            'twitch_login' => $twitchaccess
+            /*twich
+            'twich_display_name' => $twichcheck['token']
             'twich_type' => !empty($twich['type']) ? $twich['type'] : NULL,
             'twich_created_at' => !empty($twich['created_at']) ? $twich['created_at'] : NULL,
             'twich_updated_at' => !empty($twich['updated_at']) ? $twich['updated_at'] : NULL,
@@ -180,16 +184,8 @@ class lsProfile extends lsSystem {
         $res->bindParam(6,$todo,PDO::PARAM_STR);
         $res->bindParam(7,$nick,PDO::PARAM_STR);
         $res->execute();
-        header("Location: ".$this->getUrl()."/perfil/".$nick);
+        
+        //header("Location: ".$this->getUrl()."/perfil/".$nick);
     }
     
-    function updateTwichChannel($value,$nick){
-        parent::setNames();
-        $sql = "UPDATE usuarios SET usuarios.usuario_twichtv = ? WHERE usuarios.usuario_nick_clean = ?";
-        $res = $this->con->prepare($sql);
-        $res->bindParam(1,$value,PDO::PARAM_STR);
-        $res->bindParam(2,$nick,PDO::PARAM_STR);
-        $res->execute();
-        header("Location: ".$this->getUrl()."/perfil/".$nick);
-    }
 }

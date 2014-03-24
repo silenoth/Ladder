@@ -21,11 +21,12 @@ if (!extension_loaded('curl')) trigger_error('cURL is not currently installed on
 if (!extension_loaded('json')) trigger_error('PECL JSON or pear JSON is not installed, please install either PECL JSON or compile pear JSON');
 
 // Define some things in the global scope (yes...global, if you want to make it defined in the class scope, go for it)
-
+global $twitch_clientKey, $twitch_clientSecret, $twitch_clientUrl;
 // Your API info goes here
+
 $twitch_clientKey = 't7daoxcmi5ta55091h094mlhscnlhxi';
 $twitch_clientSecret = 'fayicfhzass1zkabh0wj971ih7xgxx0';
-$twitch_clientUrl = 'http://localhost/ladder';
+$twitch_clientUrl = 'http://silenoth.zapto.org/ladder';
 
 // Did our user forget any of their credentials?
 if (($twitch_clientKey === '' || null) || ($twitch_clientSecret === '' || null) || ($twitch_clientUrl === '' || null))
@@ -1264,7 +1265,7 @@ class twitch
         $functionName = 'Generate_Token';
         $this->generateOutput($functionName, 'Generating auth token', 1);
         
-        $url = 'https://api.twitch.tv/kraken/oauth2/token';
+        $url = 'https://api.twitch.tv/kraken/oauth2/token/';
         $post = array(
             'client_id' => $twitch_clientKey,
             'client_secret' => $twitch_clientSecret,

@@ -148,7 +148,7 @@
     
   </div>
 {# FIN PANEL MI PAGINA#}
-{#INICIO PANEL MI PAGINA#}
+{#INICIO PANEL TWICH#}
   <div class="tab-pane fade in" id="stream">
     <div class="panel panel-default" style="margin-top:10px;">
     <div class="panel-heading" style="height: 40px;">
@@ -160,66 +160,43 @@
         </div>
     </div>
       <div class="panel-body">
-      {%if ls.twich_id is null%}
-      <div class="alert alert-warning">
-      Al parecer el canal {{ls.twich_channel}} no existe, asegurate de que esté correctamente escrito el nombre de tu canal.
-      </div>
-      {%endif%}
-      <div class="alert alert-warning">
-      Como obtener Client ID y Client Secret
-      </div>
+      
+      {%if ls.twitch_id is not null%}
         <form class="form-horizontal" role="form" method="post" name="formtwich" id="formtwich">
-        <div class="form-group">
-            <label for="twichchannel" class="col-sm-2 control-label">Twich Channel:</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="twichchannel" name="twichchannel" placeholder="Twich Channel" value="{{ls.twich_channel}}"/>
-            </div>
-        </div>
-        {%if ls.twich_id is not null%}
         <div class="form-group">
             <label class="col-sm-2 control-label">Twich ID:</label>
             <div class="col-sm-10">
-              <p class="form-control-static">{{ls.twich_id}}</p>
+              <p class="form-control-static">{{ls.twitch_id}}</p>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Type:</label>
             <div class="col-sm-10">
-              <p class="form-control-static">{{ls.twich_type}}</p>
+              <p class="form-control-static">{{ls.twitch_type}}</p>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Display Name:</label>
             <div class="col-sm-10">
-              <p class="form-control-static">{{ls.twich_display_name}}</p>
+              <p class="form-control-static">{{ls.twitch_display_name}}</p>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Bio:</label>
             <div class="col-sm-10">
-              <p class="form-control-static">{{ls.twich_bio}}</p>
+              <p class="form-control-static">{{ls.twitch_bio}}</p>
             </div>
         </div>
-        {%endif%}
-        <div class="form-group">
-            <label for="clientid" class="col-sm-2 control-label">Client ID:</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="clientid" name="clientid" placeholder="Client ID"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="clientsecret" class="col-sm-2 control-label">Client Secret:</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="clientsecret" name="clientsecret" placeholder="Client Secret"/>
-        </div>
-          </div>
           <input type="hidden" name="twichtv" value="1" />
           <button type="submit" class="btn btn-primary" style="float:right;" name="savetwich">Guardar</button>
         </form>
+        {%endif%}<a href="{{ls.twitch_login}}">
+        <button class="btn btn-default" style="background: -webkit-gradient(linear,left top,left bottom,from(#8266b6),to(#533787));background: -moz-linear-gradient(top,#8266b6,#533787);background: -o-linear-gradient(top,#8266b6,#533787);background: linear-gradient(top,#8266b6,#533787);background-color: #6a4e9e;border-top: 1px solid #5b3f8f;border-left: 1px solid #412771;border-right: 1px solid #412771;border-bottom: 1px solid #2a1453;box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);text-shadow: 0 1px 0 rgba(0,0,0,0.75);-moz-text-shadow: 0 1px 0 rgba(0,0,0,0.75);-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);color: #fff;">
+        Inicia sesion con twichtv</button></a>
       </div>
     </div>
   </div>
-{# FIN PANEL MI PAGINA#}
+{# FIN PANEL TWITCHTV#}
 {#INICIO PANEL MIS OPCIONES#}
   <div class="tab-pane fade in" id="misc">
   <div class="col-md-6" style="padding-right:20px;">
