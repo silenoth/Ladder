@@ -24,9 +24,9 @@ if (!extension_loaded('json')) trigger_error('PECL JSON or pear JSON is not inst
 global $twitch_clientKey, $twitch_clientSecret, $twitch_clientUrl;
 // Your API info goes here
 
-$twitch_clientKey = 't7daoxcmi5ta55091h094mlhscnlhxi';
-$twitch_clientSecret = 'fayicfhzass1zkabh0wj971ih7xgxx0';
-$twitch_clientUrl = 'http://silenoth.zapto.org/ladder';
+$twitch_clientKey = '';
+$twitch_clientSecret = '';
+$twitch_clientUrl = '';
 
 // Did our user forget any of their credentials?
 if (($twitch_clientKey === '' || null) || ($twitch_clientSecret === '' || null) || ($twitch_clientUrl === '' || null))
@@ -51,7 +51,7 @@ $twitch_configuration = array(
     'TOKEN_SEND_METHOD'       => 'HEADER',         // This sets how any OAuth tokens are sent.  Valid options are 'HEADER' and 'QUERY'
     'RETRY_COUNTER'           => 3,                // This sets the number of retries the interface will do when faced with status 0 returns
     'CERT_PATH'               => '',               // Path to your certificate (if you are supplying one)
-    'DEBUG_SUPPRESSION_LEVEL' => $twitch_debugLevels['FINE'], // This sets the maximum debug level that gets to output, ALL sets to display all returns, including RAW JSON returns
+    'DEBUG_SUPPRESSION_LEVEL' => $twitch_debugLevels['FINEST'], // This sets the maximum debug level that gets to output, ALL sets to display all returns, including RAW JSON returns
     'CALL_LIMIT_DEFAULT'      => '25',
     'CALL_LIMIT_DOUBLE'       => '50',
     'CALL_LIMIT_MAX'          => '100'
@@ -158,7 +158,18 @@ class twitch
     private function generateError($errNo, $errStr, $return = null)
     {
         // Enter your output format code here
-        
+        // Check to see if the file exists
+        if (!file_exists('./error_log.php'))
+        {
+            $handle = @fopen('./error_log.php', 'a');
+            fwrite($handle, '<?php exit; ?>' . "\n");
+        } else {
+            $handle = @fopen('./error_log.php', 'a');
+        }
+
+        // Write the log
+        @fwrite($handle, $errNo . ':' . $errStr . "\n");
+        @fclose($handle);
     }
     
     /**
@@ -178,7 +189,17 @@ class twitch
         if ($twitch_configuration['DEBUG_SUPPRESSION_LEVEL'] >= $outputLevel)
         {
             // Enter your output format code here
-            
+            if (!file_exists('./output_log.php'))
+            {
+                $handle = @fopen('./output_log.php', 'a');
+                fwrite($handle, '<?php exit; ?>' . "\n");
+            } else {
+                $handle = @fopen('./output_log.php', 'a');
+            }
+
+            // Write the log
+            @fwrite($handle, $function . '=>' . $errStr . "\n");
+            @fclose($handle);
         }
     }
     
