@@ -4,6 +4,9 @@ class lsSystem {
     protected $con;
     
     function __construct(){
+        require_once('lib/twitch_interface.php');
+        require_once("lib/facebook.php");
+        
         if(file_exists("config.php")){
             require_once("config.php");
                 try {
@@ -15,6 +18,17 @@ class lsSystem {
             } else {
             echo "El archivo de configuracion no existe.";
         }
+    }
+    
+     public function start() {
+            $this->_timeparts = explode(" ",microtime());
+            $this->_starttime = $this->_timeparts[1].substr($this->_timeparts[0],1);
+            $this->_timeparts = explode(" ",microtime());
+    }
+ 
+    public function end() {
+            $endtime = $this->_timeparts[1].substr($this->_timeparts[0],1);
+            return bcsub($endtime,$this->_starttime,6);
     }
     
     //cerrar conexion
@@ -72,12 +86,12 @@ class lsSystem {
         $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
         
         if(!empty($_SESSION['usuario'])){
-            
            echo $tmpl->render(
             array(
                 'ls' => $datos,
                 'url' => $url,
                 'sesion' => $_SESSION['usuario'],
+                'acceso' => $this->getUserAccess($_SESSION['usuario']),
                 'nickclean' => $this->getNickClean($_SESSION['usuario']),
                 'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
@@ -85,10 +99,36 @@ class lsSystem {
                 'template' => $tmplfldr)
             ); 
         } else {
-            echo $tmpl->render(
+        // Twitch: Instancize the class as an object
+        $twitch = new twitch();    
+        //obtenemnos una url de autorizacion
+        $getAuth = $twitch->generateAuthorizationURL(array('user_read', 'user_follows_edit'));
+        //Facebook:
+        $config = array(
+              'appId' => '230960667035553',
+              'secret' => '514893bb8d6f68a89dbbbbae8c14e2eb',
+              'fileUpload' => false, // optional
+              'allowSignedRequest' => false, // optional, but should be set to false for non-canvas apps
+              );
+        $facebook = new Facebook($config);
+        // Get the current access token
+        $access_token = $facebook->getAccessToken();
+        //facebook
+        $params = array(
+          'scope' => 'read_stream, friends_likes',
+          'redirect_uri' => 'http://silenoth.zapto.org/ladder'
+        );
+        
+        $loginUrl = $facebook->getLoginUrl($params);
+        
+        
+        echo $tmpl->render(
             array(
                 'ls' => $datos,
                 'url' => $url,
+                
+                'twitch_auth' => $getAuth,
+                'facebook_auth' => $loginUrl,
                 'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
                 'total' => $this->countOnline(),                
@@ -670,15 +710,42 @@ class lsSystem {
         return $datos[0];
     }
     
-    function updateTwichChannel($value,$nick){
+    function updateTwichChannel($values,$nick){
         self::setNames();
-        $sql = "UPDATE usuarios SET usuarios.usuario_twitch_code = ? WHERE usuarios.usuario_nick_clean = ?";
+        $sql = "UPDATE usuarios SET 
+        usuarios.usuario_twitch_id = ?,
+        usuarios.usuario_twitch_user = ?,
+        usuarios.usuario_twitch_token = ?,
+        usuarios.usuario_twitch_code = ?,
+        usuarios.usuario_twitch_scopes = ?
+        WHERE usuarios.usuario_nick_clean = ?";
         $res = $this->con->prepare($sql);
-        $res->bindParam(1,$value,PDO::PARAM_STR);
-        $res->bindParam(2,$nick,PDO::PARAM_STR);
+        $res->bindParam(1,$values['twitch_id'],PDO::PARAM_STR);
+        $res->bindParam(2,$values['twitch_user'],PDO::PARAM_STR);
+        $res->bindParam(3,$values['twitch_token'],PDO::PARAM_STR);
+        $res->bindParam(4,$values['twitch_code'],PDO::PARAM_STR);
+        $res->bindParam(5,$values['twitch_scopes'],PDO::PARAM_STR);
+        $res->bindParam(6,$nick,PDO::PARAM_STR);
         $res->execute();
-        //header("Location: ".$this->getUrl()."/perfil/".$nick);
+        header("Location: ".$this->getUrl()."/perfil/".$nick);
     }
+    
+   function getUserAccess($nick){
+        $user = $this->getNickClean($nick);
+        $sql = "SELECT u.usuario_acceso AS acceso FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$user,PDO::PARAM_STR);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        switch ($datos[0]['acceso']) {
+            case 1:case 2:case 3:case 4:case 5:
+                return true;
+                break;
+        }
+   }
+
         //dias trasncurridos
    // public function daysElapsed($desde, $hasta){
 //        $dias	= (strtotime($desde)-strtotime($hasta))/86400;

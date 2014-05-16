@@ -1,5 +1,11 @@
-(function($) {
+(function ($) {
     $.fn.bootstrapValidator.validators.remote = {
+        html5Attributes: {
+            message: 'message',
+            url: 'url',
+            name: 'name'
+        },
+
         /**
          * Request a remote server to check the input value
          *
@@ -11,27 +17,42 @@
          *  {
          *      <fieldName>: <fieldValue>
          *  }
+         * - name [optional]: Override the field name for the request.
          * - message: The invalid message
-         * @returns {string}
+         * @returns {Boolean|Deferred}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val(), name = $field.attr('name'), data = options.data;
+            var value = $field.val();
+            if (value == '') {
+                return true;
+            }
+
+            var name = $field.attr('data-bv-field'), data = options.data;
             if (data == null) {
                 data = {};
             }
-            data[name] = value;
+            // Support dynamic data
+            if ('function' == typeof data) {
+                data = data.call(this, validator);
+            }
+            data[options.name || name] = value;
+
+            var dfd = new $.Deferred();
             var xhr = $.ajax({
                 type: 'POST',
                 url: options.url,
                 dataType: 'json',
                 data: data
-            }).success(function(response) {
-                var isValid =  response.valid === true || response.valid === 'true';
-                validator.completeRequest($field, 'remote', isValid);
             });
-            validator.startRequest($field, 'remote', xhr);
+            xhr.then(function(response) {
+                dfd.resolve($field, 'remote', response.valid === true || response.valid === 'true');
+            });
 
-            return 'pending';
+            dfd.fail(function() {
+                xhr.abort();
+            });
+
+            return dfd;
         }
     };
 }(window.jQuery));

@@ -1,5 +1,10 @@
 (function($) {
     $.fn.bootstrapValidator.validators.identical = {
+        html5Attributes: {
+            message: 'message',
+            field: 'field'
+        },
+
         /**
          * Check if input value equals to value of particular one
          *
@@ -7,13 +12,21 @@
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
-         * @returns {boolean}
+         * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value        = $field.val(),
-                $compareWith = validator.getFieldElement(options.field);
-            if ($compareWith && value == $compareWith.val()) {
-                validator.removeError($compareWith);
+            var value = $field.val();
+            if (value == '') {
+                return true;
+            }
+
+            var compareWith = validator.getFieldElements(options.field);
+            if (compareWith == null) {
+                return true;
+            }
+
+            if (value == compareWith.val()) {
+                validator.updateStatus(options.field, validator.STATUS_VALID, 'identical');
                 return true;
             } else {
                 return false;

@@ -24,9 +24,9 @@ if (!extension_loaded('json')) trigger_error('PECL JSON or pear JSON is not inst
 global $twitch_clientKey, $twitch_clientSecret, $twitch_clientUrl;
 // Your API info goes here
 
-$twitch_clientKey = '';
-$twitch_clientSecret = '';
-$twitch_clientUrl = '';
+$twitch_clientKey = 't7daoxcmi5ta55091h094mlhscnlhxi';
+$twitch_clientSecret = 'cqd2nl2eb1eanhkf7rui6lnotaq0dcv';
+$twitch_clientUrl = 'http://silenoth.zapto.org/ladder';
 
 // Did our user forget any of their credentials?
 if (($twitch_clientKey === '' || null) || ($twitch_clientSecret === '' || null) || ($twitch_clientUrl === '' || null))

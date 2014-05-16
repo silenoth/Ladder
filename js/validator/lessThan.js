@@ -1,5 +1,22 @@
 (function($) {
     $.fn.bootstrapValidator.validators.lessThan = {
+        html5Attributes: {
+            message: 'message',
+            value: 'value',
+            inclusive: 'inclusive'
+        },
+
+        enableByHtml5: function($field) {
+            var max = $field.attr('max');
+            if (max) {
+                return {
+                    value: max
+                };
+            }
+
+            return false;
+        },
+
         /**
          * Return true if the input value is less than or equal to given number
          *
@@ -9,11 +26,15 @@
          * - value: The number used to compare to
          * - inclusive [optional]: Can be true or false. Default is true
          * - message: The invalid message
-         * @returns {boolean}
+         * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = parseFloat($field.val());
-            return (options.inclusive === true) ? (value < options.value) : (value <= options.value);
+            var value = $field.val();
+            if (value == '') {
+                return true;
+            }
+            value = parseFloat(value);
+            return (options.inclusive === false) ? (value <= options.value) : (value < options.value);
         }
     };
 }(window.jQuery));

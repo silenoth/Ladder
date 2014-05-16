@@ -10,9 +10,9 @@
         </button>
         <div class="collapse navbar-collapse navHeaderCollapse">
         <ul class="nav navbar-nav">
-            <li {% if active == 'home' %} class="active"{% endif %}><a href="{{url}}/inicio">Inicio</a></li>
-            <li {% if active == 'forum' %} class="active"{% endif %}><a href="{{url}}/foros">Foros</a></li>
-            <li {% if active == 'ladder' %} class="active"{% endif %}><a href="{{url}}/competencia">Competencias</a></li>
+            <li {%if active == 'home'%} class="active"{%endif%}><a href="{{url}}/inicio">Inicio</a></li>
+            <li {%if active == 'forum'%} class="active"{%endif%}><a href="{{url}}/foros">Foros</a></li>
+            <li {%if active == 'ladder'%} class="active"{%endif%}><a href="{{url}}/competencia">Competencias</a></li>
         </ul>
         
             <ul class="nav navbar-nav navbar-right">
@@ -23,7 +23,7 @@
                         Iniciar sesión
                     </a>
                </li>
-               {# ***FIN LOGIN USUARIOS** #}
+               {# FIN LOGIN USUARIOS #}
                 <li><a href="{{url}}/registro">Registrarse</a></li>
             {% else %}
             <li><a href="#">Bienvenid@ </a></li>
@@ -33,6 +33,7 @@
                       <li><a href="{{url}}/perfil/{{nickclean}}">Perfil</a></li>
                       <li><a href="#">Mensajes <span class="badge">0</span></a></li>
                       <li><a href="#">Mi página</a></li>
+                      {%if acceso == true%}<li><a href="{{url}}/modulos/adm">Administracion</a></li>{%endif%}
                       <li class="divider"></li>
                       <li><a href="{{url}}/destruir">Cerrar sesión</a></li>
                     </ul>
@@ -60,6 +61,17 @@
                   <input class="form-control input-sm" style="margin-bottom:10px" type="text" placeholder="Nick" name="nick" />
                   <input class="form-control input-sm" style="margin-bottom:10px" type="password" placeholder="Contraseña" name="pass" />
               </fieldset>
+              <p style="padding:10px;"><a href="{{twitch_auth}}">
+                    <button class="btn btn-default" style="background: -webkit-gradient(linear,left top,left bottom,from(#8266b6),to(#533787));background: -moz-linear-gradient(top,#8266b6,#533787);background: -o-linear-gradient(top,#8266b6,#533787);background: linear-gradient(top,#8266b6,#533787);background-color: #6a4e9e;border-top: 1px solid #5b3f8f;border-left: 1px solid #412771;border-right: 1px solid #412771;border-bottom: 1px solid #2a1453;box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);text-shadow: 0 1px 0 rgba(0,0,0,0.75);-moz-text-shadow: 0 1px 0 rgba(0,0,0,0.75);-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);color: #fff;">
+                    <img src="{{url}}/{{template}}/img/icons/twitch_square_16.png" style="margin-right:5px;"/>Iniciar sesión con Twich TV</button>
+                    </a>
+              </p>
+              <p style="padding:10px;"><a href="{{facebook_auth}}">
+                    <button class="btn btn-default" style="background: -webkit-gradient(linear,left top,left bottom,from(#4c66a4),to(#3c5996));background: -moz-linear-gradient(top,#4c66a4,#3c5996);background: -o-linear-gradient(top,#4c66a4,#3c5996);background: linear-gradient(top,#4c66a4,#3c5996);background-color: #3a4b7a;border-top: 1px solid #3a4b7a;border-left: 1px solid #3a4b7a;border-right: 1px solid #3a4b7a;border-bottom: 1px solid #3a4b7a;box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);text-shadow: 0 1px 0 rgba(0,0,0,0.75);-moz-text-shadow: 0 1px 0 rgba(0,0,0,0.75);-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);color: #fff;">
+                    <img src="{{url}}/{{template}}/img/icons/facebook_square_16.png" style="margin-right:5px;"/>Inicia sesión con Facebook</button>
+                    </a>
+              </p>
+              
               <p><a href="">Olvidé mi contraseña</a> - <a href="{{url}}/registro">Crear una cuenta</a></p>
       </div>
       <div class="modal-footer">

@@ -4,15 +4,16 @@ ob_start();
 require_once("class/system.class.php");
 require_once("class/profile.class.php");
 $profile = new lsProfile();
+$profile->start();
 $profile->whereuFrom();
 $profile->showProfile();
-if($_POST){
-    if($_POST['signature'] == 1){
+if(isset($_POST)){
+    if(isset($_POST['signature']) and $_POST['signature'] == 1){
         $profile->updateSignature($_POST['firma'],$_SESSION['usuario']);
         exit();        
     }
     
-    if($_POST['contact'] == 1) {
+    if(isset($_POST['contact']) and $_POST['contact'] == 1) {
         $values = array(
         'gametag' => $_POST['gametag'],
         'skype' => $_POST['skype'],
@@ -31,4 +32,5 @@ if($_POST){
         exit();
     }
 }
+echo "La consulta demoró ".$profile->end()." seg.";
 ob_end_flush();

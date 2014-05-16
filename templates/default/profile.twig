@@ -1,8 +1,14 @@
 {% set active = 'profile' %}
 {% embed '_header.twig' %}
-{% block titulo %}
-<title>{%if sesion == ls.nick%}Bienvenido {{ls.nick}}{%else%}Perfil de {{ls.nick}}{%endif%}</title>
-{% endblock %}
+    {% block titulo %}
+        <title>{%if sesion == ls.nick%}Bienvenido {{ls.nick}}{%else%}Perfil de {{ls.nick}}{%endif%}</title>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" href="{{url}}/plugins/editor/minified/themes/default.css" type="text/css" media="all" />
+    {% endblock %}
+    {% block js %}
+        <script src="{{url}}/js/bootstrapValidator.js" type="text/javascript"></script>
+    {% endblock %}
 {% endembed %}
 {% if ls.alerta == 1%}
     <div class="alert alert-info alert-dismissable">
@@ -126,7 +132,7 @@
                 <h5><img src="{{url}}/{{template}}/img/icons/twitter_square_16.png" />Twitter: <a href="http://twitter.com/{{ls.twitter}}" target="_blank" id="linktwitter" data-toggle="tooltip" data-placement="top" title="Ir a @{{ls.twitter}}">@{{ls.twitter}}</a></h5>
                 {%endif%}
                 {%if ls.opciones.chkweb == '1'%}
-                <h5><img src="{{url}}/{{template}}/img/icons/chrome_16.png" />Web: <a href="{{ls.web}}" target="_blank" id="linkweb" data-toggle="tooltip" data-placement="top" title="Visitar página de {{ls.nick}}">{{ls.web}}</a></h5>
+                <h5><img src="{{url}}/{{template}}/img/icons/chrome_square_16.png" />Web: <a href="{{ls.web}}" target="_blank" id="linkweb" data-toggle="tooltip" data-placement="top" title="Visitar página de {{ls.nick}}">{{ls.web}}</a></h5>
                 {%endif%}
             </div>
             {# FIN CONTACTO #}
@@ -160,8 +166,12 @@
         </div>
     </div>
       <div class="panel-body">
-      
-      {%if ls.twitch_id is not null%}
+        {%if ls.twitch_islogin == false%}
+        <a href="{{ls.twitch_login}}">
+        <button class="btn btn-default" style="background: -webkit-gradient(linear,left top,left bottom,from(#8266b6),to(#533787));background: -moz-linear-gradient(top,#8266b6,#533787);background: -o-linear-gradient(top,#8266b6,#533787);background: linear-gradient(top,#8266b6,#533787);background-color: #6a4e9e;border-top: 1px solid #5b3f8f;border-left: 1px solid #412771;border-right: 1px solid #412771;border-bottom: 1px solid #2a1453;box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);text-shadow: 0 1px 0 rgba(0,0,0,0.75);-moz-text-shadow: 0 1px 0 rgba(0,0,0,0.75);-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);color: #fff;">
+        Inicia sesion con twichtv</button>
+        </a>
+        {%else%}
         <form class="form-horizontal" role="form" method="post" name="formtwich" id="formtwich">
         <div class="form-group">
             <label class="col-sm-2 control-label">Twich ID:</label>
@@ -187,12 +197,13 @@
               <p class="form-control-static">{{ls.twitch_bio}}</p>
             </div>
         </div>
+        <div class="form-group">
+        <img src="{{ls.twitch_logo}}" style="height: 180px; width: 180px; display: block;" class="thumbnail" />
+        </div>
           <input type="hidden" name="twichtv" value="1" />
           <button type="submit" class="btn btn-primary" style="float:right;" name="savetwich">Guardar</button>
         </form>
-        {%endif%}<a href="{{ls.twitch_login}}">
-        <button class="btn btn-default" style="background: -webkit-gradient(linear,left top,left bottom,from(#8266b6),to(#533787));background: -moz-linear-gradient(top,#8266b6,#533787);background: -o-linear-gradient(top,#8266b6,#533787);background: linear-gradient(top,#8266b6,#533787);background-color: #6a4e9e;border-top: 1px solid #5b3f8f;border-left: 1px solid #412771;border-right: 1px solid #412771;border-bottom: 1px solid #2a1453;box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);text-shadow: 0 1px 0 rgba(0,0,0,0.75);-moz-text-shadow: 0 1px 0 rgba(0,0,0,0.75);-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);color: #fff;">
-        Inicia sesion con twichtv</button></a>
+        {%endif%}
       </div>
     </div>
   </div>
@@ -268,6 +279,15 @@
                     <input type="checkbox" id="chkweb" name="chkweb" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" value="{{ls.valores.chkweb}}" {%if ls.opciones.chkweb == '1'%}checked{%endif%} data-toggle="tooltip" data-placement="top" title="Hacer pública" />
                 </span>
               <input type="text" id="web" class="form-control" placeholder="Web" name="web" value="{{ls.web}}" />
+              </div>                              
+          </div>
+          <div class="form-group">
+              <label for="twitch">Twitch Channel</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" id="chktwitch" name="chktwitch" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" value="{{ls.valores.chkweb}}" {%if ls.opciones.chkweb == '1'%}checked{%endif%} data-toggle="tooltip" data-placement="top" title="Hacer pública" />
+                </span>
+              <input type="text" id="twitch" disabled="disabled" class="form-control" placeholder="Twitch" name="twitch" value="{{ls.twitch_name}}" />
               </div>                              
           </div>
           <input type="hidden" name="contact" value="1" />

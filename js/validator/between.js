@@ -1,5 +1,23 @@
 (function($) {
     $.fn.bootstrapValidator.validators.between = {
+        html5Attributes: {
+            message: 'message',
+            min: 'min',
+            max: 'max',
+            inclusive: 'inclusive'
+        },
+
+        enableByHtml5: function($field) {
+            if ('range' == $field.attr('type')) {
+                return {
+                    min: $field.attr('min'),
+                    max: $field.attr('max')
+                };
+            }
+
+            return false;
+        },
+
         /**
          * Return true if the input value is between (strictly or not) two given numbers
          *
@@ -10,10 +28,15 @@
          * - max
          * - inclusive [optional]: Can be true or false. Default is true
          * - message: The invalid message
-         * @returns {boolean}
+         * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = parseFloat($field.val());
+            var value = $field.val();
+            if (value == '') {
+                return true;
+            }
+
+            value = parseFloat(value);
             return (options.inclusive === true)
                         ? (value > options.min && value < options.max)
                         : (value >= options.min && value <= options.max);

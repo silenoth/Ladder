@@ -1,14 +1,23 @@
 (function($) {
     $.fn.bootstrapValidator.validators.uri = {
+        enableByHtml5: function($field) {
+            return ('url' == $field.attr('type'));
+        },
+
         /**
          * Return true if the input value is a valid URL
          *
          * @param {BootstrapValidator} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
-         * @returns {boolean}
+         * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
+            var value = $field.val();
+            if (value == '') {
+                return true;
+            }
+
             // Credit to https://gist.github.com/dperini/729294
             //
             // Regular Expression for URL validation
@@ -82,7 +91,7 @@
                 "(?:/[^\\s]*)?" +
                 "$", "i"
             );
-            return urlExp.test($field.val());
+            return urlExp.test(value);
         }
     };
 }(window.jQuery));

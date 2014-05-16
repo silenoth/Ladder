@@ -6,10 +6,15 @@
          * @param {BootstrapValidator} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
-         * @returns {boolean}
+         * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            return /^\d+$/.test($field.val());
+            var value = $field.val();
+            if (value == '') {
+                return true;
+            }
+
+            return /^\d+$/.test(value);
         }
     }
 }(window.jQuery));

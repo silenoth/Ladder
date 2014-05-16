@@ -15,5 +15,6 @@ Rewriterule ^conectar$ session.php
 Rewriterule ^destruir$ session.php?session=destroy
 Rewriterule ^registro$ register.php
 Rewriterule ^exito$ success.php
+Rewriterule ^modulos/adm$ admin.php
 #ErrorDocument nroError /err404.php
 ErrorDocument 404 /err404.php

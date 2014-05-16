@@ -45,7 +45,7 @@
     <a href="articulo/{{prev.id}}/{{prev.url}}" style="text-decoration:none;">
         <div class="col-sm-6 col-md-4" id="preview{{i}}" data-toggle="tooltip" data-placement="bottom" title="Continuar leyendo {{prev.titulo|slice(0,25)}}..." style="word-break: break-word;">
             <div class="thumbnail">
-                <img src="{{url}}/images/news/{{prev.imagen}}" alt="..." />
+                <img src="{{url}}/images/news/{{prev.imagen}}" alt="{{prev.titulo}}" style="width:260px;height:130px;" />
                 <div class="caption">
                     <div style="overflow:hidden;max-height:50px;min-height:50px">
                         <h4>{{ prev.titulo }}</h4>
@@ -72,14 +72,16 @@
     </div>
     <div class="row">
         {# INICIO AGREGANDO NOTICIAS #}
+        {% set n = 1 %}
         {% for noticia in ls.news %}
         <div class="panel-body thumbnail" style="word-break: break-word;padding-top:0;">
             <a href="articulo/{{noticia.id}}/{{noticia.url}}" style="color:inherit; text-decoration:none;">
                 <div class="col-lg-4" style="padding-left:0;">
-                    <img src="{{url}}/images/news/{{noticia.imagen}}" alt="{{noticia.titulo}}" class="img-thumbnail" style="margin-top:20px" />  
+                    <img src="{{url}}/images/news/{{noticia.imagen}}" alt="{{noticia.titulo}}" class="img-thumbnail" style="margin-top:20px;width:260px;height:130px;" />  
                 </div>
             </a>  
             <div class="col-lg-8">
+            {%if acceso == true%}<span id="eliminar{{n}}" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="left" title="Eliminar noticia" style="bottom:0;float:right;padding-top:10px;padding-left:20px;cursor:pointer;"></span>{%endif%}
                 <a href="articulo/{{noticia.id}}/{{noticia.url}}" style="color:inherit; text-decoration:none;">
                     <h3 style="padding-top:0;">{{noticia.titulo}}</h3>
                     <p style="padding-top:0;">{{noticia.preview}}
@@ -88,8 +90,15 @@
                 <div class="row">
                     <div class="col-lg-8">Escrito por {{noticia.autor}} el {{noticia.fecha|date("d \\d\\e M \\d\\e Y")}}</div>
                 </div>
-            </div>   
+                
+            </div> 
+            {%if acceso == true%}<span id="editar{{n}}" class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="left" title="Editar noticia" style="bottom:0;float:right;padding-top:10px;cursor:pointer;"></span>{%endif%}  
         </div>
+        <script>
+        $('#eliminar{{n}}').tooltip('hide')
+        $('#editar{{n}}').tooltip('hide');
+        </script>
+        {% set n = n + 1 %}
         {% endfor %}
         {# FIN AGREGANDO NOTICIAS #}
     </div>

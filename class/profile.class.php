@@ -7,25 +7,22 @@ class lsProfile extends lsSystem {
         if (file_exists(parent::getLang())){
             parent::getLang();
         }
-        $this->values=array();
     }
     
     function showProfile(){
-        require('lib/twitch_interface.php');
-        // Instancize the class as an object
-        $interface = new twitch();
+        $twitch = new twitch();
         
         $repmax = $this->getMaxRepLvl();
         $us = $_GET['user'];
-        $user = $this->getProfile($_GET['user']);
+        $user = $this->getProfile($us);
         $expl = explode(';',$user['opciones']);
         //twich
-        
-        $tsecret = $this->getTwichClientSecret();
-        $twitchaccess = $interface->generateAuthorizationURL(array('user_read', 'user_blocks_edit'));
-        
-        //$twichaccess = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=".$tsecret['twich_id']."&redirect_uri=".$this->getUrl()."&scope=user_read+channel_read+channel_subscriptions+channel_check_subscription+chat_login";
-        //$twich = $interface;
+        //obtenemnos una url de autorizacion
+        $getAuth = $twitch->generateAuthorizationURL(array('user_read', 'user_follows_edit'));
+        //verificamos si el token es valido
+        $isval = $this->validateAccesToken($us);
+        $tuser = $this->getTwitchUser($us);
+        $twitchtv = $twitch->getUserObject_Authd($tuser['twitch_user'],$tuser['token'],$tuser['twitch_code']);
         
         $datos = array(
             'online' => $this->getUserOnline($us),
@@ -76,17 +73,12 @@ class lsProfile extends lsSystem {
                 'chktwitter' => $expl[3],
                 'chkweb' => $expl[4]
             ),
-            'twitch_login' => $twitchaccess
-            /*twich
-            'twich_display_name' => $twichcheck['token']
-            'twich_type' => !empty($twich['type']) ? $twich['type'] : NULL,
-            'twich_created_at' => !empty($twich['created_at']) ? $twich['created_at'] : NULL,
-            'twich_updated_at' => !empty($twich['updated_at']) ? $twich['updated_at'] : NULL,
-            'twich_links_self' => !empty($twich['_links']['self']) ? $twich['_links']['self'] : NULL,
-            'twich_logo' => !empty($twich['logo']) ? $twich['logo'] : NULL,
-            'twich_id' => !empty($twich['_id']) ? $twich['_id'] : NULL,
-            'twich_display_name' => !empty($twich['display_name']) ? $twich['display_name'] : NULL,
-            'twich_bio' => !empty($twich['bio']) ? $twich['bio'] : NULL,
+            /*twich*/
+            'twitch_login' => $getAuth,
+            'twitch_islogin' => $isval,
+            //informacion del usuario
+            
+            'twitch_name' => !empty($twitchtv['name']) ? $twitchtv['name'] : NULL
             /*endtwich*/
         );
         $this->loadTemplate('profile', $datos);
@@ -185,7 +177,43 @@ class lsProfile extends lsSystem {
         $res->bindParam(7,$nick,PDO::PARAM_STR);
         $res->execute();
         
-        //header("Location: ".$this->getUrl()."/perfil/".$nick);
+        header("Location: ".$this->getUrl()."/perfil/".$nick);
     }
     
+    function validateAccesToken($user){
+        parent::setNames();
+        $sql = "SELECT u.usuario_twitch_token AS token FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$user,PDO::PARAM_STR);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        $twitch = new twitch();
+        $verify = $twitch->checkToken($datos[0]['token']);
+        if($verify['token'] == false){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    function getTwitchUser($user){
+        parent::setNames();
+        $sql = "SELECT 
+        u.usuario_twitch_id AS twitch_id,
+        u.usuario_twitch_user AS twitch_user,
+        u.usuario_twitch_token AS token,
+        u.usuario_twitch_code AS twitch_code,
+        u.usuario_twitch_scopes AS scopes
+        FROM usuarios AS u
+        WHERE u.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$user,PDO::PARAM_STR);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        return $datos[0];
+    }
 }

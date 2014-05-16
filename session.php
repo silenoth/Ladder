@@ -1,7 +1,9 @@
 <?php
 session_start();
+ob_start();
 require('class/system.class.php');
 $session = new lsSystem();
+//login normal
 if($_POST) {
     $datos = array(
         'nick' => $_POST['nick'],
@@ -14,3 +16,6 @@ if($_POST) {
     }
     header("Location: ".$session->whereuFrom());
 }
+//login twitch
+
+ob_end_flush();

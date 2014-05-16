@@ -6,26 +6,36 @@ require_once("class/home.class.php");
 $home = new lsHome();
 $home->whereuFrom();
 $home->showHome();
-
-if(!empty($_SESSION['usuario'])){
+if (!empty($_SESSION['usuario'])){
     if(isset($_GET['code'])){
-        $home->updateTwichChannel($_GET['code'],$_SESSION['usuario']);
-        require('lib/twitch_interface.php');
-        // Instancize the class as an object
-        $interface = new twitch;
-        $testToken = $interface->generateToken($_GET['code']);
-        print_r($testToken);
+        //twitch api
+        $twitch = new twitch;
+        //obtener token
+        $getToken = $twitch->generateToken($_GET['code']);
+        //verificar token
+        $verify = $twitch->checkToken($getToken['token']);
+        if($verify['token'] == false) {
+            header("Location: ".$this->whereuFrom());
+        } else {
+            //obtener usuario
+            $user = $twitch->getUserObject($verify['name']);
+            //obtener id
+            $userId = $twitch->getUserObject($user['name']);
+            //obtener scopes
+            $scopes = implode(";",explode(" ", $_GET['scope']));
+            
+            $values = array(
+            'twitch_id' => $userId['_id'],
+            'twitch_user' => $user['name'],
+            'twitch_token' => $getToken['token'],
+            'twitch_code' => $_GET['code'],
+            'twitch_scopes' => $scopes
+            );
+            //print_r($values);
+            $home->updateTwichChannel($values,$_SESSION['usuario']);
+        }
     }
+} else {
+    echo "quieres loquear con twitch?";
 }
-
 ob_end_flush();
-//debug
-//$array = $home->getFoldersFromTemplate();
-//for($i=0;$i<sizeof($array);$i++){
-//    echo $array[$i].'<br />';
-//} 
-//
-//echo $home->templateFolder();
-//echo '<pre>';   
-//print_r($home->last3Preview());
-//print_r($home->getNews());
