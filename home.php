@@ -4,6 +4,7 @@ ob_start();
 require_once("class/system.class.php");
 require_once("class/home.class.php");
 $home = new lsHome();
+$home->start();
 $home->whereuFrom();
 $home->showHome();
 if (!empty($_SESSION['usuario'])){
@@ -38,4 +39,5 @@ if (!empty($_SESSION['usuario'])){
 } else {
     echo "quieres loquear con twitch?";
 }
+echo $home->end();
 ob_end_flush();

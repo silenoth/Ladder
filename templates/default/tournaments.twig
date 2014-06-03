@@ -1,0 +1,37 @@
+{% set active = 'bracket' %}
+{% embed '_header.twig' %}
+{% block titulo %}<title>Bracket</title>{% endblock %}
+{% block css %} {% endblock %}
+{% block js %} {% endblock %}
+{% endembed %}
+{%set id = 1%}
+{%for ts in ls.torneo %}
+{% set registrados = ts.data.teams_joined_count * 100 / ts.data.max_teams %}
+{% set confirmados = ts.data.teams_confirmed_count * 100 / ts.data.max_teams %}
+<div class="jumbotron" style="background:url('{{url}}/plugins/binarybeast/img/bgt.jpg');color:white;box-shadow: 1px 1px 10px #000;">
+  <h1>{{ts.data.title}}</h1>
+  <p>{{ts.data.description|slice(0,80)}}...</p>
+  <span class="label label-info">Cupos: {{ts.data.max_teams}}</span>
+  <span class="label label-warning">Registrados: {{ts.data.teams_joined_count}}</span>
+  <span class="label label-success">Confirmados: {{ts.data.teams_confirmed_count}}</span>
+  <span class="label label-danger">Estado: {%if ts.data.status == 'Building'%}En construccion {%elseif ts.data.status == 'Active-Groups'%}Grupos activos{%elseif ts.data.status == 'Active'%}Activo{%else%}{{ts.data.status}}{%endif%}</span>
+  <span class="label label-default">{%if ts.data.type == 'Single Elim'%}Eliminacion simple{%else%}{{ts.data.type}}{%endif%}</span>
+  <p>
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" id="confirmados{{id}}" style="width: {{confirmados}}%" data-toggle="tooltip" data-placement="top" title="El {{confirmados}}% de los jugadores ha confirmado">
+            <span class="sr-only">35% Complete (success)</span>
+        </div>
+        <div class="progress-bar progress-bar-warning" id="registrados{{id}}" style="width: {%if registrados >= confirmados%}{{registrados-confirmados}}%{%else%}{{registrados}}%{%endif%}" data-toggle="tooltip" data-placement="top" title="Jugadores registrados {{ts.data.teams_joined_count}}">
+            <span class="sr-only">40% Complete (success)</span>
+          </div>
+      </div>
+  </p>
+  <p><a href="{{url}}/brackets/{{ts.data.tourney_id}}" class="btn btn-primary btn-lg" role="button">Ver bracket</a></p>
+</div>
+<script>
+$('#confirmados{{id}}').tooltip('hide');
+$('#registrados{{id}}').tooltip('hide');
+</script>
+{% set id = id+1 %}
+{% endfor %}
+{% include '_footer.twig' %}

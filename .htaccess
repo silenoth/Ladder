@@ -8,13 +8,19 @@ AddType text/css .css
     AddType text/javascript .js
 </IfModule>
 AddType application/x-javascript .js
-Rewriterule ^inicio$  home.php
-Rewriterule ^articulo/(.+)/(.+)$ news.php?id=$1&title=$2
-Rewriterule ^perfil/(.+)$ profile.php?user=$1
+#---------sesion---------------
 Rewriterule ^conectar$ session.php
 Rewriterule ^destruir$ session.php?session=destroy
-Rewriterule ^registro$ register.php
 Rewriterule ^exito$ success.php
+#---------paginas--------------
+Rewriterule ^inicio$  home.php
+Rewriterule ^inicio/p-(.+)$ home.php?page=$1
+Rewriterule ^articulo/(.+)/(.+)$ news.php?id=$1&title=$2
+Rewriterule ^perfil/(.+)$ profile.php?user=$1
+Rewriterule ^registro$ register.php
+Rewriterule ^competencia$ tournaments.php
+Rewriterule ^brackets/(.+)$ brackets.php?id=$1
+#---------modulos--------------
 Rewriterule ^modulos/adm$ admin.php
 #ErrorDocument nroError /err404.php
 ErrorDocument 404 /err404.php

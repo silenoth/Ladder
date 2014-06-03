@@ -1,0 +1,39 @@
+Titulo: {{ts.data.title}}<br />
+Publico: {{ts.data.public}}<br />
+Game code: {{ts.data.game_code}}<br />
+Type Id: {{ts.data.type_id}}<br />
+Elimination: {{ts.data.elimination}}<br />
+Bronze: {{ts.data.bronze}}<br />
+Team mode: {{ts.data.team_mode}}<br />
+Group count: {{ts.data.group_count}}<br />
+Team From Group: {{ts.data.teams_from_group}}<br />
+Location: {{ts.data.location}}<br />
+Max teams: {{ts.data.max_teams}}<br />
+Replay uploads: {{ts.data.replay_uploads}}<br />
+Replay downloads: {{ts.data.replay_downloads}}<br />
+Description: {{ts.data.description}}<br />
+Hidden: {{ts.data.hidden}}<br />
+Player password: {{ts.data.player_password}}<br />
+
+Tourney ID: {{ts.data.tourney_id}}<br />
+Status: {{ts.data.status}}<br />
+Date start: {{ts.data.date_start}}<br />
+View count: {{ts.data.view_count}}<br />
+Buy in: {{ts.data.buy_in}}<br />
+Buy in Currency: {{ts.data.buy_in_currency}}<br />
+Layout ID: {{ts.data.layout_id}}<br />
+Game: {{ts.data.game}}<br />
+Game style: {{ts.data.game_style}}<br />
+Game icon: {{ts.data.game_icon}}<br />
+Network ID: {{ts.data.network_id}}<br />
+Game header: {{ts.data.game_header}}<br />
+Game header background: {{ts.data.game_header_background}}<br />
+Display name: {{ts.data.display_name}}<br />
+Banner: {{ts.data.banner}}<br />
+Banner background: {{ts.data.banner_background}}<br />
+Url: {{ts.data.url}}<br />
+Seconds left: {{ts.data.seconds_left}}<br />
+Teams Joined count: {{ts.data.teams_joined_count}}<br />
+Teams confirmed count: {{ts.data.teams_confirmed_count}}<br />
+Type: {{ts.data.type}}<br />
+Time left: {{ts.data.time_left}}<br />

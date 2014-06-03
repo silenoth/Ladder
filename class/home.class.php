@@ -9,16 +9,6 @@ class lsHome extends lsSystem {
         }  
     }
     
-    // mostrar template home
-    function showHome(){
-        $array = array(  
-            'news' => $this->getNews(),
-            'preview' => $this->last3Preview(),
-            'interval' => $this->getInterval()               
-            );
-        $this->loadTemplate('home', $array);
-    }
-    
     //obtener ultimas 3 noticias
     private function last3Preview(){
         parent::setNames();
@@ -43,16 +33,27 @@ class lsHome extends lsSystem {
         parent::closeCon();
     }
                      
-    //ontener noticia
-    private function getNews(){ 
+    
+    
+    private function pagNews($porPagina,$paginaActual){
+        $paginaLista = array();
+        $listaRegistro = array();
+        
+        $numPagina = (int)$paginaActual;
+        
+        if($numPagina<1){
+            $numPagina = 1;
+        }
+            
+        
+        $offset = ($numPagina-1)*$porPagina;
         parent::setNames();
-        $sql = "SELECT
+        $generalQuery = sprintf("SELECT SQL_CALC_FOUND_ROWS
                     n.noticia_id AS id,
                 	n.noticia_titulo AS titulo,
                     n.noticia_titulo_clean AS url,
                 	n.noticia_imagen AS imagen,
                 	n.noticia_preview AS preview,
-                	n.noticia_contenido AS contenido,
                 	u.usuario_nick AS autor,
                 	n.noticia_fecha AS fecha,
                 	nc.cat_nombre AS categoria,
@@ -61,21 +62,76 @@ class lsHome extends lsSystem {
                 	noticias AS n
                 INNER JOIN usuarios AS u ON n.noticia_autor = u.usuario_nick_clean
                 INNER JOIN noticias_categorias AS nc ON n.noticia_id_cat = nc.cat_id
-                ORDER BY n.noticia_id DESC";
-                    
-        $res = $this->con->query($sql);
-        $res->execute();
+                ORDER BY n.noticia_id DESC LIMIT %d, %d", $offset,$porPagina);
+        //ejecutar consulta general
+        $consultaFilas = $this->con->query($generalQuery);
         
-            while($row = $res->fetch(PDO::FETCH_ASSOC)){
-                $array[] = $row;
+        //consulta total de filas
+        $totalQuery = "SELECT FOUND_ROWS() AS Total";
+        //ejecutar consulta total de filas
+        $consultaFilasTotal = $this->con->query($totalQuery);
+        
+        //totalfilas
+        $rowsTotal = $consultaFilasTotal->fetch();
+        
+        //lista de registros
+        while($listadoOK = $consultaFilas->fetch()){
+            $listaRegistro[] =$listadoOK;
+        }
+        
+        //total de filas
+        $totalFilas = $rowsTotal['Total'];
+        
+        //calcular numero total de paginas
+        $numPagina = ceil($totalFilas/$porPagina);
+        
+        $paginas = array();
+        
+        //links
+        for($no=1;$no<=$numPagina;$no++){
+            $paginas[$no] = $no;
+        }
+        
+        $paginaLista['links'] = $paginas;
+        $paginaLista['listaRegistro'] = $listaRegistro;
+        $paginaLista['numPaginas'] = $numPagina;
+        
+        return $paginaLista;
+    }
+    
+    // mostrar template home
+    function showHome(){
+        //mostrar por pagina
+        $porPagina = 10;
+        //comenzar en pagina
+        $pagina = 1;
+        if(isset($_GET['page']) && !empty($_GET['page']))
+            $pagina = $_GET['page'];
+            $lista = $this->pagNews($porPagina, $pagina);
+            
+            if($lista['links'] < $pagina){
+                $pagina = $lista['links'];
+                $lista = $this->pagNews($porPagina,$pagina);
             }
-            $rowcount = $res->rowCount();
-            if($rowcount > 0){
-                return $array;
-                parent::closeCon();
-            } else {
-                parent::closeCon();
-            } 
-        
+            
+            $inicial = $pagina;
+            $final = $pagina+5;
+            
+            $siguiente = $pagina+1;
+            $anterior = $pagina-1;
+            
+            $array = array(
+                'actual' => $pagina,
+                'inicial' => $inicial,
+                'final' => $final,
+                'siguiente' => $siguiente,
+                'anterior' => $anterior,
+                'paginada' => $lista['listaRegistro'],
+                'ultima' => $lista['links'],
+                'paginas' => $lista['numPaginas'],
+                'preview' => $this->last3Preview(),
+                'interval' => $this->getInterval()               
+                );
+            $this->loadTemplate('home', $array);
     }
 }

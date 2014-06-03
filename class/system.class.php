@@ -532,8 +532,9 @@ class lsSystem {
             $back = $this->whereuFrom();
             header("Location: ".$back);
         } else {
-            $back = $this->whereuFrom();
-            header("Location: ".$back);
+            return false;
+            //$back = $this->whereuFrom();
+            //header("Location: ".$back);
         }
    }
     

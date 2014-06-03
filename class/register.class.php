@@ -1,9 +1,9 @@
 <?php
 
 class lsRegister extends lsSystem {
-    
+
     private $array;
-    
+
     function __construct(){
         parent::__construct();
         if (file_exists(parent::getLang())){
@@ -11,16 +11,16 @@ class lsRegister extends lsSystem {
         }
         $this->array = array();
     }
-    
+
     //mostrar plantilla de registro
     public function showRegister(){
         if(empty($_SESSION['usuario'])){
             $captcha = 'captcha.php';
-         
+
             $datos = array(
                 'captcha' => $captcha
             );
-            
+
             if(!empty($_GET['error'])){
                 $datos['error'] = $_GET['error'];
             }
@@ -28,7 +28,7 @@ class lsRegister extends lsSystem {
         } else {
             header("Location: ".$this->whereuFrom());
         }
-        
+
     }
     //verificar si existe nick
     function checkNick($nick){
@@ -37,7 +37,7 @@ class lsRegister extends lsSystem {
         $res = $this->con->prepare($sql);
         $res->bindParam(1, $nick, PDO::PARAM_STR);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
             return true;
@@ -50,7 +50,7 @@ class lsRegister extends lsSystem {
         $res = $this->con->prepare($sql);
         $res->bindParam(1, $email, PDO::PARAM_STR);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
             return true;
@@ -70,9 +70,9 @@ class lsRegister extends lsSystem {
             if (!ereg("^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$", $local_array[$i])){
               return false;
             }
-          } 
+          }
           // se revisa si el dominio es una IP. Si no, debe ser un nombre de dominio válido
-        	if (!ereg("^\[?[0-9\.]+\]?$", $email_array[1])){ 
+        	if (!ereg("^\[?[0-9\.]+\]?$", $email_array[1])){
              $domain_array = explode(".", $email_array[1]);
              if (sizeof($domain_array) < 2){
                 return false; // No son suficientes partes o secciones para se un dominio
@@ -85,7 +85,7 @@ class lsRegister extends lsSystem {
           }
           return true;
         }
-        
+
     //Funcion registrar
     function register($nombre, $email, $nick, $pass){
         $checkemail =  $this->checkEmail($email);
@@ -104,7 +104,7 @@ class lsRegister extends lsSystem {
             }
             //generar el hash uncio para el usuario
             $hash = $this->randString(32,4);
-            
+
             //encriptamos la contraseña
             $md5psw = md5($pass);
             //no avatar
@@ -118,7 +118,7 @@ class lsRegister extends lsSystem {
             $grupo = 3;
             parent::setNames();
             $sql = "INSERT INTO usuarios (
-                        usuario_grupo,
+                      usuario_grupo,
                     	usuario_acceso,
                     	usuario_hash,
                     	usuario_activo,
@@ -135,7 +135,7 @@ class lsRegister extends lsSystem {
                         usuario_opciones)
                     VALUES
                     	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?,'0;0;0;0;0')";
-            
+
             $res = $this->con->prepare($sql);
             $res->bindParam(1,$grupo,PDO::PARAM_INT);
             $res->bindParam(2,$acceso, PDO::PARAM_INT);

@@ -16,12 +16,12 @@ class __TwigTemplate_3e09273e41ba65307174618c5c1aefa771be50206b42ae3a1fcdfc31237
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("admin.twig", "959530949")->display($context);
+        $this->env->loadTemplate("admin.twig", "2062156496")->display($context);
         // line 16
         echo "<ul class=\"nav nav-tabs\">
   <li class=\"active\"><a href=\"#home\" data-toggle=\"tab\">Home</a></li>
   <li><a href=\"#profile\" data-toggle=\"tab\">Profile</a></li>
-  <li><a href=\"#messages\" data-toggle=\"tab\">Messages</a></li>
+  <li><a href=\"#torneos\" data-toggle=\"tab\">Messages</a></li>
   <li><a href=\"#settings\" data-toggle=\"tab\">Settings</a></li>
 </ul>
 ";
@@ -179,7 +179,7 @@ class __TwigTemplate_3e09273e41ba65307174618c5c1aefa771be50206b42ae3a1fcdfc31237
 
 
 /* admin.twig */
-class __TwigTemplate_3e09273e41ba65307174618c5c1aefa771be50206b42ae3a1fcdfc312375933c_959530949 extends Twig_Template
+class __TwigTemplate_3e09273e41ba65307174618c5c1aefa771be50206b42ae3a1fcdfc312375933c_2062156496 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

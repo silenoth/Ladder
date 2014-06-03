@@ -48,7 +48,7 @@ class __TwigTemplate_e20dad384d581711f3bde7395b4fd531d1a3755e3ff7dab6388af2873ac
         echo "/foros\">Foros</a></li>
             <li ";
         // line 15
-        if (((isset($context["active"]) ? $context["active"] : null) == "ladder")) {
+        if (((isset($context["active"]) ? $context["active"] : null) == "bracket")) {
             echo " class=\"active\"";
         }
         echo "><a href=\"";

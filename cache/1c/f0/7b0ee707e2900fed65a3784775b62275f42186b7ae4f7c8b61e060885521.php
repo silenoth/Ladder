@@ -18,7 +18,7 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         // line 1
         $context["active"] = "home";
         // line 2
-        $this->env->loadTemplate("home.twig", "366300297")->display($context);
+        $this->env->loadTemplate("home.twig", "281464457")->display($context);
         // line 7
         echo "    ";
         // line 8
@@ -74,7 +74,9 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "preview"));
         foreach ($context['_seq'] as $context["_key"] => $context["prev"]) {
             // line 45
-            echo "    <a href=\"articulo/";
+            echo "    <a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+            echo "/articulo/";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "id"), "html", null, true);
             echo "/";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["prev"]) ? $context["prev"] : null), "url"), "html", null, true);
@@ -136,108 +138,156 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
         echo "    </div>
     ";
         // line 70
-        echo "    <div class=\"row\">
+        echo "      
+    <div class=\"row\">
+    ";
+        // line 72
+        if ((($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "actual") <= twig_last($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "ultima"))) && ($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "inicial") >= 1))) {
+            echo "  
         <div class=\"col-md-8\"><h3 style=\"margin-bottom:0;\">Artículos recientes</h3></div>
     </div>
     <div class=\"row\">
         ";
-        // line 75
-        echo "        ";
-        $context["n"] = 1;
-        // line 76
-        echo "        ";
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "news"));
-        foreach ($context['_seq'] as $context["_key"] => $context["noticia"]) {
             // line 77
-            echo "        <div class=\"panel-body thumbnail\" style=\"word-break: break-word;padding-top:0;\">
-            <a href=\"articulo/";
+            echo "        ";
+            $context["n"] = 1;
             // line 78
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
-            echo "/";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "url"), "html", null, true);
-            echo "\" style=\"color:inherit; text-decoration:none;\">
+            echo "        ";
+            $context['_parent'] = (array) $context;
+            $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "paginada"));
+            foreach ($context['_seq'] as $context["_key"] => $context["noticia"]) {
+                // line 79
+                echo "        <div class=\"panel-body thumbnail\" style=\"word-break: break-word;padding-top:0;\">
+            <a href=\"";
+                // line 80
+                echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+                echo "/articulo/";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
+                echo "/";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "url"), "html", null, true);
+                echo "\" style=\"color:inherit; text-decoration:none;\">
                 <div class=\"col-lg-4\" style=\"padding-left:0;\">
                     <img src=\"";
-            // line 80
-            echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-            echo "/images/news/";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "imagen"), "html", null, true);
-            echo "\" alt=\"";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "titulo"), "html", null, true);
-            echo "\" class=\"img-thumbnail\" style=\"margin-top:20px;width:260px;height:130px;\" />  
+                // line 82
+                echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+                echo "/images/news/";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "imagen"), "html", null, true);
+                echo "\" alt=\"";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "titulo"), "html", null, true);
+                echo "\" class=\"img-thumbnail\" style=\"margin-top:20px;width:260px;height:130px;\" />  
                 </div>
             </a>  
             <div class=\"col-lg-8\">
             ";
-            // line 84
-            if (((isset($context["acceso"]) ? $context["acceso"] : null) == true)) {
-                echo "<span id=\"eliminar";
-                echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
-                echo "\" class=\"glyphicon glyphicon-remove\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Eliminar noticia\" style=\"bottom:0;float:right;padding-top:10px;padding-left:20px;cursor:pointer;\"></span>";
-            }
-            // line 85
-            echo "                <a href=\"articulo/";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
-            echo "/";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "url"), "html", null, true);
-            echo "\" style=\"color:inherit; text-decoration:none;\">
+                // line 86
+                if (((isset($context["acceso"]) ? $context["acceso"] : null) == true)) {
+                    echo "<span id=\"eliminar";
+                    echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
+                    echo "\" class=\"glyphicon glyphicon-remove\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Eliminar noticia\" style=\"bottom:0;float:right;padding-top:10px;padding-left:20px;cursor:pointer;\"></span>";
+                }
+                // line 87
+                echo "                <a href=\"";
+                echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+                echo "/articulo/";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "id"), "html", null, true);
+                echo "/";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "url"), "html", null, true);
+                echo "\" style=\"color:inherit; text-decoration:none;\">
                     <h3 style=\"padding-top:0;\">";
-            // line 86
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "titulo"), "html", null, true);
-            echo "</h3>
+                // line 88
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "titulo"), "html", null, true);
+                echo "</h3>
                     <p style=\"padding-top:0;\">";
-            // line 87
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "preview"), "html", null, true);
-            echo "
+                // line 89
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "preview"), "html", null, true);
+                echo "
                        </p>
                 </a>
                 <div class=\"row\">
                     <div class=\"col-lg-8\">Escrito por ";
-            // line 91
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "autor"), "html", null, true);
-            echo " el ";
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "fecha"), "d \\d\\e M \\d\\e Y"), "html", null, true);
-            echo "</div>
+                // line 93
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "autor"), "html", null, true);
+                echo " el ";
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "fecha"), "d \\d\\e M \\d\\e Y"), "html", null, true);
+                echo "</div>
                 </div>
                 
             </div> 
             ";
-            // line 95
-            if (((isset($context["acceso"]) ? $context["acceso"] : null) == true)) {
-                echo "<span id=\"editar";
-                echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
-                echo "\" class=\"glyphicon glyphicon-pencil\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Editar noticia\" style=\"bottom:0;float:right;padding-top:10px;cursor:pointer;\"></span>";
-            }
-            echo "  
+                // line 97
+                if (((isset($context["acceso"]) ? $context["acceso"] : null) == true)) {
+                    echo "<span id=\"editar";
+                    echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
+                    echo "\" class=\"glyphicon glyphicon-pencil\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Editar noticia\" style=\"bottom:0;float:right;padding-top:10px;cursor:pointer;\"></span>";
+                }
+                echo "  
         </div>
         <script>
         \$('#eliminar";
-            // line 98
-            echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
-            echo "').tooltip('hide')
+                // line 100
+                echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
+                echo "').tooltip('hide')
         \$('#editar";
-            // line 99
-            echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
-            echo "').tooltip('hide');
+                // line 101
+                echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
+                echo "').tooltip('hide');
         </script>
         ";
-            // line 101
-            $context["n"] = ((isset($context["n"]) ? $context["n"] : null) + 1);
-            // line 102
+                // line 103
+                $context["n"] = ((isset($context["n"]) ? $context["n"] : null) + 1);
+                // line 104
+                echo "        ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['noticia'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 105
+            echo "        ";
+            // line 106
+            echo "        ";
+            // line 107
+            echo "            <ul class=\"pager\">
+              ";
+            // line 108
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "inicial") > 1)) {
+                echo "<li><a href=\"";
+                echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+                echo "/inicio/p-";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "anterior"), "html", null, true);
+                echo "\">&larr; Anterior</a></li>";
+            } else {
+                echo "<li class=\"disabled\"><a href=\"#\">&larr; Anterior</a></li>";
+            }
+            // line 109
+            echo "              ";
+            if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "actual") < twig_last($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "ultima")))) {
+                echo "<li><a href=\"";
+                echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+                echo "/inicio/p-";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "siguiente"), "html", null, true);
+                echo "\">Siguiente &rarr;</a></li>";
+            } else {
+                echo "<li class=\"disabled\"><a href=\"#\">Siguiente &rarr;</a></li>";
+            }
+            // line 110
+            echo "            </ul>
+        ";
+            // line 112
+            echo "        ";
+        } else {
+            // line 113
+            echo "        ";
+            $this->env->loadTemplate("404.twig")->display($context);
+            // line 114
             echo "        ";
         }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['noticia'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 103
-        echo "        ";
-        // line 104
-        echo "    </div>
+        // line 115
+        echo "                
+    </div>
     ";
-        // line 105
+        // line 117
         $this->env->loadTemplate("_online.twig")->display($context);
-        // line 106
+        // line 118
         echo "    ";
         $this->env->loadTemplate("_footer.twig")->display($context);
     }
@@ -254,13 +304,13 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
 
     public function getDebugInfo()
     {
-        return array (  241 => 106,  239 => 105,  236 => 104,  234 => 103,  228 => 102,  226 => 101,  221 => 99,  217 => 98,  207 => 95,  198 => 91,  191 => 87,  187 => 86,  180 => 85,  174 => 84,  163 => 80,  156 => 78,  153 => 77,  148 => 76,  145 => 75,  139 => 70,  136 => 68,  130 => 67,  128 => 66,  118 => 59,  112 => 56,  107 => 54,  101 => 51,  91 => 48,  84 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  291 => 118,  289 => 117,  285 => 115,  282 => 114,  279 => 113,  276 => 112,  273 => 110,  262 => 109,  252 => 108,  249 => 107,  247 => 106,  245 => 105,  239 => 104,  237 => 103,  232 => 101,  228 => 100,  218 => 97,  209 => 93,  202 => 89,  198 => 88,  189 => 87,  183 => 86,  172 => 82,  163 => 80,  160 => 79,  155 => 78,  152 => 77,  145 => 72,  141 => 70,  138 => 68,  132 => 67,  130 => 66,  120 => 59,  114 => 56,  109 => 54,  103 => 51,  93 => 48,  86 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* home.twig */
-class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e060885521_366300297 extends Twig_Template
+class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e060885521_281464457 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -303,6 +353,6 @@ class __TwigTemplate_1cf07b0ee707e2900fed65a3784775b62275f42186b7ae4f7c8b61e0608
 
     public function getDebugInfo()
     {
-        return array (  290 => 4,  287 => 3,  241 => 106,  239 => 105,  236 => 104,  234 => 103,  228 => 102,  226 => 101,  221 => 99,  217 => 98,  207 => 95,  198 => 91,  191 => 87,  187 => 86,  180 => 85,  174 => 84,  163 => 80,  156 => 78,  153 => 77,  148 => 76,  145 => 75,  139 => 70,  136 => 68,  130 => 67,  128 => 66,  118 => 59,  112 => 56,  107 => 54,  101 => 51,  91 => 48,  84 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  340 => 4,  337 => 3,  291 => 118,  289 => 117,  285 => 115,  282 => 114,  279 => 113,  276 => 112,  273 => 110,  262 => 109,  252 => 108,  249 => 107,  247 => 106,  245 => 105,  239 => 104,  237 => 103,  232 => 101,  228 => 100,  218 => 97,  209 => 93,  202 => 89,  198 => 88,  189 => 87,  183 => 86,  172 => 82,  163 => 80,  160 => 79,  155 => 78,  152 => 77,  145 => 72,  141 => 70,  138 => 68,  132 => 67,  130 => 66,  120 => 59,  114 => 56,  109 => 54,  103 => 51,  93 => 48,  86 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
     }
 }

@@ -18,7 +18,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
         // line 1
         $context["active"] = "profile";
         // line 2
-        $this->env->loadTemplate("profile.twig", "414241714")->display($context);
+        $this->env->loadTemplate("profile.twig", "263867774")->display($context);
         // line 13
         if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "alerta") == 1)) {
             // line 14
@@ -38,7 +38,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
         // line 24
         if (((!twig_test_empty((isset($context["sesion"]) ? $context["sesion"] : null))) && ((isset($context["sesion"]) ? $context["sesion"] : null) == $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "nick")))) {
             // line 25
-            echo "  <li><a href=\"#pagina\" data-toggle=\"tab\">Mi página</a></li>
+            echo "  <li><a href=\"#equipo\" data-toggle=\"tab\">Mi equipo</a></li>
   <li><a href=\"#stream\" data-toggle=\"tab\">Twich TV</a></li>
   <li><a href=\"#misc\" data-toggle=\"tab\">Otras opciones</a></li>
   ";
@@ -411,11 +411,49 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
         // line 151
         if (((!twig_test_empty((isset($context["sesion"]) ? $context["sesion"] : null))) && ((isset($context["sesion"]) ? $context["sesion"] : null) == $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "nick")))) {
             // line 153
-            echo "  <div class=\"tab-pane fade in\" id=\"pagina\">
-    
-  </div>
+            echo "  <div class=\"tab-pane fade in\" id=\"equipo\">
+    ";
+            // line 154
+            if ((!twig_test_empty($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "equipo"), "capitan")))) {
+                // line 155
+                echo "        Mi equipo:<br />
+        capitan:<br />
+    ";
+            } else {
+                // line 158
+                echo "    <h2>Crear nuevo equipo</h2>
+    <form class=\"form-horizontal\" role=\"form\" method=\"post\" name=\"formteam\" id=\"formtwich\">
+        <div class=\"form-group\">
+            <label class=\"col-sm-2 control-label\">Nombre:</label>
+            <div class=\"col-sm-10\">
+                <input type=\"text\" class=\"form-control\" />
+            </div>
+        </div>
+        <div class=\"form-group\">
+            <label class=\"col-sm-2 control-label\">Nombre:</label>
+            <div class=\"col-sm-10\">
+                <input type=\"text\" class=\"form-control\" />
+            </div>
+        </div>
+        <div class=\"form-group\">
+            <label class=\"col-sm-2 control-label\">Nombre:</label>
+            <div class=\"col-sm-10\">
+                <input type=\"text\" class=\"form-control\" />
+            </div>
+        </div>
+        <div class=\"form-group\">
+            <label class=\"col-sm-2 control-label\">Nombre:</label>
+            <div class=\"col-sm-10\">
+                <input type=\"text\" class=\"form-control\" />
+            </div>
+        </div>
+    </form>
+    ";
+            }
+            // line 186
+            echo "  </div>
 ";
-            // line 158
+            // line 189
             echo "  <div class=\"tab-pane fade in\" id=\"stream\">
     <div class=\"panel panel-default\" style=\"margin-top:10px;\">
     <div class=\"panel-heading\" style=\"height: 40px;\">
@@ -428,9 +466,9 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
     </div>
       <div class=\"panel-body\">
         ";
-            // line 169
+            // line 200
             if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_islogin") == false)) {
-                // line 170
+                // line 201
                 echo "        <a href=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_login"), "html", null, true);
                 echo "\">
@@ -439,13 +477,13 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
         </a>
         ";
             } else {
-                // line 175
+                // line 206
                 echo "        <form class=\"form-horizontal\" role=\"form\" method=\"post\" name=\"formtwich\" id=\"formtwich\">
         <div class=\"form-group\">
             <label class=\"col-sm-2 control-label\">Twich ID:</label>
             <div class=\"col-sm-10\">
               <p class=\"form-control-static\">";
-                // line 179
+                // line 210
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_id"), "html", null, true);
                 echo "</p>
             </div>
@@ -454,7 +492,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             <label class=\"col-sm-2 control-label\">Type:</label>
             <div class=\"col-sm-10\">
               <p class=\"form-control-static\">";
-                // line 185
+                // line 216
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_type"), "html", null, true);
                 echo "</p>
             </div>
@@ -463,7 +501,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             <label class=\"col-sm-2 control-label\">Display Name:</label>
             <div class=\"col-sm-10\">
               <p class=\"form-control-static\">";
-                // line 191
+                // line 222
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_display_name"), "html", null, true);
                 echo "</p>
             </div>
@@ -472,14 +510,14 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             <label class=\"col-sm-2 control-label\">Bio:</label>
             <div class=\"col-sm-10\">
               <p class=\"form-control-static\">";
-                // line 197
+                // line 228
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_bio"), "html", null, true);
                 echo "</p>
             </div>
         </div>
         <div class=\"form-group\">
         <img src=\"";
-                // line 201
+                // line 232
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_logo"), "html", null, true);
                 echo "\" style=\"height: 180px; width: 180px; display: block;\" class=\"thumbnail\" />
         </div>
@@ -488,12 +526,12 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
         </form>
         ";
             }
-            // line 207
+            // line 238
             echo "      </div>
     </div>
   </div>
 ";
-            // line 212
+            // line 243
             echo "  <div class=\"tab-pane fade in\" id=\"misc\">
   <div class=\"col-md-6\" style=\"padding-right:20px;\">
   <h5>Datos personales</h5>
@@ -502,7 +540,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             <label class=\"col-sm-2 control-label\">Hash:</label>
             <div>
               <p class=\"form-control-static\">";
-            // line 219
+            // line 250
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "token"), "html", null, true);
             echo "</p>
             </div>
@@ -510,21 +548,21 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
           <div class=\"form-group\">
               <label for=\"name\">Nombre</label>
               <input type=\"text\" id=\"name\" class=\"form-control\" disabled=\"disabled\" placeholder=\"Nombre\" name=\"name\" required=\"required\" value=\"";
-            // line 224
+            // line 255
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "nombre"), "html", null, true);
             echo "\" />                               
           </div>
           <div class=\"form-group\">
               <label for=\"lastname\">Apellido</label>
               <input type=\"text\" id=\"lastname\" class=\"form-control\" placeholder=\"Apellido\" name=\"lastname\" value=\"";
-            // line 228
+            // line 259
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "apellido"), "html", null, true);
             echo "\" />                               
           </div>
           <div class=\"form-group\">
               <label for=\"lastname\">Ciudad</label>
               <input type=\"text\" id=\"city\" class=\"form-control\" placeholder=\"Ciudad\" name=\"city\" disabled=\"disabled\" required=\"required\" value=\"";
-            // line 232
+            // line 263
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "ciudad"), "html", null, true);
             echo "\" />                               
           </div>
@@ -538,7 +576,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
               <div class=\"input-group\">
                 <span class=\"input-group-addon\">
                     <input type=\"checkbox\" id=\"chkgametag\" name=\"chkgametag\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\" value=\"";
-            // line 243
+            // line 274
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "valores"), "chkgametag"), "html", null, true);
             echo "\" ";
             if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "opciones"), "chkgametag") == "1")) {
@@ -547,7 +585,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             echo " data-toggle=\"tooltip\" data-placement=\"top\" title=\"Hacer pública\" />
                 </span>
                     <input type=\"text\" id=\"gametag\" class=\"form-control\" placeholder=\"Gametag\" name=\"gametag\" value=\"";
-            // line 245
+            // line 276
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "gametag"), "html", null, true);
             echo "\" />                               
               </div>
@@ -557,7 +595,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
               <div class=\"input-group\">
                 <span class=\"input-group-addon\">
                     <input type=\"checkbox\" id=\"chkskype\" name=\"chkskype\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\" value=\"";
-            // line 252
+            // line 283
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "valores"), "chkskype"), "html", null, true);
             echo "\" ";
             if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "opciones"), "chkskype") == "1")) {
@@ -566,7 +604,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             echo " data-toggle=\"tooltip\" data-placement=\"top\" title=\"Hacer pública\" />
                 </span>
               <input type=\"text\" id=\"skype\" class=\"form-control\" placeholder=\"Skype\" name=\"skype\" value=\"";
-            // line 254
+            // line 285
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "skype"), "html", null, true);
             echo "\" />                               
               </div>
@@ -576,7 +614,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
               <div class=\"input-group\">
                 <span class=\"input-group-addon\">
                     <input type=\"checkbox\" id=\"chkfacebook\" name=\"chkfacebook\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\" value=\"";
-            // line 261
+            // line 292
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "valores"), "chkfacebook"), "html", null, true);
             echo "\" ";
             if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "opciones"), "chkfacebook") == "1")) {
@@ -585,7 +623,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             echo " data-toggle=\"tooltip\" data-placement=\"top\" title=\"Hacer pública\" />
                 </span>
               <input type=\"text\" id=\"facebook\" class=\"form-control\" placeholder=\"Facebook\" name=\"facebook\" value=\"";
-            // line 263
+            // line 294
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "facebook"), "html", null, true);
             echo "\" />                               
             </div>
@@ -595,7 +633,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
               <div class=\"input-group\">
                 <span class=\"input-group-addon\">
                     <input type=\"checkbox\" id=\"chktwitter\" name=\"chktwitter\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\" value=\"";
-            // line 270
+            // line 301
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "valores"), "chktwitter"), "html", null, true);
             echo "\" ";
             if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "opciones"), "chktwitter") == "1")) {
@@ -604,7 +642,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             echo " data-toggle=\"tooltip\" data-placement=\"top\" title=\"Hacer pública\" />
                 </span>
               <input type=\"text\" id=\"twitter\" class=\"form-control\" placeholder=\"Twitter\" name=\"twitter\" value=\"";
-            // line 272
+            // line 303
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitter"), "html", null, true);
             echo "\" />                               
             </div>
@@ -614,7 +652,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
               <div class=\"input-group\">
                 <span class=\"input-group-addon\">
                     <input type=\"checkbox\" id=\"chkweb\" name=\"chkweb\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\" value=\"";
-            // line 279
+            // line 310
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "valores"), "chkweb"), "html", null, true);
             echo "\" ";
             if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "opciones"), "chkweb") == "1")) {
@@ -623,7 +661,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             echo " data-toggle=\"tooltip\" data-placement=\"top\" title=\"Hacer pública\" />
                 </span>
               <input type=\"text\" id=\"web\" class=\"form-control\" placeholder=\"Web\" name=\"web\" value=\"";
-            // line 281
+            // line 312
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "web"), "html", null, true);
             echo "\" />
               </div>                              
@@ -633,7 +671,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
               <div class=\"input-group\">
                 <span class=\"input-group-addon\">
                     <input type=\"checkbox\" id=\"chktwitch\" name=\"chktwitch\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\" value=\"";
-            // line 288
+            // line 319
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "valores"), "chkweb"), "html", null, true);
             echo "\" ";
             if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "opciones"), "chkweb") == "1")) {
@@ -642,7 +680,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
             echo " data-toggle=\"tooltip\" data-placement=\"top\" title=\"Hacer pública\" />
                 </span>
               <input type=\"text\" id=\"twitch\" disabled=\"disabled\" class=\"form-control\" placeholder=\"Twitch\" name=\"twitch\" value=\"";
-            // line 290
+            // line 321
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "twitch_name"), "html", null, true);
             echo "\" />
               </div>                              
@@ -654,7 +692,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
   </div>
 ";
         }
-        // line 300
+        // line 331
         echo "</div>
 <script type=\"text/javascript\">
 \$('#reputacion').tooltip('hide');
@@ -670,7 +708,7 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
 \$('#chkweb').tooltip('hide');
 </script>
 ";
-        // line 314
+        // line 345
         $this->env->loadTemplate("_footer.twig")->display($context);
     }
 
@@ -686,13 +724,13 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
 
     public function getDebugInfo()
     {
-        return array (  674 => 314,  658 => 300,  646 => 290,  637 => 288,  627 => 281,  618 => 279,  608 => 272,  599 => 270,  589 => 263,  580 => 261,  570 => 254,  561 => 252,  551 => 245,  542 => 243,  528 => 232,  521 => 228,  514 => 224,  506 => 219,  497 => 212,  492 => 207,  483 => 201,  476 => 197,  467 => 191,  458 => 185,  449 => 179,  443 => 175,  434 => 170,  432 => 169,  419 => 158,  414 => 153,  412 => 151,  409 => 149,  403 => 143,  399 => 139,  396 => 137,  382 => 135,  379 => 134,  365 => 132,  362 => 131,  348 => 129,  345 => 128,  333 => 126,  330 => 125,  320 => 123,  318 => 122,  314 => 120,  312 => 119,  309 => 117,  292 => 103,  289 => 102,  287 => 101,  282 => 99,  276 => 98,  273 => 97,  261 => 93,  256 => 90,  254 => 89,  247 => 85,  241 => 84,  237 => 83,  234 => 82,  231 => 81,  229 => 80,  225 => 77,  221 => 75,  217 => 73,  213 => 71,  209 => 69,  205 => 67,  201 => 65,  199 => 64,  171 => 63,  167 => 62,  164 => 61,  162 => 60,  158 => 57,  152 => 55,  146 => 53,  140 => 51,  134 => 49,  128 => 47,  122 => 45,  120 => 44,  92 => 43,  88 => 42,  85 => 41,  70 => 39,  66 => 38,  58 => 37,  53 => 34,  47 => 29,  41 => 25,  39 => 24,  32 => 19,  25 => 14,  23 => 13,  21 => 2,  19 => 1,);
+        return array (  712 => 345,  696 => 331,  684 => 321,  675 => 319,  665 => 312,  656 => 310,  646 => 303,  637 => 301,  627 => 294,  618 => 292,  608 => 285,  599 => 283,  589 => 276,  580 => 274,  566 => 263,  559 => 259,  552 => 255,  544 => 250,  535 => 243,  530 => 238,  521 => 232,  514 => 228,  505 => 222,  496 => 216,  487 => 210,  481 => 206,  472 => 201,  470 => 200,  457 => 189,  454 => 186,  424 => 158,  419 => 155,  417 => 154,  414 => 153,  412 => 151,  409 => 149,  403 => 143,  399 => 139,  396 => 137,  382 => 135,  379 => 134,  365 => 132,  362 => 131,  348 => 129,  345 => 128,  333 => 126,  330 => 125,  320 => 123,  318 => 122,  314 => 120,  312 => 119,  309 => 117,  292 => 103,  289 => 102,  287 => 101,  282 => 99,  276 => 98,  273 => 97,  261 => 93,  256 => 90,  254 => 89,  247 => 85,  241 => 84,  237 => 83,  234 => 82,  231 => 81,  229 => 80,  225 => 77,  221 => 75,  217 => 73,  213 => 71,  209 => 69,  205 => 67,  201 => 65,  199 => 64,  171 => 63,  167 => 62,  164 => 61,  162 => 60,  158 => 57,  152 => 55,  146 => 53,  140 => 51,  134 => 49,  128 => 47,  122 => 45,  120 => 44,  92 => 43,  88 => 42,  85 => 41,  70 => 39,  66 => 38,  58 => 37,  53 => 34,  47 => 29,  41 => 25,  39 => 24,  32 => 19,  25 => 14,  23 => 13,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* profile.twig */
-class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba1455f8c2_414241714 extends Twig_Template
+class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba1455f8c2_263867774 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -765,6 +803,6 @@ class __TwigTemplate_bf3f3be42e5be095c48fed500f7c2365897f714b1b95fbf3684351ba145
 
     public function getDebugInfo()
     {
-        return array (  750 => 10,  747 => 9,  740 => 7,  737 => 6,  724 => 4,  721 => 3,  674 => 314,  658 => 300,  646 => 290,  637 => 288,  627 => 281,  618 => 279,  608 => 272,  599 => 270,  589 => 263,  580 => 261,  570 => 254,  561 => 252,  551 => 245,  542 => 243,  528 => 232,  521 => 228,  514 => 224,  506 => 219,  497 => 212,  492 => 207,  483 => 201,  476 => 197,  467 => 191,  458 => 185,  449 => 179,  443 => 175,  434 => 170,  432 => 169,  419 => 158,  414 => 153,  412 => 151,  409 => 149,  403 => 143,  399 => 139,  396 => 137,  382 => 135,  379 => 134,  365 => 132,  362 => 131,  348 => 129,  345 => 128,  333 => 126,  330 => 125,  320 => 123,  318 => 122,  314 => 120,  312 => 119,  309 => 117,  292 => 103,  289 => 102,  287 => 101,  282 => 99,  276 => 98,  273 => 97,  261 => 93,  256 => 90,  254 => 89,  247 => 85,  241 => 84,  237 => 83,  234 => 82,  231 => 81,  229 => 80,  225 => 77,  221 => 75,  217 => 73,  213 => 71,  209 => 69,  205 => 67,  201 => 65,  199 => 64,  171 => 63,  167 => 62,  164 => 61,  162 => 60,  158 => 57,  152 => 55,  146 => 53,  140 => 51,  134 => 49,  128 => 47,  122 => 45,  120 => 44,  92 => 43,  88 => 42,  85 => 41,  70 => 39,  66 => 38,  58 => 37,  53 => 34,  47 => 29,  41 => 25,  39 => 24,  32 => 19,  25 => 14,  23 => 13,  21 => 2,  19 => 1,);
+        return array (  788 => 10,  785 => 9,  778 => 7,  775 => 6,  762 => 4,  759 => 3,  712 => 345,  696 => 331,  684 => 321,  675 => 319,  665 => 312,  656 => 310,  646 => 303,  637 => 301,  627 => 294,  618 => 292,  608 => 285,  599 => 283,  589 => 276,  580 => 274,  566 => 263,  559 => 259,  552 => 255,  544 => 250,  535 => 243,  530 => 238,  521 => 232,  514 => 228,  505 => 222,  496 => 216,  487 => 210,  481 => 206,  472 => 201,  470 => 200,  457 => 189,  454 => 186,  424 => 158,  419 => 155,  417 => 154,  414 => 153,  412 => 151,  409 => 149,  403 => 143,  399 => 139,  396 => 137,  382 => 135,  379 => 134,  365 => 132,  362 => 131,  348 => 129,  345 => 128,  333 => 126,  330 => 125,  320 => 123,  318 => 122,  314 => 120,  312 => 119,  309 => 117,  292 => 103,  289 => 102,  287 => 101,  282 => 99,  276 => 98,  273 => 97,  261 => 93,  256 => 90,  254 => 89,  247 => 85,  241 => 84,  237 => 83,  234 => 82,  231 => 81,  229 => 80,  225 => 77,  221 => 75,  217 => 73,  213 => 71,  209 => 69,  205 => 67,  201 => 65,  199 => 64,  171 => 63,  167 => 62,  164 => 61,  162 => 60,  158 => 57,  152 => 55,  146 => 53,  140 => 51,  134 => 49,  128 => 47,  122 => 45,  120 => 44,  92 => 43,  88 => 42,  85 => 41,  70 => 39,  66 => 38,  58 => 37,  53 => 34,  47 => 29,  41 => 25,  39 => 24,  32 => 19,  25 => 14,  23 => 13,  21 => 2,  19 => 1,);
     }
 }
