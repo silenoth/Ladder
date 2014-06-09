@@ -2,11 +2,11 @@
 
 class lsSystem {
     protected $con;
-    
+
     function __construct(){
         require_once('lib/twitch_interface.php');
         require_once("lib/facebook.php");
-        
+
         if(file_exists("config.php")){
             require_once("config.php");
                 try {
@@ -14,33 +14,33 @@ class lsSystem {
                     $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }catch(PDOException $e){
                     echo "ERROR: " . $e->getMessage();
-                }            
+                }
             } else {
             echo "El archivo de configuracion no existe.";
         }
     }
-    
+
      public function start() {
             $this->_timeparts = explode(" ",microtime());
             $this->_starttime = $this->_timeparts[1].substr($this->_timeparts[0],1);
             $this->_timeparts = explode(" ",microtime());
     }
- 
+
     public function end() {
             $endtime = $this->_timeparts[1].substr($this->_timeparts[0],1);
             return bcsub($endtime,$this->_starttime,6);
     }
-    
+
     //cerrar conexion
     public function closeCon(){
         return $this->con = null;
     }
-    
+
     //setnames
     function setNames(){
         return $this->con->query("SET NAMES 'utf8'");
     }
-    
+
     //leer carpetas de los templates
     function getFoldersFromTemplate(){
         $directorio = _TEMPLATEFOLDER._DS;
@@ -52,24 +52,24 @@ class lsSystem {
                 $dires[$i++]=$archivo;
         }
         closedir($midir);
-        return $dires; 
+        return $dires;
     }
-    
+
     //obtener carpeta del template
     public function templateFolder(){
         self::setNames();
         $sql = "SELECT a.ajuste_template AS template FROM ajustes AS a";
         $res = $this->con->query($sql);
         $res->execute();
-        
+
         while($row = $res->fetch()){
             $array[] = $row;
         }
-        
+
         return $array[0]['template'];
         self::closeCon();
     }
-    
+
     //cargar template
     public function loadTemplate($template,$datos){
         require_once 'lib/Twig/Autoloader.php';
@@ -80,11 +80,11 @@ class lsSystem {
             'debug' => 'true'
         ));
         $twig->getExtension('core')->setTimeZone('America/Santiago');
-                
+
         $tmpl = $twig->loadTemplate($template._EXT);
         $url = self::getUrl();
         $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
-        
+
         if(!empty($_SESSION['usuario'])){
            echo $tmpl->render(
             array(
@@ -97,10 +97,10 @@ class lsSystem {
                 'uonline' => $this->nickUserOnline(),
                 'total' => $this->countOnline(),
                 'template' => $tmplfldr)
-            ); 
+            );
         } else {
         // Twitch: Instancize the class as an object
-        $twitch = new twitch();    
+        $twitch = new twitch();
         //obtenemnos una url de autorizacion
         $getAuth = $twitch->generateAuthorizationURL(array('user_read', 'user_follows_edit'));
         //Facebook:
@@ -118,36 +118,36 @@ class lsSystem {
           'scope' => 'read_stream, friends_likes',
           'redirect_uri' => 'http://silenoth.zapto.org/ladder'
         );
-        
+
         $loginUrl = $facebook->getLoginUrl($params);
-        
-        
+
+
         echo $tmpl->render(
             array(
                 'ls' => $datos,
                 'url' => $url,
-                
+
                 'twitch_auth' => $getAuth,
                 'facebook_auth' => $loginUrl,
                 'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
-                'total' => $this->countOnline(),                
+                'total' => $this->countOnline(),
                 'template' => $tmplfldr)
-            ); 
-        }     
-        
+            );
+        }
+
     }
-    
+
     //bbcode
     function bbcode($text){
         require_once 'lib/jBBcode/Parser.php';
         $parser = new JBBCode\Parser();
         $parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
-        
+
         $bbcode = $parser->getAsHtml($parser->parse($text));
         return $bbcode;
     }
-    
+
     //emot
     public function getSmilies($smilies){
         $folder = $this->getUrl().'/emoticons/';
@@ -170,55 +170,55 @@ class lsSystem {
                 '<img src="'.$folder.'ermm.png" alt="ermm" title="ermm">',
                 '<img src="'.$folder.'grin.png" alt=":D" title=":D">',
                 '<img src="'.$folder.'heart.png" alt="<3" title="<3">',
-            ), $smilies  
+            ), $smilies
         );
-        
+
         return $smilies;
     }
-    
+
     //obtener lenguaje
     public function getLang(){
         self::setNames();
         $sql = "SELECT a.ajuste_lang AS lang FROM ajustes AS a";
         $res = $this->con->query($sql);
         $res->execute();
-        
+
         while($row = $res->fetch()){
             $array[] = $row;
         }
-        
+
         $rowcount = $res->rowCount();
-        
+
         if($rowcount > 0) {
             if(file_exists(_LANGFOLDER._DS.$array[0]['lang']._DS.'index.php')){
                 return _LANGFOLDER._DS.$array[0]['lang']._DS.'index.php';
                 self::closeCon();
             } else {
                 print(_ERRNOFILELANG);
-                self::closeCon();                 
-            }         
+                self::closeCon();
+            }
         } else {
             print(_ERRNOLANGFOLDERDB);
             self::closeCon();
         }
-        
+
     }
-    
+
     //obtener ruta absoluta
     public function getUrl(){
         self::setNames();
         $sql = "SELECT a.ajuste_url AS url FROM ajustes AS a";
         $res = $this->con->query($sql);
         $res->execute();
-        
+
         while($row = $res->fetch()){
             $array[] = $row;
         }
-        
+
         return $array[0]['url'];
         self::closeCon();
     }
-    
+
     //obtener app id
     public function getAppId(){
         self::setNames();
@@ -231,13 +231,13 @@ class lsSystem {
         return $array[0];
         self::closeCon();
     }
-    
+
     //obtener intervalo de carousel
     public function getInterval(){
         $sql = "SELECT a.ajuste_interval_carousel AS carousel FROM ajustes AS a";
         $res = $this->con->query($sql);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $array[] = $row;
         }
@@ -245,7 +245,7 @@ class lsSystem {
         return $interval;
         self::closeCon();
     }
-    
+
     //cadena aleatoria
     public function randString($lenghtChars, $type){
         $chars = array(
@@ -258,20 +258,20 @@ class lsSystem {
             case 1:
             $char = $chars[1];
             break;
-            
+
             case 2:
             $char = $chars[2];
             break;
-            
+
             case 3:
             $char = $chars[3];
             break;
-            
+
             case 4:
             $char = $chars[4];
             break;
         }
-        
+
          //posibles caracteres a usar
         $lchars = $lenghtChars; //numero de letras para generar el texto
         $string = ""; //variable para almacenar la cadena generada
@@ -284,7 +284,7 @@ class lsSystem {
         }
         return $string;
     }
-    
+
     //obtener carpeta plugins
     public function getPluginsFolder(){
         self::setNames();
@@ -297,15 +297,15 @@ class lsSystem {
         return $array[0]['plugin'];
         self::closeCon();
     }
-    
+
     //captcha
     public function captcha($clave){
-   
+
         $fondo = array(255, 255, 255);
         $frente = array(0, 0, 128);
         $tam_x = 120;
         $tam_y = 70;
-                    
+
         // Se toma un tipo de fuente de forma aleatoria
     	$fuentes = array(
         array('f' => ''.$this->getPluginsFolder().'/captcha/fonts/arial.ttf', 't' => '18'),
@@ -314,14 +314,14 @@ class lsSystem {
         array('f' => ''.$this->getPluginsFolder().'/captcha/fonts/hcurve.ttf', 't' => '14'),
         array('f' => ''.$this->getPluginsFolder().'/captcha/fonts/ghms.ttf', 't' => '18')
         );
-            
+
         $rand_fuente = rand(0, count($fuentes) - 1);
     	$fuente = $fuentes[$rand_fuente]["f"];
         $tam_fuente = $fuentes[$rand_fuente]["t"];
-    		
+
     	// Envio del header de imagen en formato PNG
     	header("Content-type: image/png");
-    		
+
     	// Validar que se puede crear una imagen (requiere GD)
     	if (function_exists("imagecreatetruecolor")){
     	   $imagen = imagecreatetruecolor($tam_x, $tam_y);
@@ -329,24 +329,24 @@ class lsSystem {
    		else{
     	   $imagen = imagecreate($tam_x, $tam_y) or die ("No se puede iniciar GD para crear una imagen");
     	}
-    		
+
     	// Si existe el Anti-Alias se activa en la imagen
     	if (function_exists("imageantialias"))
     	{
     	   imageantialias($imagen, true);
     	}
-    		
+
     		// Se toman de forma aleatoria los colores de fondo (claro) y texto (oscuro)
     		$fondo = imagecolorallocate($imagen, rand(224, 256), rand(224, 256), rand(224, 256));
     		$frente = imagecolorallocate($imagen, rand(0, 4), rand(0, 4), rand(64, 128));
-    		
+
     		// Se rellena la imagen con el color de fondo
     		imagefill($imagen, 0, 0, $fondo);
-    		
+
     		// Se genera un angulo aleatorio para girar el texto
     		$maximo_angulo = 30;
     		$angulo = rand(-100 * $maximo_angulo, 100 * $maximo_angulo) / 100.0;
-    		
+
     		// Se coloca el texto en la imagen con su color, tipo de fuente y angulo
     		if (function_exists("imagettftext") && $fuente != ""){
     			$caja_texto = imagettfbbox($tam_fuente, $angulo, $fuente, $clave);
@@ -365,28 +365,28 @@ class lsSystem {
     				$imagen = imagerotate($imagen, $angulo, $fondo);
     			}
     		}
-    		
+
     		// Se agregan lineas para dificultar la lectura del texto (para evitar el uso de bots)
     		$this->generar_ruido($imagen, (int)($tam_x / 15), 'x');
     		$this->generar_ruido($imagen, (int)($tam_y / 15), 'y');
-    		
+
     		// Se crea y muestra la imagen
     		imagepng($imagen);
             imagedestroy($imagen);
         }
-        
+
     // Se generan lineas de ruido a una imagen, se puede especificar la cantidad y eje donde se colocaran
 	function generar_ruido($imagen, $cantidad = 5, $rango = 'y'){
     		// Se toma el tamaño de la imagen
     		$x = imagesx($imagen);
     		$y = imagesy($imagen);
-		
+
     		// Se crean las lineas de ruido deseadas
     		for ($i = 0; $i < $cantidad; $i++)
     		{
     			// Se toma un color aleatorio (entre claro y oscuro)
     			$color = imagecolorallocate($imagen, rand(64, 192), rand(64, 192), rand(64, 192));
-    			
+
     			// Se colocan las lineas en un eje de forma aleatoria
     			if ($rango == 'y')
     			{
@@ -400,47 +400,47 @@ class lsSystem {
     			}
     		}
 	   }
-    
+
     //limpiar texto
     function cleanString($string){
         $string = trim($string);
-    
+
         $string = str_replace(
             array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
             array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
             $string
         );
-    
+
         $string = str_replace(
             array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
             array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
             $string
         );
-    
+
         $string = str_replace(
             array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
             array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
             $string
         );
-    
+
         $string = str_replace(
             array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
             array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
             $string
         );
-    
+
         $string = str_replace(
             array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
             array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
             $string
         );
-    
+
         $string = str_replace(
             array('ñ', 'Ñ', 'ç', 'Ç'),
             array('n', 'N', 'c', 'C',),
             $string
         );
-    
+
         //Esta parte se encarga de eliminar cualquier caracter extraño
         $string = str_replace(
             array("\\", "¨", "º", "-", "~",
@@ -454,7 +454,7 @@ class lsSystem {
             '',
             $string
         );
-        
+
         $string = str_replace(" ","-",$string);
         return strtolower($string);
     }
@@ -468,7 +468,7 @@ class lsSystem {
         );
         $this->loadTemplate('success', $datos);
     }
-   
+
    //verificar si existe nick
     function checkNick($nick){
         self::setNames();
@@ -476,26 +476,26 @@ class lsSystem {
         $res = $this->con->prepare($sql);
         $res->bindParam(1, $nick, PDO::PARAM_STR);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
             return true;
         }
     }
-    
+
    function getNickClean($nick){
         self::setNames();
         $sql = "SELECT u.usuario_nick_clean AS nickclean FROM usuarios AS u WHERE u.usuario_nick = ?";
         $res = $this->con->prepare($sql);
         $res->bindParam(1, $nick, PDO::PARAM_STR);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
             return $datos[0]['nickclean'];
         }
    }
-   
+
    function checkPass($pass){
     if($pass == ""){
         echo "<script>alert('No pude quedar en blanco este campo'); return false;</script>";
@@ -506,7 +506,7 @@ class lsSystem {
         $res = $this->con->prepare($sql);
         $res->bindParam(1, $pass, PDO::PARAM_STR);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
             return true;
@@ -528,16 +528,15 @@ class lsSystem {
             $res->bindParam(1,$ip,PDO::PARAM_STR);
             $res->bindParam(2,$nick,PDO::PARAM_STR);
             $res->execute();
-            
+
             $back = $this->whereuFrom();
             header("Location: ".$back);
         } else {
-            return false;
-            //$back = $this->whereuFrom();
-            //header("Location: ".$back);
+            $back = $this->whereuFrom();
+            header("Location: ".$back);
         }
    }
-    
+
     public function whereuFrom(){
         if (!empty($_SERVER['HTTP_REFERER'])){
             $_SESSION['donde'] = $_SERVER['HTTP_REFERER'];
@@ -547,7 +546,7 @@ class lsSystem {
         $url = $_SESSION['donde'];
         return $url;
     }
-    
+
     //obtener valor de reputacion maxima
     function getMaxRepLvl(){
         self::setNames();
@@ -560,7 +559,7 @@ class lsSystem {
         return $datos[0];
         self::closeCon();
     }
-    
+
     //Agregar a la bd usuarios conectados
     function addOnline(){
         //tiempo en minutos de usuairo activo
@@ -568,7 +567,7 @@ class lsSystem {
         $ip = $_SERVER['REMOTE_ADDR'];
         $date = time();
         $limite = $date-$time*60;
-        
+
         if(!empty($_SESSION['usuario'])){
             $nickclean = $this->getNickClean($_SESSION['usuario']);
             $w = "SELECT u.usuario_nick AS nick, u.usuario_nick_clean AS nickclean, u.usuario_grupo AS grupo FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
@@ -592,14 +591,14 @@ class lsSystem {
         $x = $this->con->prepare($l);
         $x->bindParam(1,$limite,PDO::PARAM_INT);
         $x->execute();
-        
+
         $sql = "SELECT * FROM online AS o WHERE o.online_ip = ?";
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$ip,PDO::PARAM_STR);
-        
+
         $res->execute();
         $rc = $res->rowCount();
-        
+
         if($rc != 0){
             //actualizar visitante
             $s = "UPDATE online SET online_grupo = ?, online_nick = ?, online_nick_clean = ?, online_last = ? WHERE online_ip = ?";
@@ -620,9 +619,9 @@ class lsSystem {
             $e->bindParam(5,$date,PDO::PARAM_INT);
             $e->execute();
         }
-        
+
     }
-    
+
     //obtener nick de usuarios viendo la pagina
     function nickUserOnline(){
         self::setNames();
@@ -644,9 +643,9 @@ class lsSystem {
             return $datos;
             self::closeCon();
         }
-        
+
     }
-    
+
     //obtener usuario conectado
     function getUserOnline($nick){
         self::setNames();
@@ -660,7 +659,7 @@ class lsSystem {
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$nick,PDO::PARAM_STR);
         $res->execute();
-        
+
         $rc = $res->rowCount();
         if($rc > 0 ){
             return true;
@@ -668,7 +667,7 @@ class lsSystem {
             return false;
         }
     }
-    
+
     //contar usuarios visitas
     function countOnline(){
         $sql = "SELECT
@@ -685,52 +684,52 @@ class lsSystem {
         	(
         		SELECT COUNT(*) FROM `online`
         	) AS total
-        	
+
         FROM
         	`online`";
         $res = $this->con->query($sql);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
-        
+
         return $datos[0];
     }
-    
-    //obtener nombre del canal twich de usuario
-    public function getTwichClientSecret(){
-        self::setNames();
-        $sql = "SELECT a.ajuste_twich_client_id AS twich_id, a.ajuste_twich_client_secret AS twich_secret FROM ajustes AS a";
-        $res = $this->con->query($sql);
-        $res->execute();
-        while($row = $res->fetch(PDO::FETCH_ASSOC)){
-            $datos[] = $row;
-        }
-        
-        return $datos[0];
-    }
-    
-    function updateTwichChannel($values,$nick){
-        self::setNames();
-        $sql = "UPDATE usuarios SET 
-        usuarios.usuario_twitch_id = ?,
-        usuarios.usuario_twitch_user = ?,
-        usuarios.usuario_twitch_token = ?,
-        usuarios.usuario_twitch_code = ?,
-        usuarios.usuario_twitch_scopes = ?
-        WHERE usuarios.usuario_nick_clean = ?";
-        $res = $this->con->prepare($sql);
-        $res->bindParam(1,$values['twitch_id'],PDO::PARAM_STR);
-        $res->bindParam(2,$values['twitch_user'],PDO::PARAM_STR);
-        $res->bindParam(3,$values['twitch_token'],PDO::PARAM_STR);
-        $res->bindParam(4,$values['twitch_code'],PDO::PARAM_STR);
-        $res->bindParam(5,$values['twitch_scopes'],PDO::PARAM_STR);
-        $res->bindParam(6,$nick,PDO::PARAM_STR);
-        $res->execute();
-        header("Location: ".$this->getUrl()."/perfil/".$nick);
-    }
-    
+
+//    //obtener nombre del canal twich de usuario
+//    public function getTwichClientSecret(){
+//        self::setNames();
+//        $sql = "SELECT a.ajuste_twich_client_id AS twich_id, a.ajuste_twich_client_secret AS twich_secret FROM ajustes AS a";
+//        $res = $this->con->query($sql);
+//        $res->execute();
+//        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+//            $datos[] = $row;
+//        }
+//
+//        return $datos[0];
+//    }
+
+    //function updateTwichChannel($values,$nick){
+//        self::setNames();
+//        $sql = "UPDATE usuarios SET
+//        usuarios.usuario_twitch_id = ?,
+//        usuarios.usuario_twitch_user = ?,
+//        usuarios.usuario_twitch_token = ?,
+//        usuarios.usuario_twitch_code = ?,
+//        usuarios.usuario_twitch_scopes = ?
+//        WHERE usuarios.usuario_nick_clean = ?";
+//        $res = $this->con->prepare($sql);
+//        $res->bindParam(1,$values['twitch_id'],PDO::PARAM_STR);
+//        $res->bindParam(2,$values['twitch_user'],PDO::PARAM_STR);
+//        $res->bindParam(3,$values['twitch_token'],PDO::PARAM_STR);
+//        $res->bindParam(4,$values['twitch_code'],PDO::PARAM_STR);
+//        $res->bindParam(5,$values['twitch_scopes'],PDO::PARAM_STR);
+//        $res->bindParam(6,$nick,PDO::PARAM_STR);
+//        $res->execute();
+//        header("Location: ".$this->getUrl()."/perfil/".$nick);
+//    }
+
    function getUserAccess($nick){
         $user = $this->getNickClean($nick);
         $sql = "SELECT u.usuario_acceso AS acceso FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
@@ -747,10 +746,37 @@ class lsSystem {
         }
    }
 
+   public function getTournaments(){
+        self::setNames();
+        $sql = "SELECT
+            t.tnmt_id AS id,
+            t.tnmt_autor AS autor,
+            t.tnmt_titulo AS titulo,
+            t.tnmt_logo AS logo,
+            t.tnmt_descripcion AS descripcion,
+            t.tnmt_juego AS juego,
+            t.tnmt_fecha AS fecha,
+            t.tnmt_ubicacion AS ubicacion,
+            t.tnmt_subida_replays AS subida,
+            t.tnmt_descarga_replays AS bajada,
+            t.tnmt_ganadores AS ganadores,
+            t.tnmt_max_equipos AS equipos,
+            t.tnmt_modo AS modo,
+            t.tnmt_activo AS activo
+        FROM torneos AS t ORDER BY id DESC";
+        $res = $this->con->query($sql);
+        $res->execute();
+
+        while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        return $datos;
+   }
+
         //dias trasncurridos
    // public function daysElapsed($desde, $hasta){
 //        $dias	= (strtotime($desde)-strtotime($hasta))/86400;
-//        $dias 	= abs($dias); $dias = floor($dias);		
+//        $dias 	= abs($dias); $dias = floor($dias);
 //        return $dias;
 //    }
 }

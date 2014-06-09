@@ -23,7 +23,25 @@ if(!empty($_SESSION['usuario']) && $admin->getUserAccess($_SESSION['usuario'])){
             } else {
                 header("Location: ".$admin->whereuFrom());
             }
+        } elseif (isset($_POST['addtorneo']) && $_POST['addtorneo'] == 1){
+            if(!empty($_POST['t_titulo']) || !empty($_POST['t_descripcion'])){
+                $torneo = array(
+                    't_autor' => $_SESSION['usuario'],
+                    't_titulo' => $_POST['t_titulo'],
+                    't_logo' => $_FILES['tfile'],
+                    't_descripcion' => $_POST['t_descripcion'],
+                    't_subida' => isset($_POST['t_subida']) ? $_POST['t_subida'] : 1,
+                    't_bajada' => isset($_POST['t_bajada']) ? $_POST['t_bajada'] : 1,
+                    't_equipos' => isset($_POST['t_equipos']) ? $_POST['t_equipos'] : 2,
+                    't_activo' => isset($_POST['t_activo']) == 'on' ? 1 : 0
+                );
+                $admin->addTournaments($torneo);
+                header("Location: ".$admin->whereuFrom());
+            } else {
+                header("Location: ".$admin->whereuFrom());
+            }
         }
+
     }
 } else {
     header("Location: ".$admin->getUrl());

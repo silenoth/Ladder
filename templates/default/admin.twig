@@ -1,3 +1,4 @@
+{% spaceless %}
 {% embed '_header.twig' %}
     {% block titulo %}
         <title>Administracion</title>
@@ -8,6 +9,7 @@
     {% endblock %}
     {% block js %}
         <script src="{{url}}/js/bootstrapValidator.js" type="text/javascript"></script>
+        <script src="{{url}}/plugins/editor/minified/jquery.sceditor.bbcode.js"></script>
         <script type="text/javascript" src="{{url}}/js/bootstrap.file-input.js"></script>
         <script type="text/javascript" src="{{url}}/js/bootstrap-multiselect.js"></script>
     {% endblock %}
@@ -15,8 +17,8 @@
 {#TABS#}
 <ul class="nav nav-tabs">
   <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-  <li><a href="#profile" data-toggle="tab">Profile</a></li>
-  <li><a href="#torneos" data-toggle="tab">Messages</a></li>
+  <li><a href="#perfil" data-toggle="tab">Profile</a></li>
+  <li><a href="#torneos" data-toggle="tab">Torneos</a></li>
   <li><a href="#settings" data-toggle="tab">Settings</a></li>
 </ul>
 {#TABS PANELS#}
@@ -78,14 +80,150 @@
           </div>
         </div>
   </div>
-  <div class="tab-pane fade" id="profile">
-  
+  {# TAB PERFIL #}
+  <div class="tab-pane fade" id="perfil">
+
   </div>
-  <div class="tab-pane fade" id="messages">
-  
+  {# FIN TAB PERFIL #}
+  {# TAB TORNEOS #}
+  <div class="tab-pane fade" id="torneos">
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="#">Crear torneo</a></li>
+          <li><a href="#tablatorneos">Lista de torneos</a></li>
+        </ol>
+        <div class="col-xs-12 col-md-8">
+            <h2>Crear torneo</h2>
+            <form method="post" id="torneos" name="torneos" action="">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="t_titulo" id="t_titulo" placeholder="Nombre del torneo" />
+                </div>
+                <div class="form-group">
+                    <input type="file" name="tfile" id="tfile" class="btn-primary" title="Logo del torneo" /><br /><span>La imagen debe ser de 260x130 px</span>
+                </div>
+                <div class="form-group">
+                    <label for="t_descripcion">Descripcion</label>
+                    <textarea id="t_descripcion" name="t_descripcion" style="width:100%; height:200px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="t_juego">Juego</label>
+                    <select class="form-control" name="t_juego" id="t_juego">
+                        <option value="Hs" disabled="disabled">Hearthstone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_subida">Subir replays</label>
+                    <select class="form-control" name="t_subida" id="t_subida">
+                        <option value="0">Imposibilitado</option>
+                        <option value="1">Opcional</option>
+                        <option value="2">Obligatorio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_bajada">Bajar replays</label>
+                    <select class="form-control" name="t_bajada" id="t_bajada">
+                        <option value="0">Imposibilitado</option>
+                        <option value="1">Posibilitado</option>
+                        <option value="2">Cuando finalice</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_equipos">Max. de equipos</label>
+                    <select class="form-control" name="t_equipos" id="t_equipos">
+                        {% set equipos = 2 %}
+                        {% for i in 1..7 %}
+                        <option value="{{ equipos }}">{{ equipos }}</option>
+                        {% set equipos = equipos * 2 %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_modo">Modo</label>
+                    <select class="form-control" name="t_modo" id="t_modo">
+                        <option value="0">1v1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="t_activo" name="t_activo" checked="checked" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" />Habilitar
+                </div>
+                <input type="hidden" value="1" name="addtorneo" />
+                <button type="submit" class="btn btn-primary">Crear torneo</button>
+            </form>
+        </div>
+        <div class="col-xs-6 col-md-4">
+        </div>
+    </div>
+        {# INICIO TABLA LISTA TORNEOS #}
+        <table class="table table-hover" style="margin-top:100px;" id="tablatorneos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Torneo</th>
+                    <th>Informacion</th>
+                    <th>Creado</th>
+                    <th>Por</th>
+                    <th>Cupos</th>
+                    <th>Ubicacion</th>
+                    <th>Subida replays</th>
+                    <th>Bajada replays</th>
+                    <th>Modo</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for torneo in ls.torneos %}
+                <tr>
+                    <td>{{ torneo.id }}</td>
+                    <td>{{ torneo.titulo }}</td>
+                    <td>{{ torneo.descripcion|slice(0,50) }}...</td>
+                    <td>{{ torneo.fecha|date("d \\d\\e M \\d\\e\\l Y") }}</td>
+                    <td>{{ torneo.autor }}</td>
+                    <td>{{ torneo.equipos }}</td>
+                    <td>{{ torneo.ubicacion }}</td>
+                    <td>
+                        <span class="label label-warning">{% if torneo.subida == 0 %}No se puede{% elseif torneo.subida == 1 %}Opcional{% elseif torneo.subida == 2 %}Obligatorio{% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="label label-warning">{% if torneo.bajada == 0 %}No se puede{% elseif torneo.bajada == 1 %}Se puede{% elseif torneo.bajada == 2 %}Al final{% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="label label-primary">
+                        {% if torneo.modo == 0 %}
+                        1v1
+                        {% elseif torneo.modo == 1 %}
+                        2v2
+                        {% elseif torneo.modo == 2 %}
+                        3v3
+                        {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if torneo.activo == 1 %}
+                        <span class="label label-success">Activo</span>
+                        {% else %}
+                        <span class="label label-danger">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url }}"><span class="glyphicon glyphicon-remove" style="color:#f33;float:right;"></span></a>
+                        <a href="{{ url }}"><span class="glyphicon glyphicon-pencil" style="margin-left:5px;"></span></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li><a href="#">Previous</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+        {# FIN TABLA LISTA TORNEOS#}
   </div>
+  {# FIN TAB TORNEOS #}
   <div class="tab-pane fade" id="settings">
-  
+
   </div>
 </div>
 <script>
@@ -125,15 +263,33 @@ $(document).ready(function() {
                         message: 'Elije una categoria'
                     }
                 }
-          }           
+          }
         /********/
         }
     });
-    
+
     $('#noticia')
     .find('[name="categoria"]')
+    .multiselect()
+    .end()
+    /*********/
+    $('#torneos')
+    .find('[name="t_subida"]')
+    .multiselect()
+    .end()
+    .find('[name="t_juego"]')
+    .multiselect()
+    .end()
+    .find('[name="t_bajada"]')
+    .multiselect()
+    .end()
+    .find('[name="t_equipos"]')
+    .multiselect()
+    .end()
+    .find('[name="t_modo"]')
     .multiselect()
     .end()
 });
 </script>
 {% include '_footer.twig' %}
+{% endspaceless %}

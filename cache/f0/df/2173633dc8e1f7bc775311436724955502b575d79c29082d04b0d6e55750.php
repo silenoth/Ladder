@@ -18,7 +18,7 @@ class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e
         // line 1
         $context["active"] = "bracket";
         // line 2
-        $this->env->loadTemplate("tournaments.twig", "1007973270")->display($context);
+        $this->env->loadTemplate("tournaments.twig", "718855882")->display($context);
         // line 7
         $context["id"] = 1;
         // line 8
@@ -149,7 +149,7 @@ class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e
 
 
 /* tournaments.twig */
-class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e55750_1007973270 extends Twig_Template
+class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e55750_718855882 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

@@ -1,0 +1,62 @@
+{# INICIO TABLA LISTA TORNEOS #}
+        <table class="table table-hover" style="margin-top:100px;" id="tablatorneos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Torneo</th>
+                    <th>Informacion</th>
+                    <th>Creado</th>
+                    <th>Por</th>
+                    <th>Cupos</th>
+                    <th>Ubicacion</th>
+                    <th>Subida replays</th>
+                    <th>Bajada replays</th>
+                    <th>Modo</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for torneo in ls.torneos %}
+                <tr>
+                    <td>{{ torneo.id }}</td>
+                    <td>{{ torneo.titulo }}</td>
+                    <td>{{ torneo.descripcion|slice(0,50) }}...</td>
+                    <td>{{ torneo.fecha|date("d \\d\\e M \\d\\e\\l Y") }}</td>
+                    <td>{{ torneo.autor }}</td>
+                    <td>{{ torneo.equipos }}</td>
+                    <td>{{ torneo.ubicacion }}</td>
+                    <td>
+                        <span class="label label-warning">{% if torneo.subida == 0 %}No se puede{% elseif torneo.subida == 1 %}Opcional{% elseif torneo.subida == 2 %}Obligatorio{% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="label label-warning">{% if torneo.bajada == 0 %}No se puede{% elseif torneo.bajada == 1 %}Se puede{% elseif torneo.bajada == 2 %}Al final{% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="label label-primary">
+                        {% if torneo.modo == 0 %}
+                        1v1
+                        {% elseif torneo.modo == 1 %}
+                        2v2
+                        {% elseif torneo.modo == 2 %}
+                        3v3
+                        {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if torneo.activo == 1 %}
+                        <span class="label label-success">Activo</span>
+                        {% else %}
+                        <span class="label label-danger">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url }}"><span class="glyphicon glyphicon-remove" style="color:#f33;float:right;"></span></a>
+                        <a href="{{ url }}"><span class="glyphicon glyphicon-pencil" style="margin-left:5px;"></span></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>

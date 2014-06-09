@@ -7,7 +7,7 @@ class lsNews extends lsSystem {
             parent::getLang();
         }
     }
-    
+
     //mostrar plantilla
     function showNews(){
         $id = $_GET['id'];
@@ -23,7 +23,7 @@ class lsNews extends lsSystem {
             header("Location: ".$this->whereuFrom());
         }
     }
-    
+
     //obtener noticias por id
     private function getNewsById($id,$title){
         parent::setNames();
@@ -46,7 +46,7 @@ class lsNews extends lsSystem {
         $res->bindParam(1,$id,PDO::PARAM_INT);
         $res->bindParam(2,$title,PDO::PARAM_STR);
         $res->execute();
-        
+
         while ($row = $res->fetch(PDO::FETCH_ASSOC)){
             $array[] = $row;
         }
@@ -58,7 +58,7 @@ class lsNews extends lsSystem {
             header("Location: ".$this->whereuFrom());
         }
     }
-    
+
     //obtener ultimas 40 noticias
     private function getLastNewsList(){
         parent::setNames();
@@ -78,7 +78,7 @@ class lsNews extends lsSystem {
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $array[] = $row;
         }
-        
+
         return $array;
         parent::closeCon();
     }

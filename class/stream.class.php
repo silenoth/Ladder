@@ -7,8 +7,8 @@ class lsStream extends lsSystem {
         }
         $this->values=array();
     }
-    
+
     function showStreamChannel(){
-        
+
     }
 }

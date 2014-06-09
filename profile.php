@@ -4,7 +4,7 @@ ob_start();
 require_once("class/system.class.php");
 require_once("class/profile.class.php");
 $profile = new lsProfile();
-$profile->start();
+//$profile->start();
 $profile->whereuFrom();
 $profile->showProfile();
 if(isset($_POST)){
@@ -32,5 +32,5 @@ if(isset($_POST)){
         exit();
     }
 }
-echo "La consulta demoró ".$profile->end()." seg.";
+//echo "La consulta demoró ".$profile->end()." seg.";
 ob_end_flush();

@@ -18,7 +18,7 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
         // line 1
         $context["active"] = "news";
         // line 2
-        $this->env->loadTemplate("news.twig", "793884420")->display($context);
+        $this->env->loadTemplate("news.twig", "1668861460")->display($context);
         // line 13
         echo "<div id=\"fb-root\"></div>
 <script>(function(d, s, id) {
@@ -152,7 +152,7 @@ class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872
 
 
 /* news.twig */
-class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872c9279_793884420 extends Twig_Template
+class __TwigTemplate_bbc697e600857ef400c119ba7c6aa646a9a65364d78960fb99976fba872c9279_1668861460 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

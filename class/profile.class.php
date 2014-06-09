@@ -1,29 +1,30 @@
 <?php
 
 class lsProfile extends lsSystem {
-    
+
     function __construct(){
         parent::__construct();
         if (file_exists(parent::getLang())){
             parent::getLang();
         }
     }
-    
+
     function showProfile(){
         $twitch = new twitch();
-        
+
         $repmax = $this->getMaxRepLvl();
         $us = $_GET['user'];
         $user = $this->getProfile($us);
         $expl = explode(';',$user['opciones']);
         //twich
         //obtenemnos una url de autorizacion
-        $getAuth = $twitch->generateAuthorizationURL(array('user_read', 'user_follows_edit'));
+        /***************************/
+        //$getAuth = $twitch->generateAuthorizationURL(array('user_read', 'user_follows_edit'));
         //verificamos si el token es valido
-        $isval = $this->validateAccesToken($us);
-        $tuser = $this->getTwitchUser($us);
-        $twitchtv = $twitch->getUserObject_Authd($tuser['twitch_user'],$tuser['token'],$tuser['twitch_code']);
-        
+        //$isval = $this->validateAccesToken($us);
+        //$tuser = $this->getTwitchUser($us);
+        //$twitchtv = $twitch->getUserObject_Authd($tuser['twitch_user'],$tuser['token'],$tuser['twitch_code']);
+        /***************************/
         $datos = array(
             'online' => $this->getUserOnline($us),
             'id' => $user['id'],
@@ -73,20 +74,22 @@ class lsProfile extends lsSystem {
                 'chktwitter' => $expl[3],
                 'chkweb' => $expl[4]
             ),
-            /*twich*/
+            'utorneo' => $user['utorneo'],
+            'torneos' => $this->getTournaments()
+            /*twich
             'twitch_login' => $getAuth,
             'twitch_islogin' => $isval,
             //informacion del usuario
-            
+
             'twitch_name' => !empty($twitchtv['name']) ? $twitchtv['name'] : NULL
             /*endtwich*/
         );
         $this->loadTemplate('profile', $datos);
     }
-    
+
     function getProfile($nick){
         parent::setNames();
-        $sql = "SELECT 
+        $sql = "SELECT
         u.usuario_id AS id,
         u.usuario_fb_id AS fid,
         u.usuario_acceso AS acceso,
@@ -119,7 +122,8 @@ class lsProfile extends lsSystem {
         u.usuario_ultima_adv AS advertencia,
         u.usuario_sitio_web AS web,
         u.usuario_alert AS alerta,
-        u.usuario_opciones AS opciones
+        u.usuario_opciones AS opciones,
+        u.usuario_torneo AS utorneo
         FROM usuarios AS u
         INNER JOIN grupos AS g ON (g.grupo_id = u.usuario_grupo)
         WHERE u.usuario_nick_clean = ?
@@ -127,7 +131,7 @@ class lsProfile extends lsSystem {
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$nick,PDO::PARAM_STR);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
@@ -149,7 +153,7 @@ class lsProfile extends lsSystem {
         $res->execute();
         header("Location: ".$this->getUrl()."/perfil/".$nick);
     }
-    
+
     function updateContact($values,$nick){
         $chkgametag = $values['opciones']['chkgametag'];
         $chkskype = $values['opciones']['chkskype'];
@@ -159,7 +163,7 @@ class lsProfile extends lsSystem {
         $todo = $chkgametag.$chkskype.$chkfacebook.$chktwitter.$chkweb;
         parent::setNames();
         $sql = "UPDATE usuarios
-        SET 
+        SET
         usuarios.usuario_gametag = ?,
         usuarios.usuario_skype = ?,
         usuarios.usuario_facebook = ?,
@@ -176,10 +180,10 @@ class lsProfile extends lsSystem {
         $res->bindParam(6,$todo,PDO::PARAM_STR);
         $res->bindParam(7,$nick,PDO::PARAM_STR);
         $res->execute();
-        
+
         header("Location: ".$this->getUrl()."/perfil/".$nick);
     }
-    
+
     function validateAccesToken($user){
         parent::setNames();
         $sql = "SELECT u.usuario_twitch_token AS token FROM usuarios AS u WHERE u.usuario_nick_clean = ?";
@@ -197,10 +201,10 @@ class lsProfile extends lsSystem {
             return true;
         }
     }
-    
+
     function getTwitchUser($user){
         parent::setNames();
-        $sql = "SELECT 
+        $sql = "SELECT
         u.usuario_twitch_id AS twitch_id,
         u.usuario_twitch_user AS twitch_user,
         u.usuario_twitch_token AS token,

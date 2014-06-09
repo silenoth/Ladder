@@ -16,7 +16,7 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("brackets.twig", "2132826059")->display($context);
+        $this->env->loadTemplate("brackets.twig", "1078113394")->display($context);
         // line 6
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "id"), "html", null, true);
         echo "
@@ -43,7 +43,7 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
 
 
 /* brackets.twig */
-class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792ed6eb_2132826059 extends Twig_Template
+class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792ed6eb_1078113394 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
