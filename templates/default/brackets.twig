@@ -1,7 +1,73 @@
 {% embed '_header.twig' %}
-{% block titulo %}<title>Bracket</title>{% endblock %}
+{% block titulo %}<title>Bracket Torneo {{ ls.bracket.titulo }}</title>{% endblock %}
 {% block css %} {% endblock %}
 {% block js %} {% endblock %}
 {% endembed %}
-{{ls.bracket.id}}
+<h1>{{ ls.bracket.titulo }}</h1>
+{#TABS#}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#descripcion" data-toggle="tab">Descripcion</a></li>
+  <li><a href="#bracket" data-toggle="tab">Bracket</a></li>
+</ul>
+{#TABS PANELS#}
+<div class="tab-content">
+	<div class="tab-pane fade in active" id="descripcion">
+		<div style="margin-top:30px;"></div>
+		<img src="{{ url }}/images/news/{{ ls.bracket.logo }}" alt="..." class="img-thumbnail">
+		<div>{{ ls.bracket.logo }}</div>
+		<div class="well">{{ ls.bracket.descripcion }}</div>
+	</div>
+	<div class="tab-pane fade" id="bracket">
+		{# INICIO 16 JUGADORES #}
+		{% if ls.bracket.equipos == 16 %}
+			{% set rondas1 = ls.bracket.equipos %}
+			{% set rondas2 = rondas1 / 2 %}
+			{% set rondas3 = rondas2 / 2 %}
+			{% set rondas4 = rondas3 / 2 %}
+			{% set rondas5 = rondas4 / 2 %}
+			{# INICIO BRACKET #}
+			<div style="margin-top:30px;"></div>
+			<div class="row">
+			  	<div style="float:left;">
+			  		<h6>Ronda 1</h6>
+			  		{% for ronda1 in 1.. rondas1 %}
+					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:20px;border:1px solid #000;">{{loop.index}}</div>
+					<div style="border:1px solid;float:right;width:20px;margin-top:10px;"></div>
+					<br>
+					{% endfor %}
+				</div>
+				<div style="float:left;margin-top:22px;max-height:500px;">
+					<h6>Ronda 2</h6>
+				  	{% for ronda2 in 1.. rondas2 %}
+				  	<div style="border:1px solid;float:left;width:20px;margin-top:10px;"></div>
+					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:62px;border:1px solid #000;">{{loop.index}}</div><br />
+					{% endfor %}
+				</div>
+				<div style="float:left;margin-top:66px;max-height:500px;">
+					<h6>Ronda 4</h6>
+				  	{% for ronda3 in 1.. rondas3 %}
+				  	<div style="border:1px solid;float:left;width:50px;margin-top:10px;"></div>
+					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:145px;border:1px solid #000;">{{loop.index}}</div><br />
+					{% endfor %}
+				</div>
+				<div style="float:left;margin-top:150px;max-height:500px;">
+					<h6>Ronda 5</h6>
+				  	{% for ronda4 in 1.. rondas4 %}
+				  	<div style="border:1px solid;float:left;width:50px;margin-top:10px;"></div>
+					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:310px;">{{loop.index}}</div><br />
+					{% endfor %}
+				</div>
+				<div style="float:left;margin-top:322px;">
+					<h6>Campeon</h6>
+				  	{% for ronda5 in 1.. rondas5 %}
+				  	<div style="border:1px solid;float:left;width:50px;margin-top:10px;"></div>
+					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:20px;border:1px solid #000;">{{loop.index}}</div><br />
+					{% endfor %}
+				</div>
+			</div>
+			{# FIN BRACKET #}
+		{% endif %}
+		{# FIN 16 JUGADORES #}
+	</div>
+</div>
 {% include '_footer.twig' %}

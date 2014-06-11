@@ -46,5 +46,4 @@ if(!empty($_SESSION['usuario']) && $admin->getUserAccess($_SESSION['usuario'])){
 } else {
     header("Location: ".$admin->getUrl());
 }
-
 ob_end_flush();
