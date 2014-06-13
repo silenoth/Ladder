@@ -16,66 +16,66 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("brackets.twig", "315247248")->display($context);
-        // line 6
+        $this->env->loadTemplate("brackets.twig", "113106981")->display($context);
+        // line 46
         echo "<h1>";
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "titulo"), "html", null, true);
         echo "</h1>
 ";
-        // line 8
+        // line 48
         echo "<ul class=\"nav nav-tabs\">
   <li class=\"active\"><a href=\"#descripcion\" data-toggle=\"tab\">Descripcion</a></li>
   <li><a href=\"#bracket\" data-toggle=\"tab\">Bracket</a></li>
 </ul>
 ";
-        // line 13
+        // line 53
         echo "<div class=\"tab-content\">
 \t<div class=\"tab-pane fade in active\" id=\"descripcion\">
 \t\t<div style=\"margin-top:30px;\"></div>
 \t\t<img src=\"";
-        // line 16
+        // line 56
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/images/news/";
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "logo"), "html", null, true);
         echo "\" alt=\"...\" class=\"img-thumbnail\">
 \t\t<div>";
-        // line 17
+        // line 57
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "logo"), "html", null, true);
         echo "</div>
 \t\t<div class=\"well\">";
-        // line 18
+        // line 58
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "descripcion"), "html", null, true);
         echo "</div>
 \t</div>
 \t<div class=\"tab-pane fade\" id=\"bracket\">
 \t\t";
-        // line 22
+        // line 62
         echo "\t\t";
         if (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "equipos") == 16)) {
-            // line 23
+            // line 63
             echo "\t\t\t";
             $context["rondas1"] = $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "equipos");
-            // line 24
+            // line 64
             echo "\t\t\t";
             $context["rondas2"] = ((isset($context["rondas1"]) ? $context["rondas1"] : null) / 2);
-            // line 25
+            // line 65
             echo "\t\t\t";
             $context["rondas3"] = ((isset($context["rondas2"]) ? $context["rondas2"] : null) / 2);
-            // line 26
+            // line 66
             echo "\t\t\t";
             $context["rondas4"] = ((isset($context["rondas3"]) ? $context["rondas3"] : null) / 2);
-            // line 27
+            // line 67
             echo "\t\t\t";
             $context["rondas5"] = ((isset($context["rondas4"]) ? $context["rondas4"] : null) / 2);
-            // line 28
+            // line 68
             echo "\t\t\t";
-            // line 29
+            // line 69
             echo "\t\t\t<div style=\"margin-top:30px;\"></div>
-\t\t\t<div class=\"row\">
+
 \t\t\t  \t<div style=\"float:left;\">
 \t\t\t  \t\t<h6>Ronda 1</h6>
 \t\t\t  \t\t";
-            // line 33
+            // line 73
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["rondas1"]) ? $context["rondas1"] : null)));
             $context['loop'] = array(
@@ -92,13 +92,21 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
                 $context['loop']['last'] = 1 === $length;
             }
             foreach ($context['_seq'] as $context["_key"] => $context["ronda1"]) {
-                // line 34
-                echo "\t\t\t\t\t<div class=\"btn btn-primary btn-xs\" style=\"width:150px;margin-bottom:20px;border:1px solid #000;\">";
+                // line 74
+                echo "\t\t\t\t\t\t<div class=\"celda\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index"), "html", null, true);
                 echo "</div>
-\t\t\t\t\t<div style=\"border:1px solid;float:right;width:20px;margin-top:10px;\"></div>
-\t\t\t\t\t<br>
-\t\t\t\t\t";
+\t\t\t\t\t\t<span class=\"glyphicon glyphicon-chevron-right\"></span>
+\t\t\t\t\t\t<br />
+\t\t\t\t\t\t";
+                // line 77
+                if ((!($this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index") % 2 == 1))) {
+                    // line 78
+                    echo "\t\t\t\t\t\t\t<br />
+\t\t\t\t\t\t";
+                }
+                // line 80
+                echo "\t\t\t\t\t";
                 ++$context['loop']['index0'];
                 ++$context['loop']['index'];
                 $context['loop']['first'] = false;
@@ -111,12 +119,12 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ronda1'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 38
+            // line 81
             echo "\t\t\t\t</div>
 \t\t\t\t<div style=\"float:left;margin-top:22px;max-height:500px;\">
 \t\t\t\t\t<h6>Ronda 2</h6>
 \t\t\t\t  \t";
-            // line 41
+            // line 84
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["rondas2"]) ? $context["rondas2"] : null)));
             $context['loop'] = array(
@@ -133,10 +141,10 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
                 $context['loop']['last'] = 1 === $length;
             }
             foreach ($context['_seq'] as $context["_key"] => $context["ronda2"]) {
-                // line 42
+                // line 85
                 echo "\t\t\t\t  \t<div style=\"border:1px solid;float:left;width:20px;margin-top:10px;\"></div>
-\t\t\t\t\t<div class=\"btn btn-primary btn-xs\" style=\"width:150px;margin-bottom:62px;border:1px solid #000;\">";
-                // line 43
+\t\t\t\t\t<div class=\"celda\" style=\"width:150px;margin-bottom:62px;border:1px solid #000;\">";
+                // line 86
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index"), "html", null, true);
                 echo "</div><br />
 \t\t\t\t\t";
@@ -152,12 +160,12 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ronda2'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 45
+            // line 88
             echo "\t\t\t\t</div>
 \t\t\t\t<div style=\"float:left;margin-top:66px;max-height:500px;\">
 \t\t\t\t\t<h6>Ronda 4</h6>
 \t\t\t\t  \t";
-            // line 48
+            // line 91
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["rondas3"]) ? $context["rondas3"] : null)));
             $context['loop'] = array(
@@ -174,10 +182,10 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
                 $context['loop']['last'] = 1 === $length;
             }
             foreach ($context['_seq'] as $context["_key"] => $context["ronda3"]) {
-                // line 49
+                // line 92
                 echo "\t\t\t\t  \t<div style=\"border:1px solid;float:left;width:50px;margin-top:10px;\"></div>
 \t\t\t\t\t<div class=\"btn btn-primary btn-xs\" style=\"width:150px;margin-bottom:145px;border:1px solid #000;\">";
-                // line 50
+                // line 93
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index"), "html", null, true);
                 echo "</div><br />
 \t\t\t\t\t";
@@ -193,12 +201,12 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ronda3'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 52
+            // line 95
             echo "\t\t\t\t</div>
 \t\t\t\t<div style=\"float:left;margin-top:150px;max-height:500px;\">
 \t\t\t\t\t<h6>Ronda 5</h6>
 \t\t\t\t  \t";
-            // line 55
+            // line 98
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["rondas4"]) ? $context["rondas4"] : null)));
             $context['loop'] = array(
@@ -215,10 +223,10 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
                 $context['loop']['last'] = 1 === $length;
             }
             foreach ($context['_seq'] as $context["_key"] => $context["ronda4"]) {
-                // line 56
+                // line 99
                 echo "\t\t\t\t  \t<div style=\"border:1px solid;float:left;width:50px;margin-top:10px;\"></div>
 \t\t\t\t\t<div class=\"btn btn-primary btn-xs\" style=\"width:150px;margin-bottom:310px;\">";
-                // line 57
+                // line 100
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index"), "html", null, true);
                 echo "</div><br />
 \t\t\t\t\t";
@@ -234,12 +242,12 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ronda4'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 59
+            // line 102
             echo "\t\t\t\t</div>
 \t\t\t\t<div style=\"float:left;margin-top:322px;\">
 \t\t\t\t\t<h6>Campeon</h6>
 \t\t\t\t  \t";
-            // line 62
+            // line 105
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["rondas5"]) ? $context["rondas5"] : null)));
             $context['loop'] = array(
@@ -256,10 +264,10 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
                 $context['loop']['last'] = 1 === $length;
             }
             foreach ($context['_seq'] as $context["_key"] => $context["ronda5"]) {
-                // line 63
+                // line 106
                 echo "\t\t\t\t  \t<div style=\"border:1px solid;float:left;width:50px;margin-top:10px;\"></div>
 \t\t\t\t\t<div class=\"btn btn-primary btn-xs\" style=\"width:150px;margin-bottom:20px;border:1px solid #000;\">";
-                // line 64
+                // line 107
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index"), "html", null, true);
                 echo "</div><br />
 \t\t\t\t\t";
@@ -275,20 +283,20 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ronda5'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 66
+            // line 109
             echo "\t\t\t\t</div>
-\t\t\t</div>
+
 \t\t\t";
-            // line 69
+            // line 112
             echo "\t\t";
         }
-        // line 70
+        // line 113
         echo "\t\t";
-        // line 71
+        // line 114
         echo "\t</div>
 </div>
 ";
-        // line 73
+        // line 116
         $this->env->loadTemplate("_footer.twig")->display($context);
     }
 
@@ -304,13 +312,13 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
 
     public function getDebugInfo()
     {
-        return array (  292 => 73,  288 => 71,  286 => 70,  283 => 69,  279 => 66,  263 => 64,  260 => 63,  243 => 62,  238 => 59,  222 => 57,  219 => 56,  202 => 55,  197 => 52,  181 => 50,  178 => 49,  161 => 48,  156 => 45,  140 => 43,  137 => 42,  120 => 41,  115 => 38,  96 => 34,  79 => 33,  73 => 29,  71 => 28,  68 => 27,  65 => 26,  62 => 25,  59 => 24,  56 => 23,  53 => 22,  47 => 18,  43 => 17,  37 => 16,  32 => 13,  26 => 8,  21 => 6,  19 => 1,);
+        return array (  300 => 116,  296 => 114,  294 => 113,  291 => 112,  287 => 109,  271 => 107,  268 => 106,  251 => 105,  246 => 102,  230 => 100,  227 => 99,  210 => 98,  205 => 95,  189 => 93,  186 => 92,  169 => 91,  164 => 88,  148 => 86,  145 => 85,  128 => 84,  123 => 81,  109 => 80,  105 => 78,  103 => 77,  96 => 74,  79 => 73,  73 => 69,  71 => 68,  68 => 67,  65 => 66,  62 => 65,  59 => 64,  56 => 63,  53 => 62,  47 => 58,  43 => 57,  37 => 56,  32 => 53,  26 => 48,  21 => 46,  19 => 1,);
     }
 }
 
 
 /* brackets.twig */
-class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792ed6eb_315247248 extends Twig_Template
+class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792ed6eb_113106981 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -346,10 +354,50 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
     // line 3
     public function block_css($context, array $blocks = array())
     {
-        echo " ";
+        // line 4
+        echo "<style type=\"text/css\">
+.celda {
+\twidth:150px;
+\tbackground: -webkit-gradient(linear,left top,left bottom,from(#8266b6),to(#533787));
+\tbackground: -moz-linear-gradient(top,#8266b6,#533787);
+\tbackground: -o-linear-gradient(top,#8266b6,#533787);
+\tbackground: linear-gradient(top,#8266b6,#533787);
+\tbackground-color: #6a4e9e;
+\tborder-top: 1px solid #5b3f8f;
+\tborder-left: 1px solid #412771;
+\tborder-right: 1px solid #412771;
+\tborder-bottom: 1px solid #2a1453;
+\tbox-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);
+\t-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);
+\t-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(0,0,0,0.15);
+\ttext-shadow: 0 1px 0 rgba(0,0,0,0.75);
+\t-moz-text-shadow: 0 1px 0 rgba(0,0,0,0.75);
+\t-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);
+\tcolor: #fff;
+\tdisplay: inline-block;
+\tpadding: 3px 12px;
+\tmargin-bottom: 10px;
+\tfont-size: 14px;
+\tfont-weight: normal;
+\tline-height: 1.428571429;
+\twhite-space: nowrap;
+\t/*vertical-align: middle;*/
+\tcursor: pointer;
+\t/*background-image: none;*/
+\t/*text-align: center;*/
+\t/*border: 1px solid transparent;*/
+\tborder-radius: 4px;
+\t-webkit-user-select: none;
+\t-moz-user-select: none;
+\t-ms-user-select: none;
+\t-o-user-select: none;
+\tuser-select: none;
+}
+</style>
+";
     }
 
-    // line 4
+    // line 44
     public function block_js($context, array $blocks = array())
     {
         echo " ";
@@ -367,6 +415,6 @@ class __TwigTemplate_b0a94d69055c77a9aeb6e8798708bbb9cc2cc2632b090d74e523e13a792
 
     public function getDebugInfo()
     {
-        return array (  353 => 4,  347 => 3,  339 => 2,  292 => 73,  288 => 71,  286 => 70,  283 => 69,  279 => 66,  263 => 64,  260 => 63,  243 => 62,  238 => 59,  222 => 57,  219 => 56,  202 => 55,  197 => 52,  181 => 50,  178 => 49,  161 => 48,  156 => 45,  140 => 43,  137 => 42,  120 => 41,  115 => 38,  96 => 34,  79 => 33,  73 => 29,  71 => 28,  68 => 27,  65 => 26,  62 => 25,  59 => 24,  56 => 23,  53 => 22,  47 => 18,  43 => 17,  37 => 16,  32 => 13,  26 => 8,  21 => 6,  19 => 1,);
+        return array (  401 => 44,  358 => 4,  355 => 3,  347 => 2,  300 => 116,  296 => 114,  294 => 113,  291 => 112,  287 => 109,  271 => 107,  268 => 106,  251 => 105,  246 => 102,  230 => 100,  227 => 99,  210 => 98,  205 => 95,  189 => 93,  186 => 92,  169 => 91,  164 => 88,  148 => 86,  145 => 85,  128 => 84,  123 => 81,  109 => 80,  105 => 78,  103 => 77,  96 => 74,  79 => 73,  73 => 69,  71 => 68,  68 => 67,  65 => 66,  62 => 65,  59 => 64,  56 => 63,  53 => 62,  47 => 58,  43 => 57,  37 => 56,  32 => 53,  26 => 48,  21 => 46,  19 => 1,);
     }
 }
