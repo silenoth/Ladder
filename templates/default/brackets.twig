@@ -1,8 +1,9 @@
+{% spaceless %}
 {% embed '_header.twig' %}
 {% block titulo %}<title>Bracket Torneo {{ ls.bracket.titulo }}</title>{% endblock %}
 {% block css %}
 <style type="text/css">
-.celda {
+.cell {
 	width:150px;
 	background: -webkit-gradient(linear,left top,left bottom,from(#8266b6),to(#533787));
 	background: -moz-linear-gradient(top,#8266b6,#533787);
@@ -21,14 +22,15 @@
 	-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);
 	color: #fff;
 	display: inline-block;
-	padding: 3px 12px;
+	padding: 3px 6px;
 	margin-bottom: 10px;
-	font-size: 14px;
+	margin-right:0;
+	font-size: 12px;
 	font-weight: normal;
-	line-height: 1.428571429;
+	/*line-height: 1.428571429;*/
 	white-space: nowrap;
 	/*vertical-align: middle;*/
-	cursor: pointer;
+	/*cursor: pointer;*/
 	/*background-image: none;*/
 	/*text-align: center;*/
 	/*border: 1px solid transparent;*/
@@ -39,6 +41,32 @@
 	-o-user-select: none;
 	user-select: none;
 }
+
+.cell-sep {
+	padding-bottom:33px;
+}
+.right-down {
+	border-top:1px solid #000;
+	border-right:1px solid #000;
+	float:right;
+	width:30px;
+	height:15px;
+	margin-top:15px;
+	padding-bottom:22px;
+}
+
+.line-right {
+	border-top:1px solid #000;
+	width:30px;
+	float:right;
+}
+
+.left-line {
+	border-top:1px solid #000;
+	width:30px;
+	float:left;
+}
+
 </style>
 {% endblock %}
 {% block js %} {% endblock %}
@@ -57,7 +85,18 @@
 		<div>{{ ls.bracket.logo }}</div>
 		<div class="well">{{ ls.bracket.descripcion }}</div>
 	</div>
-	<div class="tab-pane fade" id="bracket">
+	{# INICIO TAB BRACKET #}
+	<div class="tab-pane fade" id="bracket" style="min-width:970px;width:1020px">
+		<div class="row" style="margin-top:30px;">
+		<div class="col-md-9 col-md-push-3">
+			<p>Requisitos:</p>
+		</div>
+	  		<div class="col-md-3 col-md-pull-9">
+	  			<form method="post" action="">
+					<button class="btn btn-primary">Ingresar al torneo</button>
+				</form>
+	  		</div>
+		</div>
 		{# INICIO 16 JUGADORES #}
 		{% if ls.bracket.equipos == 16 %}
 			{% set rondas1 = ls.bracket.equipos %}
@@ -67,50 +106,66 @@
 			{% set rondas5 = rondas4 / 2 %}
 			{# INICIO BRACKET #}
 			<div style="margin-top:30px;"></div>
-
-			  	<div style="float:left;">
-			  		<h6>Ronda 1</h6>
+			  	<div style="float:left;overflow:hidden;width:180px;">
+			  		<h4>1ra Ronda</h4>
 			  		{% for ronda1 in 1.. rondas1 %}
-						<div class="celda">{{loop.index}}</div>
-						<span class="glyphicon glyphicon-chevron-right"></span>
-						<br />
-						{% if loop.index is not odd %}
-							<br />
+						<div class="cell">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						{% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:12px;height:37px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+							<div class="line-right right-down" style="margin-top:12px;height:37px;border-bottom: 1px solid #000;"></div>
+						{% else %}
+						<div class="cell-sep"></div>
 						{% endif %}
 					{% endfor %}
 				</div>
-				<div style="float:left;margin-top:22px;max-height:500px;">
-					<h6>Ronda 2</h6>
+				<div style="float:left;overflow:hidden;width:210px;">
+					<h4 style="padding-left:30px;">4tos de Final</h4>
 				  	{% for ronda2 in 1.. rondas2 %}
-				  	<div style="border:1px solid;float:left;width:20px;margin-top:10px;"></div>
-					<div class="celda" style="width:150px;margin-bottom:62px;border:1px solid #000;">{{loop.index}}</div><br />
+				  		<div class="left-line" style="margin-top:{% if loop.index != 1 %}81{% else %}33{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}68{% else %}20{% endif %}px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						{% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:34px;height:107px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+							<div class="line-right right-down" style="margin-top:81px;height:107px;border-bottom: 1px solid #000;"></div>
+						{% endif %}
 					{% endfor %}
 				</div>
-				<div style="float:left;margin-top:66px;max-height:500px;">
-					<h6>Ronda 4</h6>
+				<div style="float:left;overflow:hidden;width:210px;">
+					<h4 style="padding-left:30px;">Semi-final</h4>
 				  	{% for ronda3 in 1.. rondas3 %}
-				  	<div style="border:1px solid;float:left;width:50px;margin-top:10px;"></div>
-					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:145px;border:1px solid #000;">{{loop.index}}</div><br />
+						<div class="left-line" style="margin-top:{% if loop.index != 1 %}186{% else %}88{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}173{% else %}75{% endif %}px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						{% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:88px;height:212px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+							<div class="line-right right-down" style="margin-top:186px;height:212px;border-bottom: 1px solid #000;"></div>
+						{% endif %}
 					{% endfor %}
 				</div>
-				<div style="float:left;margin-top:150px;max-height:500px;">
-					<h6>Ronda 5</h6>
+				<div style="float:left;overflow:hidden;width:210px;">
+					<h4 style="padding-left:30px;">Final</h4>
 				  	{% for ronda4 in 1.. rondas4 %}
-				  	<div style="border:1px solid;float:left;width:50px;margin-top:10px;"></div>
-					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:310px;">{{loop.index}}</div><br />
+				  	<div class="left-line" style="margin-top:{% if loop.index != 1 %}414{% else %}188{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}400{% else %}175{% endif %}px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						{% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:188px;height:440px;border-bottom: 1px solid #000;"></div>
+						{% endif %}
 					{% endfor %}
 				</div>
-				<div style="float:left;margin-top:322px;">
-					<h6>Campeon</h6>
+				<div style="float:right;overflow:hidden;width:210px;">
+					<h4 style="padding-left:30px;">Campeon</h4>
 				  	{% for ronda5 in 1.. rondas5 %}
-				  	<div style="border:1px solid;float:left;width:50px;margin-top:10px;"></div>
-					<div class="btn btn-primary btn-xs" style="width:150px;margin-bottom:20px;border:1px solid #000;">{{loop.index}}</div><br />
+				  		<div class="left-line" style="margin-top:400px;"></div>
+						<div class="cell" style="margin-top:386px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
 					{% endfor %}
 				</div>
-
 			{# FIN BRACKET #}
 		{% endif %}
 		{# FIN 16 JUGADORES #}
 	</div>
+	{# FIN TAB BRACKET #}
 </div>
+{# FIN TAB PANELS #}
 {% include '_footer.twig' %}
+{% endspaceless %}
