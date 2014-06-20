@@ -16,77 +16,79 @@ class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $context["active"] = "bracket";
+        ob_start();
         // line 2
-        $this->env->loadTemplate("tournaments.twig", "718855882")->display($context);
-        // line 7
-        $context["id"] = 1;
+        $context["active"] = "bracket";
+        // line 3
+        $this->env->loadTemplate("tournaments.twig", "803433844")->display($context);
         // line 8
+        $context["id"] = 1;
+        // line 9
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "torneo"));
-        foreach ($context['_seq'] as $context["_key"] => $context["ts"]) {
-            // line 9
-            $context["registrados"] = (($this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "teams_joined_count") * 100) / $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "max_teams"));
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "torneos"));
+        foreach ($context['_seq'] as $context["_key"] => $context["torneo"]) {
             // line 10
-            $context["confirmados"] = (($this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "teams_confirmed_count") * 100) / $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "max_teams"));
+            $context["registrados"] = (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "registrados") * 100) / $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "equipos"));
             // line 11
+            $context["confirmados"] = (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "confirmados") * 100) / $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "equipos"));
+            // line 12
             echo "<div class=\"jumbotron\" style=\"background:url('";
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "/plugins/binarybeast/img/bgt.jpg');color:white;box-shadow: 1px 1px 10px #000;\">
   <h1>";
-            // line 12
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "title"), "html", null, true);
+            // line 13
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "titulo"), "html", null, true);
             echo "</h1>
   <p>";
-            // line 13
-            echo twig_escape_filter($this->env, twig_slice($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "description"), 0, 80), "html", null, true);
-            echo "...</p>
-  <span class=\"label label-info\">Cupos: ";
             // line 14
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "max_teams"), "html", null, true);
+            echo twig_escape_filter($this->env, twig_slice($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "descripcion"), 0, 80), "html", null, true);
+            echo "...</p>
+  <span class=\"label label-danger\">";
+            // line 15
+            if (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "terminado") == 1)) {
+                echo "Finalizado";
+            } else {
+                echo "Inscripciones abiertas";
+            }
+            echo "</span>
+  <span class=\"label label-info\">Cupos: ";
+            // line 16
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "equipos"), "html", null, true);
             echo "</span>
   <span class=\"label label-warning\">Registrados: ";
-            // line 15
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "teams_joined_count"), "html", null, true);
+            // line 17
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "registrados"), "html", null, true);
             echo "</span>
   <span class=\"label label-success\">Confirmados: ";
-            // line 16
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "teams_confirmed_count"), "html", null, true);
+            // line 18
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "confirmados"), "html", null, true);
             echo "</span>
   <span class=\"label label-danger\">Estado: ";
-            // line 17
-            if (($this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "status") == "Building")) {
-                echo "En construccion ";
-            } elseif (($this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "status") == "Active-Groups")) {
-                echo "Grupos activos";
-            } elseif (($this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "status") == "Active")) {
+            // line 19
+            if (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "activo") == 0)) {
+                echo "Inactivo";
+            } else {
                 echo "Activo";
-            } else {
-                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "status"), "html", null, true);
             }
             echo "</span>
-  <span class=\"label label-default\">";
-            // line 18
-            if (($this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "type") == "Single Elim")) {
-                echo "Eliminacion simple";
-            } else {
-                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "type"), "html", null, true);
-            }
-            echo "</span>
+  <span class=\"label label-default\"></span>
   <p>
       <div class=\"progress\">
         <div class=\"progress-bar progress-bar-success\" id=\"confirmados";
-            // line 21
+            // line 23
             echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : null), "html", null, true);
             echo "\" style=\"width: ";
             echo twig_escape_filter($this->env, (isset($context["confirmados"]) ? $context["confirmados"] : null), "html", null, true);
             echo "%\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"El ";
             echo twig_escape_filter($this->env, (isset($context["confirmados"]) ? $context["confirmados"] : null), "html", null, true);
             echo "% de los jugadores ha confirmado\">
-            <span class=\"sr-only\">35% Complete (success)</span>
+            <span class=\"sr-only\">";
+            // line 24
+            echo twig_escape_filter($this->env, (isset($context["confirmados"]) ? $context["confirmados"] : null), "html", null, true);
+            echo "%</span>
         </div>
         <div class=\"progress-bar progress-bar-warning\" id=\"registrados";
-            // line 24
+            // line 26
             echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : null), "html", null, true);
             echo "\" style=\"width: ";
             if (((isset($context["registrados"]) ? $context["registrados"] : null) >= (isset($context["confirmados"]) ? $context["confirmados"] : null))) {
@@ -97,38 +99,44 @@ class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e
                 echo "%";
             }
             echo "\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Jugadores registrados ";
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "teams_joined_count"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "registrados"), "html", null, true);
             echo "\">
-            <span class=\"sr-only\">40% Complete (success)</span>
-          </div>
+            <span class=\"sr-only\">";
+            // line 27
+            echo twig_escape_filter($this->env, (isset($context["registrados"]) ? $context["registrados"] : null), "html", null, true);
+            echo "%</span>
+        </div>
       </div>
   </p>
   <p><a href=\"";
-            // line 29
+            // line 31
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "/brackets/";
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ts"]) ? $context["ts"] : null), "data"), "tourney_id"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "id"), "html", null, true);
+            echo "/";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "link"), "html", null, true);
             echo "\" class=\"btn btn-primary btn-lg\" role=\"button\">Ver bracket</a></p>
 </div>
 <script>
 \$('#confirmados";
-            // line 32
+            // line 34
             echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : null), "html", null, true);
             echo "').tooltip('hide');
 \$('#registrados";
-            // line 33
+            // line 35
             echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : null), "html", null, true);
             echo "').tooltip('hide');
 </script>
 ";
-            // line 35
+            // line 37
             $context["id"] = ((isset($context["id"]) ? $context["id"] : null) + 1);
         }
         $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ts'], $context['_parent'], $context['loop']);
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['torneo'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 37
+        // line 39
         $this->env->loadTemplate("_footer.twig")->display($context);
+        echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
     }
 
     public function getTemplateName()
@@ -143,13 +151,13 @@ class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e
 
     public function getDebugInfo()
     {
-        return array (  131 => 37,  125 => 35,  120 => 33,  116 => 32,  108 => 29,  90 => 24,  80 => 21,  70 => 18,  58 => 17,  54 => 16,  50 => 15,  46 => 14,  42 => 13,  38 => 12,  33 => 11,  31 => 10,  29 => 9,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  138 => 39,  132 => 37,  127 => 35,  123 => 34,  113 => 31,  106 => 27,  92 => 26,  87 => 24,  79 => 23,  68 => 19,  64 => 18,  60 => 17,  56 => 16,  48 => 15,  44 => 14,  40 => 13,  35 => 12,  33 => 11,  31 => 10,  27 => 9,  25 => 8,  23 => 3,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* tournaments.twig */
-class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e55750_718855882 extends Twig_Template
+class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e55750_803433844 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -174,19 +182,19 @@ class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 3
+    // line 4
     public function block_titulo($context, array $blocks = array())
     {
         echo "<title>Bracket</title>";
     }
 
-    // line 4
+    // line 5
     public function block_css($context, array $blocks = array())
     {
         echo " ";
     }
 
-    // line 5
+    // line 6
     public function block_js($context, array $blocks = array())
     {
         echo " ";
@@ -204,6 +212,6 @@ class __TwigTemplate_f0df2173633dc8e1f7bc775311436724955502b575d79c29082d04b0d6e
 
     public function getDebugInfo()
     {
-        return array (  190 => 5,  184 => 4,  178 => 3,  131 => 37,  125 => 35,  120 => 33,  116 => 32,  108 => 29,  90 => 24,  80 => 21,  70 => 18,  58 => 17,  54 => 16,  50 => 15,  46 => 14,  42 => 13,  38 => 12,  33 => 11,  31 => 10,  29 => 9,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  198 => 6,  192 => 5,  186 => 4,  138 => 39,  132 => 37,  127 => 35,  123 => 34,  113 => 31,  106 => 27,  92 => 26,  87 => 24,  79 => 23,  68 => 19,  64 => 18,  60 => 17,  56 => 16,  48 => 15,  44 => 14,  40 => 13,  35 => 12,  33 => 11,  31 => 10,  27 => 9,  25 => 8,  23 => 3,  21 => 2,  19 => 1,);
     }
 }

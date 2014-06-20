@@ -68,6 +68,7 @@
 }
 
 </style>
+
 {% endblock %}
 {% block js %} {% endblock %}
 {% endembed %}
@@ -81,9 +82,34 @@
 <div class="tab-content">
 	<div class="tab-pane fade in active" id="descripcion">
 		<div style="margin-top:30px;"></div>
-		<img src="{{ url }}/images/news/{{ ls.bracket.logo }}" alt="..." class="img-thumbnail">
-		<div>{{ ls.bracket.logo }}</div>
-		<div class="well">{{ ls.bracket.descripcion }}</div>
+    {# INICIO ERROR 404 #}
+    {% if ls.bracket == false %}
+        {% include '404.twig' %}
+    {% else %}
+		<div class="well">
+			<div class="row">
+			  <div class="col-sm-8 col-md-4">
+			    <div class="thumbnail">
+			      <img src="{{ url }}/images/news/{{ ls.bracket.logo }}" alt="{{ ls.bracket.titulo }}">
+			      <div class="caption">
+			        <h3>{{ ls.bracket.titulo }}</h3>
+			        <p>Creado el {{ ls.bracket.fecha }}</p>
+			        <p>Encargado: {{ ls.bracket.autor }}</p>
+			        <p>Juego: {{ ls.bracket.juego }}</p>
+			        <p>Modo: {% if ls.bracket.modo == 0 %}1v1{% endif %}</p>
+			        <a href="#" class="btn btn-primary" role="button">Inscripción</a>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="col-sm-4 col-md-8">
+			  	<div class="panel panel-default">
+				  <div class="panel-body">
+				    {{ ls.bracket.descripcion|raw }}
+				  </div>
+				</div>
+			  </div>
+			</div>
+		</div>
 	</div>
 	{# INICIO TAB BRACKET #}
 	<div class="tab-pane fade" id="bracket" style="min-width:970px;width:1020px">
@@ -93,23 +119,44 @@
 		</div>
 	  		<div class="col-md-3 col-md-pull-9">
 	  			<form method="post" action="">
-					<button class="btn btn-primary">Ingresar al torneo</button>
+					<button class="btn btn-primary">Enviar reporte</button>
 				</form>
 	  		</div>
 		</div>
+        {# INICIO BRACKET #}
+        {# SETEO DE VARIABLES #}
+        {% set rondas1 = ls.bracket.equipos %}
+    	{% set rondas2 = rondas1 / 2 %}
+    	{% set rondas3 = rondas2 / 2 %}
+    	{% set rondas4 = rondas3 / 2 %}
+    	{% set rondas5 = rondas4 / 2 %}
+    	{% set rondas6 = rondas5 / 2 %}
+    	{% set rondas7 = rondas6 / 2 %}
+    	{% set rondas8 = rondas7 / 2 %}
+		<div style="margin-top:30px;"></div>
+        {# INICIO 128 JUGADORES #}
+        {% if ls.bracket.equipos == 128 %}
+            128
+        {% endif %}
+        {# FIN 128 JUGADORES #}
+
 		{# INICIO 16 JUGADORES #}
 		{% if ls.bracket.equipos == 16 %}
-			{% set rondas1 = ls.bracket.equipos %}
-			{% set rondas2 = rondas1 / 2 %}
-			{% set rondas3 = rondas2 / 2 %}
-			{% set rondas4 = rondas3 / 2 %}
-			{% set rondas5 = rondas4 / 2 %}
-			{# INICIO BRACKET #}
-			<div style="margin-top:30px;"></div>
+		
+            {# COLUMNA 1 #}
 			  	<div style="float:left;overflow:hidden;width:180px;">
 			  		<h4>1ra Ronda</h4>
 			  		{% for ronda1 in 1.. rondas1 %}
-						<div class="cell">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+                        {% set rnd1 = loop.index %}
+						<div class="cell">
+                        {{loop.index}}
+                        {% for usuario in ls.datos %}
+                            {% if rnd1 == usuario.f16 %}
+                                <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                        <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r16}}</span>
+                            {%endif%}
+                        {% endfor %}
+                        </div>
 						{% if loop.index == 1 %}
 							<div class="line-right right-down" style="margin-top:12px;height:37px;border-bottom: 1px solid #000;"></div>
 						{% elseif loop.index is odd %}
@@ -119,11 +166,20 @@
 						{% endif %}
 					{% endfor %}
 				</div>
+                {# COLUMNA 2 #}
 				<div style="float:left;overflow:hidden;width:210px;">
 					<h4 style="padding-left:30px;">4tos de Final</h4>
 				  	{% for ronda2 in 1.. rondas2 %}
+                        {% set rnd2 = loop.index %}
 				  		<div class="left-line" style="margin-top:{% if loop.index != 1 %}81{% else %}33{% endif %}px;"></div>
-						<div class="cell" style="margin-top:{% if loop.index != 1 %}68{% else %}20{% endif %}px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}68{% else %}20{% endif %}px;">{{loop.index}}
+                            {% for usuario in ls.datos %}
+                                {% if rnd2 == usuario.f8%}
+                                    <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                    <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r8}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
 						{% if loop.index == 1 %}
 							<div class="line-right right-down" style="margin-top:34px;height:107px;border-bottom: 1px solid #000;"></div>
 						{% elseif loop.index is odd %}
@@ -134,8 +190,17 @@
 				<div style="float:left;overflow:hidden;width:210px;">
 					<h4 style="padding-left:30px;">Semi-final</h4>
 				  	{% for ronda3 in 1.. rondas3 %}
+                    {% set rnd3 = loop.index %}
 						<div class="left-line" style="margin-top:{% if loop.index != 1 %}186{% else %}88{% endif %}px;"></div>
-						<div class="cell" style="margin-top:{% if loop.index != 1 %}173{% else %}75{% endif %}px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}173{% else %}75{% endif %}px;">
+                            {{loop.index}}
+                            {% for usuario in ls.datos %}
+                                {% if rnd3 == usuario.f4%}
+                                    <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                    <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r4}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
 						{% if loop.index == 1 %}
 							<div class="line-right right-down" style="margin-top:88px;height:212px;border-bottom: 1px solid #000;"></div>
 						{% elseif loop.index is odd %}
@@ -146,8 +211,17 @@
 				<div style="float:left;overflow:hidden;width:210px;">
 					<h4 style="padding-left:30px;">Final</h4>
 				  	{% for ronda4 in 1.. rondas4 %}
+                    {% set rnd4 = loop.index %}
 				  	<div class="left-line" style="margin-top:{% if loop.index != 1 %}414{% else %}188{% endif %}px;"></div>
-						<div class="cell" style="margin-top:{% if loop.index != 1 %}400{% else %}175{% endif %}px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}400{% else %}175{% endif %}px;">
+                            {{loop.index}}
+                            {% for usuario in ls.datos %}
+                                {% if rnd4 == usuario.f2%}
+                                    <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                    <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r2}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
 						{% if loop.index == 1 %}
 							<div class="line-right right-down" style="margin-top:188px;height:440px;border-bottom: 1px solid #000;"></div>
 						{% endif %}
@@ -156,8 +230,17 @@
 				<div style="float:right;overflow:hidden;width:210px;">
 					<h4 style="padding-left:30px;">Campeon</h4>
 				  	{% for ronda5 in 1.. rondas5 %}
+                    {% set rnd5 = loop.index %}
 				  		<div class="left-line" style="margin-top:400px;"></div>
-						<div class="cell" style="margin-top:386px;">{{loop.index}}<span class="label label-success pull-right" style="margin-top: 2px;">0</span></div>
+						<div class="cell" style="margin-top:386px;">
+                        {{loop.index}}
+                        {% for usuario in ls.datos %}
+                            {% if rnd5 == usuario.f1 %}
+                                <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r1}}</span>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
 					{% endfor %}
 				</div>
 			{# FIN BRACKET #}
@@ -165,6 +248,8 @@
 		{# FIN 16 JUGADORES #}
 	</div>
 	{# FIN TAB BRACKET #}
+	{# FIN ERROR 404 #}
+    {% endif %}
 </div>
 {# FIN TAB PANELS #}
 {% include '_footer.twig' %}

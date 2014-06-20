@@ -751,6 +751,7 @@ class lsSystem {
         $sql = "SELECT
             t.tnmt_id AS id,
             t.tnmt_autor AS autor,
+            t.tnmt_link AS link,
             t.tnmt_titulo AS titulo,
             t.tnmt_logo AS logo,
             t.tnmt_descripcion AS descripcion,
@@ -761,8 +762,11 @@ class lsSystem {
             t.tnmt_descarga_replays AS bajada,
             t.tnmt_ganadores AS ganadores,
             t.tnmt_max_equipos AS equipos,
+            t.tnmt_registrados_cont AS registrados,
+            t.tnmt_confirmados_cont AS confirmados,
             t.tnmt_modo AS modo,
-            t.tnmt_activo AS activo
+            t.tnmt_activo AS activo,
+            t.tnmt_terminado AS terminado
         FROM torneos AS t ORDER BY id DESC";
         $res = $this->con->query($sql);
         $res->execute();

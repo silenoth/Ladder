@@ -8,7 +8,7 @@ class lsAdmin extends lsSystem {
             parent::getLang();
         }
     }
-
+    //Mostrar template
     function showAdmin(){
         $datos = array(
             'cat' => $this->getCategories(),
@@ -16,7 +16,7 @@ class lsAdmin extends lsSystem {
         );
         $this->loadTemplate('admin',$datos);
     }
-
+    //Noticias
     function addNews($datos){
         $image = $datos['imagen'];
         if (!empty($imagen)) {
@@ -60,7 +60,7 @@ class lsAdmin extends lsSystem {
         $res->execute();
         header("Location ".$this->whereuFrom());
     }
-
+    //categorias
     function getCategories(){
         parent::setNames();
         $sql = "SELECT nc.cat_id AS id, nc.cat_nombre AS nombre FROM noticias_categorias AS nc";
@@ -71,9 +71,10 @@ class lsAdmin extends lsSystem {
         }
         return $datos;
     }
-
+    //Torneos
     function addTournaments($torneo){
         $ds = array(
+            't_link' => $this->cleanString($torneo['t_titulo']),
             't_logo' => 'default.jpg',
             't_juego' => 'Hearthstone',
             't_ubicacion' => 'Antofagasta',
@@ -83,6 +84,7 @@ class lsAdmin extends lsSystem {
         parent::setNames();
         $sql = "INSERT INTO torneos (
         torneos.tnmt_autor,
+        torneos.tnmt_link,
         torneos.tnmt_titulo,
         torneos.tnmt_logo,
         torneos.tnmt_descripcion,
@@ -93,21 +95,25 @@ class lsAdmin extends lsSystem {
         torneos.tnmt_descarga_replays,
         torneos.tnmt_ganadores,
         torneos.tnmt_max_equipos,
+        torneos.tnmt_registrados_cont,
+        torneos.tnmt_confirmados_cont,
         torneos.tnmt_modo,
-        torneos.tnmt_activo) VALUES (?,?,?,?,?,NOW(),?,?,?,?,?,?,?)";
+        torneos.tnmt_activo,
+        torneos.tnmt_terminado) VALUES (?,?,?,?,?,?,NOW(),?,?,?,?,?,0,0,?,?,0)";
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$torneo['t_autor'],PDO::PARAM_STR);
-        $res->bindParam(2,$torneo['t_titulo'],PDO::PARAM_STR);
-        $res->bindParam(3,$ds['t_logo'],PDO::PARAM_STR);
-        $res->bindParam(4,$torneo['t_descripcion'],PDO::PARAM_STR);
-        $res->bindParam(5,$ds['t_juego'],PDO::PARAM_STR);
-        $res->bindParam(6,$ds['t_ubicacion'],PDO::PARAM_STR);
-        $res->bindParam(7,$torneo['t_subida'],PDO::PARAM_INT);
-        $res->bindParam(8,$torneo['t_bajada'],PDO::PARAM_INT);
-        $res->bindParam(9,$ds['t_ganadores'],PDO::PARAM_INT);
-        $res->bindParam(10,$torneo['t_equipos'],PDO::PARAM_INT);
-        $res->bindParam(11,$ds['t_modo'],PDO::PARAM_INT);
-        $res->bindParam(12,$torneo['t_activo'],PDO::PARAM_INT);
+        $res->bindParam(2,$ds['t_link'],PDO::PARAM_STR);
+        $res->bindParam(3,$torneo['t_titulo'],PDO::PARAM_STR);
+        $res->bindParam(4,$ds['t_logo'],PDO::PARAM_STR);
+        $res->bindParam(5,$torneo['t_descripcion'],PDO::PARAM_STR);
+        $res->bindParam(6,$ds['t_juego'],PDO::PARAM_STR);
+        $res->bindParam(7,$ds['t_ubicacion'],PDO::PARAM_STR);
+        $res->bindParam(8,$torneo['t_subida'],PDO::PARAM_INT);
+        $res->bindParam(9,$torneo['t_bajada'],PDO::PARAM_INT);
+        $res->bindParam(10,$ds['t_ganadores'],PDO::PARAM_INT);
+        $res->bindParam(11,$torneo['t_equipos'],PDO::PARAM_INT);
+        $res->bindParam(12,$ds['t_modo'],PDO::PARAM_INT);
+        $res->bindParam(13,$torneo['t_activo'],PDO::PARAM_INT);
         $res->execute();
         header("Location: ".$this->whereuFrom());
     }

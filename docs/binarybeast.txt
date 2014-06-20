@@ -37,3 +37,6 @@ Teams Joined count: {{ts.data.teams_joined_count}}<br />
 Teams confirmed count: {{ts.data.teams_confirmed_count}}<br />
 Type: {{ts.data.type}}<br />
 Time left: {{ts.data.time_left}}<br />
+
+{% set registrados = torneo.ingresados * 100 / torneo.totalequipos %}
+{% set confirmados = torneo.confirmados * 100 / torneo.totalequipos %}

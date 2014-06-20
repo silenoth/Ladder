@@ -186,9 +186,9 @@
                     </td>
                     <td>
                         {% if torneo.id == ls.utorneo %}
-                        <span class="label label-success">Inscrito</span><a href="{{ url }}/brackets/{{ torneo.id }}"><button type="submit" class="btn btn-primary btn-xs" name="participar" style="float:right;">Ver brackets</button></a>
+                        <span class="label label-success">Inscrito</span><a href="{{ url }}/brackets/{{ torneo.id }}/{{ torneo.link }}"><button type="submit" class="btn btn-primary btn-xs" name="participar" style="float:right;">Ver brackets</button></a>
                         {% else %}
-                        <a href="{{ url }}/brackets/{{ torneo.id }}">
+                        <a href="{{ url }}/brackets/{{ torneo.id }}/{{ torneo.link }}">
                             <button type="submit" class="btn btn-primary btn-xs" name="participar" style="float:right;">Participar en el torneo</button>
                         </a>
                         {% endif %}

@@ -19,7 +19,7 @@ Rewriterule ^articulo/(.+)/(.+)$ news.php?id=$1&title=$2
 Rewriterule ^perfil/(.+)$ profile.php?user=$1
 Rewriterule ^registro$ register.php
 Rewriterule ^competencia$ tournaments.php
-Rewriterule ^brackets/(.+)$ brackets.php?id=$1
+Rewriterule ^brackets/(.+)/(.+)$ brackets.php?id=$1&link=$2
 #---------modulos--------------
 Rewriterule ^modulos/adm$ admin.php
 #ErrorDocument nroError /err404.php

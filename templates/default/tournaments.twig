@@ -1,3 +1,4 @@
+{% spaceless %}
 {% set active = 'bracket' %}
 {% embed '_header.twig' %}
 {% block titulo %}<title>Bracket</title>{% endblock %}
@@ -5,28 +6,29 @@
 {% block js %} {% endblock %}
 {% endembed %}
 {%set id = 1%}
-{%for ts in ls.torneo %}
-{% set registrados = ts.data.teams_joined_count * 100 / ts.data.max_teams %}
-{% set confirmados = ts.data.teams_confirmed_count * 100 / ts.data.max_teams %}
+{%for torneo in ls.torneos %}
+{% set registrados = torneo.registrados * 100 / torneo.equipos %}
+{% set confirmados = torneo.confirmados * 100 / torneo.equipos %}
 <div class="jumbotron" style="background:url('{{url}}/plugins/binarybeast/img/bgt.jpg');color:white;box-shadow: 1px 1px 10px #000;">
-  <h1>{{ts.data.title}}</h1>
-  <p>{{ts.data.description|slice(0,80)}}...</p>
-  <span class="label label-info">Cupos: {{ts.data.max_teams}}</span>
-  <span class="label label-warning">Registrados: {{ts.data.teams_joined_count}}</span>
-  <span class="label label-success">Confirmados: {{ts.data.teams_confirmed_count}}</span>
-  <span class="label label-danger">Estado: {%if ts.data.status == 'Building'%}En construccion {%elseif ts.data.status == 'Active-Groups'%}Grupos activos{%elseif ts.data.status == 'Active'%}Activo{%else%}{{ts.data.status}}{%endif%}</span>
-  <span class="label label-default">{%if ts.data.type == 'Single Elim'%}Eliminacion simple{%else%}{{ts.data.type}}{%endif%}</span>
+  <h1>{{torneo.titulo}}</h1>
+  <p>{{torneo.descripcion|slice(0,80)}}...</p>
+  <span class="label label-danger">{% if torneo.terminado == 1 %}Finalizado{% else %}Inscripciones abiertas{% endif %}</span>
+  <span class="label label-info">Cupos: {{torneo.equipos}}</span>
+  <span class="label label-warning">Registrados: {{ torneo.registrados }}</span>
+  <span class="label label-success">Confirmados: {{ torneo.confirmados }}</span>
+  <span class="label label-danger">Estado: {% if torneo.activo == 0 %}Inactivo{% else %}Activo{% endif %}</span>
+  <span class="label label-default"></span>
   <p>
       <div class="progress">
         <div class="progress-bar progress-bar-success" id="confirmados{{id}}" style="width: {{confirmados}}%" data-toggle="tooltip" data-placement="top" title="El {{confirmados}}% de los jugadores ha confirmado">
-            <span class="sr-only">35% Complete (success)</span>
+            <span class="sr-only">{{ confirmados }}%</span>
         </div>
-        <div class="progress-bar progress-bar-warning" id="registrados{{id}}" style="width: {%if registrados >= confirmados%}{{registrados-confirmados}}%{%else%}{{registrados}}%{%endif%}" data-toggle="tooltip" data-placement="top" title="Jugadores registrados {{ts.data.teams_joined_count}}">
-            <span class="sr-only">40% Complete (success)</span>
-          </div>
+        <div class="progress-bar progress-bar-warning" id="registrados{{id}}" style="width: {%if registrados >= confirmados%}{{registrados-confirmados}}%{%else%}{{registrados}}%{%endif%}" data-toggle="tooltip" data-placement="top" title="Jugadores registrados {{torneo.registrados}}">
+            <span class="sr-only">{{ registrados }}%</span>
+        </div>
       </div>
   </p>
-  <p><a href="{{url}}/brackets/{{ts.data.tourney_id}}" class="btn btn-primary btn-lg" role="button">Ver bracket</a></p>
+  <p><a href="{{url}}/brackets/{{ torneo.id }}/{{ torneo.link }}" class="btn btn-primary btn-lg" role="button">Ver bracket</a></p>
 </div>
 <script>
 $('#confirmados{{id}}').tooltip('hide');
@@ -35,3 +37,4 @@ $('#registrados{{id}}').tooltip('hide');
 {% set id = id+1 %}
 {% endfor %}
 {% include '_footer.twig' %}
+{% endspaceless %}
