@@ -4,7 +4,19 @@
 {% block css %}
 <style type="text/css">
 .cell {
-	width:150px;
+    {% if ls.bracket.equipos == 128 %}
+	width:120px;
+    font-size: 9px;
+    height:20px;
+    {% elseif ls.bracket.equipos == 64 %}
+    
+    {% elseif ls.bracket.equipos == 32 %}
+    {% else %}
+    width:150px;
+    font-size: 12px;
+    height:25px;
+    {% endif %}
+    padding: 3px 6px;
 	background: -webkit-gradient(linear,left top,left bottom,from(#8266b6),to(#533787));
 	background: -moz-linear-gradient(top,#8266b6,#533787);
 	background: -o-linear-gradient(top,#8266b6,#533787);
@@ -22,10 +34,9 @@
 	-webkit-text-shadow: 0 1px 0 rgba(0,0,0,0.75);
 	color: #fff;
 	display: inline-block;
-	padding: 3px 6px;
 	margin-bottom: 10px;
 	margin-right:0;
-	font-size: 12px;
+	
 	font-weight: normal;
 	/*line-height: 1.428571429;*/
 	white-space: nowrap;
@@ -42,6 +53,13 @@
 	user-select: none;
 }
 
+.columna {
+    float:left;
+    overflow:hidden;
+}
+.p128 {
+    width:150px;
+}
 .cell-sep {
 	padding-bottom:33px;
 }
@@ -112,7 +130,7 @@
 		</div>
 	</div>
 	{# INICIO TAB BRACKET #}
-	<div class="tab-pane fade" id="bracket" style="min-width:970px;width:1020px">
+	<div class="tab-pane fade" id="bracket" style="min-width:970px;width:1820px">
 		<div class="row" style="margin-top:30px;">
 		<div class="col-md-9 col-md-push-3">
 			<p>Requisitos:</p>
@@ -136,13 +154,137 @@
 		<div style="margin-top:30px;"></div>
         {# INICIO 128 JUGADORES #}
         {% if ls.bracket.equipos == 128 %}
-            128
+            {# COLUMNA 1 #}
+            <div class="columna p128">
+                <h4>1ra Ronda</h4>
+                {% for ronda1 in 1..rondas1 %}
+                    <div class="cell" id="player{{loop.index}}">
+                        {{loop.index}}
+                    </div>
+                    {% if loop.index == 1 %}
+		              <div class="line-right right-down" style="margin-top:12px;height:33px;border-bottom: 1px solid #000;"></div>
+                    {% elseif loop.index is odd %}
+		              <div class="line-right right-down" style="margin-top:12px;height:33px;border-bottom: 1px solid #000;"></div>
+					{% else %}
+					   <div class="cell-sep"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {# COLUMNA 2#}
+            <div class="columna" style="width:180px;">
+					<h4 style="padding-left:30px;">2da Ronda</h4>
+				  	{% for ronda2 in 1.. rondas2 %}
+                        {% set rnd2 = loop.index %}
+				  		<div class="left-line" style="margin-top:{% if loop.index != 1 %}78{% else %}30{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}67{% else %}20{% endif %}px;">{{loop.index}}
+                            {% for usuario in ls.datos %}
+                                {% if rnd2 == usuario.f8%}
+                                    <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                    <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r8}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+						{% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:30px;height:99px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+							<div class="line-right right-down" style="margin-top:77px;height:99px;border-bottom: 1px solid #000;"></div>
+						{% endif %}
+					{% endfor %}
+            </div>
+            {# COLUMNA 3 #}
+            <div class="columna" style="width:180px;">
+					<h4 style="padding-left:30px;">3ra Ronda</h4>
+				  	{% for ronda3 in 1.. rondas3 %}
+                    {% set rnd3 = loop.index %}
+						<div class="left-line" style="margin-top:{% if loop.index != 1 %}174{% else %}85{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}164{% else %}75{% endif %}px;">
+                            {{loop.index}}
+                            {% for usuario in ls.datos %}
+                                {% if rnd3 == usuario.f4%}
+                                    <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                    <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r4}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+						{% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:88px;height:193px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+							<div class="line-right right-down" style="margin-top:175px;height:194px;border-bottom: 1px solid #000;"></div>
+						{% endif %}
+					{% endfor %}
+				</div>
+                {# COLUMNA 4 #}
+				<div class="columna" style="width:180px;">
+					<h4 style="padding-left:30px;">8vos de Final</h4>
+				  	{% for ronda4 in 1.. rondas4 %}
+                    {% set rnd4 = loop.index %}
+				  	<div class="left-line" style="margin-top:{% if loop.index != 1 %}367{% else %}177{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}358{% else %}167{% endif %}px;">
+                            {{loop.index}}
+                            {% for usuario in ls.datos %}
+                                {% if rnd4 == usuario.f2%}
+                                    <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                    <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r2}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+						{% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:177px;height:389px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+                            <div class="line-right right-down" style="margin-top:367px;height:389px;border-bottom: 1px solid #000;"></div>
+                        {% endif %}
+					{% endfor %}
+				</div>
+                {# COLUMNA 5 #}
+				<div class="columna" style="width:180px;">
+					<h4 style="padding-left:30px;">4tos de Final</h4>
+				  	{% for ronda5 in 1.. rondas5 %}
+                    {% set rnd5 = loop.index %}
+				  		<div class="left-line" style="margin-top:{% if loop.index != 1 %}757{% else %}376{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}747{% else %}366{% endif %}px;">
+                        {{loop.index}}
+                        {% for usuario in ls.datos %}
+                            {% if rnd5 == usuario.f1 %}
+                                <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r1}}</span>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        {% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:376px;height:778px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+                            <div class="line-right right-down" style="margin-top:758px;height:778px;border-bottom: 1px solid #000;"></div>
+                        {% endif %}
+					{% endfor %}
+				</div>
+                {# COLUMNA 6 #}
+                <div class="columna" style="width:180px;">
+					<h4 style="padding-left:30px;">Semi Final</h4>
+				  	{% for ronda6 in 1.. rondas6 %}
+                    {% set rnd6 = loop.index %}
+				  		<div class="left-line" style="margin-top:{% if loop.index != 1 %}1530{% else %}770{% endif %}px;"></div>
+						<div class="cell" style="margin-top:{% if loop.index != 1 %}1520{% else %}760{% endif %}px;">
+                        {{loop.index}}
+                        {% for usuario in ls.datos %}
+                            {% if rnd6 == usuario.f1 %}
+                                <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r1}}</span>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        {% if loop.index == 1 %}
+							<div class="line-right right-down" style="margin-top:770px;height:1551px;border-bottom: 1px solid #000;"></div>
+						{% elseif loop.index is odd %}
+                            <div class="line-right right-down" style="margin-top:1530px;height:1551px;border-bottom: 1px solid #000;"></div>
+                        {% endif %}
+					{% endfor %}
+				</div>
+			{# FIN BRACKET #}
         {% endif %}
         {# FIN 128 JUGADORES #}
 
 		{# INICIO 16 JUGADORES #}
 		{% if ls.bracket.equipos == 16 %}
-		
             {# COLUMNA 1 #}
 			  	<div style="float:left;overflow:hidden;width:180px;">
 			  		<h4>1ra Ronda</h4>
@@ -153,7 +295,7 @@
                         {% for usuario in ls.datos %}
                             {% if rnd1 == usuario.f16 %}
                                 <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
-                                        <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r16}}</span>
+                                <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r16}}</span>
                             {%endif%}
                         {% endfor %}
                         </div>
@@ -187,6 +329,7 @@
 						{% endif %}
 					{% endfor %}
 				</div>
+                {# COLUMNA 3 #}
 				<div style="float:left;overflow:hidden;width:210px;">
 					<h4 style="padding-left:30px;">Semi-final</h4>
 				  	{% for ronda3 in 1.. rondas3 %}
@@ -208,6 +351,7 @@
 						{% endif %}
 					{% endfor %}
 				</div>
+                {# COLUMNA 4 #}
 				<div style="float:left;overflow:hidden;width:210px;">
 					<h4 style="padding-left:30px;">Final</h4>
 				  	{% for ronda4 in 1.. rondas4 %}
@@ -227,7 +371,8 @@
 						{% endif %}
 					{% endfor %}
 				</div>
-				<div style="float:right;overflow:hidden;width:210px;">
+                {# COLUMNA 5 #}
+				<div style="float:left;overflow:hidden;width:210px;">
 					<h4 style="padding-left:30px;">Campeon</h4>
 				  	{% for ronda5 in 1.. rondas5 %}
                     {% set rnd5 = loop.index %}
