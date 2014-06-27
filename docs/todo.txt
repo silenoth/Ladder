@@ -1,0 +1,7 @@
+Cosas que resolver:
+===================
+
+*Perfil/otras opciones/: no guarda el valor 0 de las opciones de usuario.
+*No sube imagen al ingresar una noticia.
+*crear pagina de recuperar contraseña.
+*No dejar que usuario en torneo activo pueda modificar su gametag

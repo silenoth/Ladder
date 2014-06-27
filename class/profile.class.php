@@ -75,7 +75,7 @@ class lsProfile extends lsSystem {
                 'chkweb' => $expl[4]
             ),
             'utorneo' => $user['utorneo'],
-            'torneos' => $this->getTournaments()
+            'torneos' => $this->getTournamentsById($user['id'])
             /*twich
             'twitch_login' => $getAuth,
             'twitch_islogin' => $isval,
@@ -151,7 +151,7 @@ class lsProfile extends lsSystem {
         $res->bindParam(1,htmlspecialchars(addslashes(stripslashes(trim($value))),ENT_QUOTES),PDO::PARAM_STR);
         $res->bindParam(2,$nick,PDO::PARAM_STR);
         $res->execute();
-        header("Location: ".$this->getUrl()."/perfil/".$nick);
+        header("Location: ".$this->getUrl()."/perfil/".$nick."#perfil");
     }
 
     function updateContact($values,$nick){
@@ -181,7 +181,7 @@ class lsProfile extends lsSystem {
         $res->bindParam(7,$nick,PDO::PARAM_STR);
         $res->execute();
 
-        header("Location: ".$this->getUrl()."/perfil/".$nick);
+        header("Location: ".$this->getUrl()."/perfil/".$nick."#misc");
     }
 
     function validateAccesToken($user){

@@ -495,6 +495,24 @@ class lsSystem {
             return $datos[0]['nickclean'];
         }
    }
+   
+   public function getIdUser($user){
+        self::setNames();
+        $sql = "SELECT u.usuario_id AS id_usuario
+        FROM usuarios AS u
+        WHERE u.usuario_nick_clean = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$user,PDO::PARAM_STR);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        $rc = $res->rowCount();
+        if($rc > 0)
+            return $datos[0]['id_usuario'];
+        else
+            return false;
+   }
 
    function checkPass($pass){
     if($pass == ""){
@@ -775,6 +793,81 @@ class lsSystem {
             $datos[] = $row;
         }
         return $datos;
+   }
+   
+   public function getTournamentsById($id){
+        self::setNames();
+        $sql = "SELECT
+            t.tnmt_id AS id,
+            t.tnmt_autor AS autor,
+            t.tnmt_link AS link,
+            t.tnmt_titulo AS titulo,
+            t.tnmt_logo AS logo,
+            t.tnmt_descripcion AS descripcion,
+            t.tnmt_juego AS juego,
+            t.tnmt_fecha AS fecha,
+            t.tnmt_ubicacion AS ubicacion,
+            t.tnmt_subida_replays AS subida,
+            t.tnmt_descarga_replays AS bajada,
+            t.tnmt_ganadores AS ganadores,
+            t.tnmt_max_equipos AS equipos,
+            t.tnmt_registrados_cont AS registrados,
+            t.tnmt_confirmados_cont AS confirmados,
+            t.tnmt_modo AS modo,
+            t.tnmt_activo AS activo,
+            t.tnmt_terminado AS terminado
+        FROM torneos AS t
+        INNER JOIN usuario_torneo AS ut ON (t.tnmt_id = ut.ut_id_torneo)
+        WHERE t.tnmt_id = ut.ut_id_torneo AND ut.ut_id_usuario = ? ORDER BY id DESC";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$id,PDO::PARAM_INT);
+        $res->execute();
+
+        while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        return $datos;
+   }
+   
+   public function sendEmail($para, $titulo, $mensaje){
+        $para = 'satanichails@gmail.com';
+        // Asunto
+        $titulo = 'Atencion con cambio de tarifas';
+         
+        // Cuerpo o mensaje
+        $mensaje = '
+        <html>
+        <head>
+          <title>'.$titulo.'</title>
+        </head>
+        <body>
+          <p>¡todos los vendedores a leer las tarifas segun empresas!</p>
+          <table>
+            <tr>
+              <th>Empresa</th><th>Tarifa Anterior</th><th>Nueva Tarifa</th><th>Comision</th>
+            </tr>
+            <tr>
+              <td>Repsol</td><td>3.3</td><td>3.5</td><td>10%</td>
+            </tr>
+            <tr>
+              <td>Telefonica</td><td>17.45</td><td>18.1</td><td>11%</td>
+            </tr>
+          </table>
+        </body>
+        </html>
+        ';
+         
+        // Cabecera que especifica que es un HMTL
+        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+        $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+         
+        // Cabeceras adicionales
+        $cabeceras .= 'From: Recordatorio <tarifas@example.com>' . "\r\n";
+        //$cabeceras .= 'Cc: archivotarifas@example.com' . "\r\n";
+        //$cabeceras .= 'Bcc: copiaoculta@example.com' . "\r\n";
+         
+        // enviamos el correo!
+        mail($para, $titulo, $mensaje, $cabeceras);
    }
 
         //dias trasncurridos

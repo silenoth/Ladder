@@ -79,22 +79,43 @@ class lsBracket extends lsSystem {
         }
     }
 
-    function showBrackets(){
+    public function showBrackets(){
         $id = $_GET['id'];
         $link = $_GET['link'];
 
-       var_dump($this->randomIn($id, $link));
-       exit();
         $datos = array(
+            'mensajes' => array(
+                    'success' => !empty($_SESSION['success']) ? true : false
+                ),
             'bracket' => $this->getTournament($id,$link),
-            'datos' => $this->getUserInTourney($id)
+            'datos' => $this->getUserInTourney($id),
+            'estado' => !empty($_SESSION['usuario']) ? $this->getIfUserAreIn($id,$_SESSION['usuario']):$_SESSION['invitado']
 
         );
-//        var_dump($datos);
-//        exit();
         $this->loadTemplate('brackets', $datos);
     }
-
+    
+    //Verificar si usuario esta en el torneo
+    private function getIfUserAreIn($id,$user){
+        $user = $this->getIdUser($user);
+        parent::setNames();
+        $sql = "SELECT ut.ut_id_usuario
+        FROM usuario_torneo AS ut
+        WHERE ut.ut_id_torneo = ? AND ut.ut_id_usuario = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$id,PDO::PARAM_INT);
+        $res->bindParam(2,$user,PDO::PARAM_INT);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+        $rc = $res->rowCount();
+        if($rc > 0) {
+            return true;
+        }
+    }
+    
+    //buscar usuario en torneo
     private function getUserInTourney($torneo){
         $torneo = $_GET['id'];
         parent::setNames();
@@ -134,7 +155,8 @@ class lsBracket extends lsSystem {
             return false;
         }
     }
-
+    
+    //posicion aleatoria e ingreso de usuario al torneo
     function randomIn($id,$link,$user){
         //obtenemos la cantidad de equipos
         $bracket = $this->getTournament($id,$link);
@@ -169,10 +191,10 @@ class lsBracket extends lsSystem {
         usuario_torneo.ut_id_usuario,
         usuario_torneo.ut_f".$bracket['equipos']."
         ) VALUES (?,?,?)";
-        $rb = $this->con->prepare($sqlt);
+        $rb = $this->con->prepare($sqlb);
         $rb->bindParam(1,$id,PDO::PARAM_INT);
         $rb->bindParam(2,$user,PDO::PARAM_INT);
-        $rb->bindParam(3,$bracket['equipos'],PDO::PARAM_INT);
+        $rb->bindParam(3,$random,PDO::PARAM_INT);
         $rb->execute();
         //seleccionamos el numero actual del contador
         $sqlc = "SELECT t.tnmt_registrados_cont AS contador
@@ -189,7 +211,17 @@ class lsBracket extends lsSystem {
         //aumentamos el contador en 1
         $cont = $d[0]['contador']+1;
         //actualizamos el contador en la bd
-        $sqld = "UPDATE torneos SET tnmt_registrados_cont = ? WHERE tnmt_id = ? AND tnmt_link = ?";
+        $sqld = "UPDATE torneos 
+        SET tnmt_registrados_cont = ? 
+        WHERE tnmt_id = ? AND tnmt_link = ?";
         $rd = $this->con->prepare($sqld);
+        $rd->bindParam(1,$cont,PDO::PARAM_INT);
+        $rd->bindParam(2,$id,PDO::PARAM_INT);
+        $rd->bindParam(3,$link,PDO::PARAM_STR);
+        $rd->execute();
+        
+        $_SESSION['success'] = 'torneo';
+        
+        header("Location: ".$this->whereuFrom());
     }
 }

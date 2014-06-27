@@ -88,9 +88,26 @@
 </style>
 
 {% endblock %}
-{% block js %} {% endblock %}
+{% block js %}
+<script type="text/javascript">
+    $(function() {
+    var hash = window.location.hash;
+
+    // do some validation on the hash here
+
+    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+});
+</script>
+{% endblock %}
 {% endembed %}
+{% set success = ls.mensajes.success %}
 <h1>{{ ls.bracket.titulo }}</h1>
+{% if success == true %}
+<div class="alert alert-warning alert-dismissible fade in" role="alert" id="success">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong>Felicidades!</strong> .
+</div>
+{% endif %}
 {#TABS#}
 <ul class="nav nav-tabs">
   <li class="active"><a href="#descripcion" data-toggle="tab">Descripcion</a></li>
@@ -100,6 +117,7 @@
 <div class="tab-content">
 	<div class="tab-pane fade in active" id="descripcion">
 		<div style="margin-top:30px;"></div>
+        
     {# INICIO ERROR 404 #}
     {% if ls.bracket == false %}
         {% include '404.twig' %}
@@ -108,14 +126,26 @@
 			<div class="row">
 			  <div class="col-sm-8 col-md-4">
 			    <div class="thumbnail">
-			      <img src="{{ url }}/images/news/{{ ls.bracket.logo }}" alt="{{ ls.bracket.titulo }}">
+			      <img src="{{ url }}/images/news/{{ ls.bracket.logo }}" alt="{{ ls.bracket.titulo }}" />
 			      <div class="caption">
 			        <h3>{{ ls.bracket.titulo }}</h3>
 			        <p>Creado el {{ ls.bracket.fecha }}</p>
 			        <p>Encargado: {{ ls.bracket.autor }}</p>
 			        <p>Juego: {{ ls.bracket.juego }}</p>
 			        <p>Modo: {% if ls.bracket.modo == 0 %}1v1{% endif %}</p>
-			        <a href="#" class="btn btn-primary" role="button">Inscripción</a>
+                    {% if sesion is not empty %}
+                        {% if ls.estado == false %}
+        			        <form method="post" action="" name="inscripcion" id="inscripcion">
+                                <input type="hidden" name="ins_ok" value="1" />
+                                <button class="btn btn-primary" type="submit" name="enviar_inscripcion" id="enviar_inscripcion">Inscripción</button>
+                                <p>Acepto terminos y condiciones.<input type="checkbox" value="0" name="chkaceptar"/></p>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                    <div class="alert alert-info alert-dismissable">
+                    Para participar de este torneo debes <a href="#" data-toggle="modal" data-target="#mlogin">iniciar sesion</a>
+                    </div>
+                    {% endif %}
 			      </div>
 			    </div>
 			  </div>
@@ -136,9 +166,11 @@
 			<p>Requisitos:</p>
 		</div>
 	  		<div class="col-md-3 col-md-pull-9">
+            {% if sesion is not empty %}
 	  			<form method="post" action="">
 					<button class="btn btn-primary">Enviar reporte</button>
 				</form>
+            {% endif %}
 	  		</div>
 		</div>
         {# INICIO BRACKET #}
@@ -158,8 +190,15 @@
             <div class="columna p128">
                 <h4>1ra Ronda</h4>
                 {% for ronda1 in 1..rondas1 %}
+                {% set rnd1 = loop.index %}
                     <div class="cell" id="player{{loop.index}}">
                         {{loop.index}}
+                        {% for usuario in ls.datos %}
+                            {% if rnd1 == usuario.f128 %}
+                                <a href="{{ url }}/perfil/{{ usuario.nick }}" style="color:#fff;">{{ usuario.gametag }}</a>
+                                <span class="label label-success pull-right" style="margin-top: 2px;">{{usuario.r16}}</span>
+                            {%endif%}
+                        {% endfor %}
                     </div>
                     {% if loop.index == 1 %}
 		              <div class="line-right right-down" style="margin-top:12px;height:33px;border-bottom: 1px solid #000;"></div>
