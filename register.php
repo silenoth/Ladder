@@ -8,6 +8,9 @@ $reg = new lsRegister();
 $where = $reg->whereuFrom();
 $url = $reg->getUrl().'/registro';
 $reg->showRegister();
+if (!empty($_SESSION['errorlogin'])) {
+    unset($_SESSION['errorlogin']);
+} 
 if(empty($_SESSION['usuario'])){
     if($_POST){
         if(($_POST['name'] == "") or (count($_POST['name']) > 3) or (count($_POST['name']) > 40)){

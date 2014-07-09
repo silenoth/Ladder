@@ -90,6 +90,16 @@
 {% endblock %}
 {% block js %}
 <script type="text/javascript">
+$(document).ready(function(){
+    $('#enviar_inscripcion').click(function(){    
+        if($('input[name=chkaceptar]').is(':checked')){
+            return true;
+        } else {
+            alert('Debes aceptar los terminos y condiciones primero.');
+            return false;
+        }
+    });
+});
     $(function() {
     var hash = window.location.hash;
 
@@ -105,7 +115,7 @@
 {% if success == true %}
 <div class="alert alert-warning alert-dismissible fade in" role="alert" id="success">
   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <strong>Felicidades!</strong> .
+  <strong>Felicidades!</strong> Tu inscripcion a sido recibida correctamente, recuerda que para participar deberás confirmar participación, esta sera enviada automaticamente una vez se completen las llaves, recuerda estar atento a tu correo o a tu <a href="{{url}}/perfil/{{sesion}}#mensajes">buzón de mensajes</a> de tu perfil.
 </div>
 {% endif %}
 {#TABS#}
@@ -138,7 +148,7 @@
         			        <form method="post" action="" name="inscripcion" id="inscripcion">
                                 <input type="hidden" name="ins_ok" value="1" />
                                 <button class="btn btn-primary" type="submit" name="enviar_inscripcion" id="enviar_inscripcion">Inscripción</button>
-                                <p>Acepto terminos y condiciones.<input type="checkbox" value="0" name="chkaceptar"/></p>
+                                <p style="margin-top:20px;">Acepto <a href="">terminos y condiciones</a>.<input type="checkbox" name="chkaceptar" id="chkaceptar"/></p>
                             </form>
                         {% endif %}
                     {% else %}

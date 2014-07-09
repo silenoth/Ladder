@@ -16,5 +16,5 @@ if(isset($_POST)){
         exit();
     }
 }
-
+$bracket->closeCon();
 ob_end_flush();

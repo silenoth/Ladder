@@ -17,7 +17,7 @@ define('_TEMPLATESFOLDER', 'templates');
 //extencion de las plantillas
 define('_EXT', '.twig');
 
-define('_DS', DIRECTORY_SEPARATOR);
+define('_DS', '/');
 
 //carpeta de lenguaje
 define('_LANGFOLDER', 'lang');

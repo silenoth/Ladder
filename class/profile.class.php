@@ -10,7 +10,7 @@ class lsProfile extends lsSystem {
     }
 
     function showProfile(){
-        $twitch = new twitch();
+        //$twitch = new twitch();
 
         $repmax = $this->getMaxRepLvl();
         $us = $_GET['user'];
@@ -25,6 +25,8 @@ class lsProfile extends lsSystem {
         //$tuser = $this->getTwitchUser($us);
         //$twitchtv = $twitch->getUserObject_Authd($tuser['twitch_user'],$tuser['token'],$tuser['twitch_code']);
         /***************************/
+        var_dump($this->getUserMessagesById($user['id']));
+            exit();
         $datos = array(
             'online' => $this->getUserOnline($us),
             'id' => $user['id'],
@@ -75,7 +77,9 @@ class lsProfile extends lsSystem {
                 'chkweb' => $expl[4]
             ),
             'utorneo' => $user['utorneo'],
-            'torneos' => $this->getTournamentsById($user['id'])
+            'torneos' => $this->getTournamentsById($user['id']),
+            'pm' => $this->getUserMessagesById($user['id'])
+            
             /*twich
             'twitch_login' => $getAuth,
             'twitch_islogin' => $isval,
@@ -201,23 +205,53 @@ class lsProfile extends lsSystem {
             return true;
         }
     }
-
-    function getTwitchUser($user){
+    
+    function getUserMessagesById($id){
         parent::setNames();
         $sql = "SELECT
-        u.usuario_twitch_id AS twitch_id,
-        u.usuario_twitch_user AS twitch_user,
-        u.usuario_twitch_token AS token,
-        u.usuario_twitch_code AS twitch_code,
-        u.usuario_twitch_scopes AS scopes
-        FROM usuarios AS u
-        WHERE u.usuario_nick_clean = ?";
+        um.msj_id AS id,
+        um.msj_prioridad AS prioridad,
+        um.msj_icono AS icono,
+        um.msj_titulo AS titulo,
+        um.msj_mensaje AS mensaje,
+        um.msj_fecha AS fecha,
+        um.msj_estado AS estado,
+        u.usuario_nick AS nick,
+        u.usuario_nick_clean AS nickclean
+        FROM usuario_mensajes AS um
+        INNER JOIN usuarios AS u ON (u.usuario_id = um.msj_id_usuario_env)
+        WHERE um.msj_id_usuario_res = ?";
         $res = $this->con->prepare($sql);
-        $res->bindParam(1,$user,PDO::PARAM_STR);
+        $res->bindParam(1,$id,PDO::PARAM_INT);
         $res->execute();
+        
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
-        return $datos[0];
+        $rc = $res->rowCount();
+        if($rc > 0) {
+            return $datos;
+        } else {
+            return false;
+        }
     }
+//
+//    function getTwitchUser($user){
+//        parent::setNames();
+//        $sql = "SELECT
+//        u.usuario_twitch_id AS twitch_id,
+//        u.usuario_twitch_user AS twitch_user,
+//        u.usuario_twitch_token AS token,
+//        u.usuario_twitch_code AS twitch_code,
+//        u.usuario_twitch_scopes AS scopes
+//        FROM usuarios AS u
+//        WHERE u.usuario_nick_clean = ?";
+//        $res = $this->con->prepare($sql);
+//        $res->bindParam(1,$user,PDO::PARAM_STR);
+//        $res->execute();
+//        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+//            $datos[] = $row;
+//        }
+//        return $datos[0];
+//    }
 }

@@ -7,6 +7,9 @@ $home = new lsHome();
 $home->start();
 $home->whereuFrom();
 $home->showHome();
+if (!empty($_SESSION['errorlogin'])) {
+    unset($_SESSION['errorlogin']);
+} 
 if (!empty($_SESSION['usuario'])){
     if(isset($_GET['code'])){
         //twitch api

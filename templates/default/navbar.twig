@@ -1,4 +1,32 @@
 {# INICIO NAVBAR USUARIOS #}
+{# INICIO ERROR LOGIN #}
+{% if errorlogin == true %}
+<script type="text/javascript">
+$( document ).ready(function() {
+    $('#errorlogin').modal('show');
+});
+
+</script>
+<!-- Modal error login -->
+<div class="modal fade" id="errorlogin" tabindex="-1" role="dialog" aria-labelledby="errorloginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background:url({{url}}/{{template}}/img/errors/login_form_error_bg.png) right no-repeat #fff">
+      <div class="modal-header" style="border:0;">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="errorloginLabel">Eso fue un error!</h4>
+      </div>
+      <div class="modal-body">
+        Veo que haz cometido un error, talvez sea el usuario... <br />
+        tal vez la contraseña... solo intenta nuevamente.
+      </div>
+      <div class="modal-footer" style="border:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{# FIN ERROR LOGIN #}
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container" style="max-width:1000px;">
         <a class="navbar-brand" href="{{url}}/inicio">Hearthstone Chile</a>
@@ -46,7 +74,7 @@
 </nav>
 {# FIN NAVBAR USUARIOS #}
 {# MODAL LOGIN #}
-<!-- Modal -->
+{% if sesion is empty %}
 <div class="modal fade" id="mlogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -82,3 +110,4 @@
     </div>
   </div>
 </div>
+{% endif %}

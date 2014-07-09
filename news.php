@@ -5,6 +5,9 @@ require_once("class/news.class.php");
 
 $news = new lsNews();
 $news->showNews();
+if (!empty($_SESSION['errorlogin'])) {
+    unset($_SESSION['errorlogin']);
+} 
 $news->whereuFrom();
 //debug
 

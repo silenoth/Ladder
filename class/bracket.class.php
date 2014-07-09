@@ -189,12 +189,14 @@ class lsBracket extends lsSystem {
         $sqlb = "INSERT INTO usuario_torneo (
         usuario_torneo.ut_id_torneo,
         usuario_torneo.ut_id_usuario,
+        usuario_torneo.ut_id_actual,
         usuario_torneo.ut_f".$bracket['equipos']."
-        ) VALUES (?,?,?)";
+        ) VALUES (?,?,?,?)";
         $rb = $this->con->prepare($sqlb);
         $rb->bindParam(1,$id,PDO::PARAM_INT);
         $rb->bindParam(2,$user,PDO::PARAM_INT);
-        $rb->bindParam(3,$random,PDO::PARAM_INT);
+        $rb->bindParam(3,$bracket['equipos'],PDO::PARAM_INT);
+        $rb->bindParam(4,$random,PDO::PARAM_INT);
         $rb->execute();
         //seleccionamos el numero actual del contador
         $sqlc = "SELECT t.tnmt_registrados_cont AS contador
@@ -205,8 +207,8 @@ class lsBracket extends lsSystem {
         $rc->bindParam(2,$link,PDO::PARAM_STR);
         $rc->execute();
         
-        while($rowb = $rc->fetch(PDO::FETCH_ASSOC)){
-            $d[] = $rowb;
+        while($rowc = $rc->fetch(PDO::FETCH_ASSOC)){
+            $d[] = $rowc;
         }
         //aumentamos el contador en 1
         $cont = $d[0]['contador']+1;
@@ -219,6 +221,17 @@ class lsBracket extends lsSystem {
         $rd->bindParam(2,$id,PDO::PARAM_INT);
         $rd->bindParam(3,$link,PDO::PARAM_STR);
         $rd->execute();
+        
+        $this->sendPrivateMessage(
+        array(
+            'envia' => 0,
+            'recibe' => $user,
+            'prioridad' => 1,
+            'icono' => 'warning',
+            'titulo' => 'Confirmar participacion',
+            'mensaje' => 'Hola no olvides confirmar participacion',
+            'estado' => 0
+        ));
         
         $_SESSION['success'] = 'torneo';
         
