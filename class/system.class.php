@@ -5,7 +5,7 @@ class lsSystem {
 
     function __construct(){
         require_once('lib/twitch_interface.php');
-        require_once("lib/facebook.php");
+        //require_once("lib/facebook.php");
 
         if(file_exists("config.php")){
             require_once("config.php");
@@ -104,22 +104,22 @@ class lsSystem {
         //obtenemnos una url de autorizacion
         $getAuth = $twitch->generateAuthorizationURL(array('user_read', 'user_follows_edit'));
         //Facebook:
-        $config = array(
-              'appId' => '230960667035553',
-              'secret' => '514893bb8d6f68a89dbbbbae8c14e2eb',
-              'fileUpload' => false, // optional
-              'allowSignedRequest' => false, // optional, but should be set to false for non-canvas apps
-              );
-        $facebook = new Facebook($config);
-        // Get the current access token
-        $access_token = $facebook->getAccessToken();
-        //facebook
-        $params = array(
-          'scope' => 'read_stream, friends_likes',
-          'redirect_uri' => 'http://silenoth.zapto.org/ladder'
-        );
-
-        $loginUrl = $facebook->getLoginUrl($params);
+        //$config = array(
+//              'appId' => '230960667035553',
+//              'secret' => '514893bb8d6f68a89dbbbbae8c14e2eb',
+//              'fileUpload' => false, // optional
+//              'allowSignedRequest' => false, // optional, but should be set to false for non-canvas apps
+//              );
+        //$facebook = new Facebook($config);
+//        // Get the current access token
+//        $access_token = $facebook->getAccessToken();
+//        //facebook
+//        $params = array(
+//          'scope' => 'read_stream, friends_likes',
+//          'redirect_uri' => 'http://silenoth.zapto.org/ladder'
+//        );
+//
+//        $loginUrl = $facebook->getLoginUrl($params);
 
 
         echo $tmpl->render(
@@ -128,7 +128,7 @@ class lsSystem {
                 'url' => $url,
                 'errorlogin' => !empty($_SESSION['errorlogin']) ? true : false,
                 'twitch_auth' => $getAuth,
-                'facebook_auth' => $loginUrl,
+                //'facebook_auth' => $loginUrl,
                 'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
                 'total' => $this->countOnline(),

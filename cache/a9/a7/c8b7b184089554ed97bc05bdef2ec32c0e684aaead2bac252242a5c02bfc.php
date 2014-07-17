@@ -18,7 +18,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
         // line 1
         ob_start();
         // line 2
-        $this->env->loadTemplate("brackets.twig", "230131165")->display($context);
+        $this->env->loadTemplate("brackets.twig", "1262397537")->display($context);
         // line 113
         $context["success"] = $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "mensajes"), "success");
         // line 114
@@ -69,7 +69,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
 \t\t\t      <img src=\"";
             // line 139
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-            echo "/images/news/";
+            echo "/images/tourney/banners/";
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "logo"), "html", null, true);
             echo "\" alt=\"";
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "titulo"), "html", null, true);
@@ -126,7 +126,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
 \t\t\t  </div>
 \t\t\t  <div class=\"col-sm-4 col-md-8\">
 \t\t\t  \t<div class=\"panel panel-default\">
-\t\t\t\t  <div class=\"panel-body\">
+\t\t\t\t  <div class=\"panel-body\" style=\"font-family:courier new;\">
 \t\t\t\t    ";
             // line 165
             echo $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "descripcion");
@@ -1315,7 +1315,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
 
 
 /* brackets.twig */
-class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c02bfc_230131165 extends Twig_Template
+class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c02bfc_1262397537 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

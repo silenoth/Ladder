@@ -10,6 +10,7 @@ if($_POST) {
         'pass' => md5($_POST['pass'])
     );
     $session->sessionStart($datos['nick'],$datos['pass']);
+    unset($_SESSION['invitado']);
 } else {
     if($_GET['session'] == "destroy"){
         unset($_SESSION['usuario']);

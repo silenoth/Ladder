@@ -185,9 +185,31 @@
     {# INICIO PANEL MSJ #}
     <div class="tab-pane fade in" id="mensajes">
         <div class="row">
-        
-            {{ls.icono}}
-        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Titulo</th>
+                    <th>De</th>
+                    <th>Mensaje</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for mensaje in ls.pm %}
+            <tr {%if mensaje.estado == 0%}class="danger"{%endif%}>
+                <td><img src="{{url}}/{{template}}/img/icons/{{mensaje.icono}}.png" /></td>
+                <td>{{mensaje.titulo|slice(0,20)}}</td>
+                <td>{%if mensaje.envia == 0%}System{%else%}<a href="{{url}}/perfil/{{mensaje.nickclean}}">{{mensaje.nick}}</a>{%endif%}</td>
+                <td>{{mensaje.mensaje|slice(0,40)}}</td>
+                <td>{{mensaje.fecha}}</td>
+                <td>{%if mensaje.estado == 0%}<span class="label label-danger">No leído</span>{%else%}<span class="label label-success">Leído</span>{%endif%}</td>
+            </tr>
+            {{mensaje.prioridad}}
+        {% endfor %}
+        </tbody>
+        </table>
         </div>
     </div>
     {# FIN PANEL MSJ #}

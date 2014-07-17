@@ -6,6 +6,10 @@ require_once('class/admin.class.php');
 $admin = new lsAdmin();
 if(!empty($_SESSION['usuario']) && $admin->getUserAccess($_SESSION['usuario'])){
     $admin->showAdmin();
+    if (!empty($_SESSION['addnewsok'])){
+        unset($_SESSION['addnewsok']);
+    }
+    
     if(isset($_POST)){
         if(isset($_POST['addnews']) && $_POST['addnews'] == 1){
             if(!empty($_POST['titulo']) || !empty($_POST['preview']) || !empty($_POST['contenido'])){

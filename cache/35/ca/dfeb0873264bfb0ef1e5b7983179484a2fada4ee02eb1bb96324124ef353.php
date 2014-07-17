@@ -18,8 +18,36 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
         // line 1
         ob_start();
         // line 2
-        $this->env->loadTemplate("admin.twig", "749993809")->display($context);
+        $this->env->loadTemplate("admin.twig", "594209526")->display($context);
         // line 18
+        if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "addnewsok") == true)) {
+            // line 19
+            echo "<script type=\"text/javascript\">
+\$( document ).ready(function() {
+    \$('#addnewsok').modal('show');
+});
+
+</script>
+<!-- Modal error login -->
+<div class=\"modal fade\" id=\"addnewsok\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"addnewsokLabel\" aria-hidden=\"true\">
+  <div class=\"modal-dialog\">
+    <div class=\"modal-content\">
+      <div class=\"modal-header\" style=\"border:0;\">
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>
+        <h4 class=\"modal-title\" id=\"errorloginLabel\">Datos ingresados correctamente</h4>
+      </div>
+      <div class=\"modal-body\">
+        Se ha agregado una nueva entrada exitosamente.
+      </div>
+      <div class=\"modal-footer\" style=\"border:0;\">
+        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+";
+        }
+        // line 45
         echo "<ul class=\"nav nav-tabs\">
   <li class=\"active\"><a href=\"#home\" data-toggle=\"tab\">Home</a></li>
   <li><a href=\"#perfil\" data-toggle=\"tab\">Profile</a></li>
@@ -27,7 +55,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
   <li><a href=\"#settings\" data-toggle=\"tab\">Settings</a></li>
 </ul>
 ";
-        // line 25
+        // line 52
         echo "<div class=\"tab-content\">
   <div class=\"tab-pane fade in active\" id=\"home\">
         <div class=\"row\" style=\"padding-left:20px;\">
@@ -64,11 +92,11 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
                     <select class=\"form-control\" name=\"categoria\">
                         <option value=\"0\" disabled=\"disabled\" selected=\"selected\">Selecciona una categoría</option>
                         ";
-        // line 60
+        // line 87
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "cat"));
         foreach ($context['_seq'] as $context["_key"] => $context["categorias"]) {
-            // line 61
+            // line 88
             echo "                        <option value=\"";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["categorias"]) ? $context["categorias"] : null), "id"), "html", null, true);
             echo "\">";
@@ -79,7 +107,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['categorias'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 63
+        // line 90
         echo "                    </select>
                 </div>
                 <div class=\"form-group\">
@@ -101,14 +129,14 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
         </div>
   </div>
   ";
-        // line 84
+        // line 111
         echo "  <div class=\"tab-pane fade\" id=\"perfil\">
 
   </div>
   ";
-        // line 88
+        // line 115
         echo "  ";
-        // line 89
+        // line 116
         echo "  <div class=\"tab-pane fade\" id=\"torneos\">
     <div class=\"row\">
         <ol class=\"breadcrumb\">
@@ -117,7 +145,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
         </ol>
         <div class=\"col-xs-12 col-md-8\">
             <h2>Crear torneo</h2>
-            <form method=\"post\" id=\"torneos\" name=\"torneos\" action=\"\">
+            <form method=\"post\" id=\"torneos\" role=\"form\" name=\"torneos\" action=\"\" enctype=\"multipart/form-data\">
                 <div class=\"form-group\">
                     <input type=\"text\" class=\"form-control\" name=\"t_titulo\" id=\"t_titulo\" placeholder=\"Nombre del torneo\" />
                 </div>
@@ -154,29 +182,29 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
                     <label for=\"t_equipos\">Max. de equipos</label>
                     <select class=\"form-control\" name=\"t_equipos\" id=\"t_equipos\">
                         ";
-        // line 133
+        // line 160
         $context["equipos"] = 2;
-        // line 134
+        // line 161
         echo "                        ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable(range(1, 7));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 135
+            // line 162
             echo "                        <option value=\"";
             echo twig_escape_filter($this->env, (isset($context["equipos"]) ? $context["equipos"] : null), "html", null, true);
             echo "\">";
             echo twig_escape_filter($this->env, (isset($context["equipos"]) ? $context["equipos"] : null), "html", null, true);
             echo "</option>
                         ";
-            // line 136
+            // line 163
             $context["equipos"] = ((isset($context["equipos"]) ? $context["equipos"] : null) * 2);
-            // line 137
+            // line 164
             echo "                        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 138
+        // line 165
         echo "                    </select>
                 </div>
                 <div class=\"form-group\">
@@ -196,7 +224,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
         </div>
     </div>
         ";
-        // line 157
+        // line 184
         echo "        <h2 style=\"margin-top:100px;\" id=\"tablatorneos\">Lista de torneos</h2>
         <table class=\"table table-hover\">
             <thead>
@@ -217,43 +245,43 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
             </thead>
             <tbody>
                 ";
-        // line 176
+        // line 203
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "torneos"));
         foreach ($context['_seq'] as $context["_key"] => $context["torneo"]) {
-            // line 177
+            // line 204
             echo "                <tr>
                     <td>";
-            // line 178
+            // line 205
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "id"), "html", null, true);
             echo "</td>
                     <td>";
-            // line 179
+            // line 206
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "titulo"), "html", null, true);
             echo "</td>
                     <td>";
-            // line 180
+            // line 207
             echo twig_escape_filter($this->env, twig_slice($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "descripcion"), 0, 50), "html", null, true);
             echo "...</td>
                     <td>";
-            // line 181
+            // line 208
             echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "fecha"), "d \\d\\e M \\d\\e\\l Y"), "html", null, true);
             echo "</td>
                     <td>";
-            // line 182
+            // line 209
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "autor"), "html", null, true);
             echo "</td>
                     <td>";
-            // line 183
+            // line 210
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "equipos"), "html", null, true);
             echo "</td>
                     <td>";
-            // line 184
+            // line 211
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "ubicacion"), "html", null, true);
             echo "</td>
                     <td>
                         <span class=\"label label-warning\">";
-            // line 186
+            // line 213
             if (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "subida") == 0)) {
                 echo "No se puede";
             } elseif (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "subida") == 1)) {
@@ -261,12 +289,12 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
             } elseif (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "subida") == 2)) {
                 echo "Obligatorio";
             }
-            // line 187
+            // line 214
             echo "                        </span>
                     </td>
                     <td>
                         <span class=\"label label-warning\">";
-            // line 190
+            // line 217
             if (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "bajada") == 0)) {
                 echo "No se puede";
             } elseif (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "bajada") == 1)) {
@@ -274,50 +302,50 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
             } elseif (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "bajada") == 2)) {
                 echo "Al final";
             }
-            // line 191
+            // line 218
             echo "                        </span>
                     </td>
                     <td>
                         <span class=\"label label-primary\">
                         ";
-            // line 195
+            // line 222
             if (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "modo") == 0)) {
-                // line 196
+                // line 223
                 echo "                        1v1
                         ";
             } elseif (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "modo") == 1)) {
-                // line 198
+                // line 225
                 echo "                        2v2
                         ";
             } elseif (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "modo") == 2)) {
-                // line 200
+                // line 227
                 echo "                        3v3
                         ";
             }
-            // line 202
+            // line 229
             echo "                        </span>
                     </td>
                     <td>
                         ";
-            // line 205
+            // line 232
             if (($this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "activo") == 1)) {
-                // line 206
+                // line 233
                 echo "                        <span class=\"label label-success\">Activo</span>
                         ";
             } else {
-                // line 208
+                // line 235
                 echo "                        <span class=\"label label-danger\">Inactivo</span>
                         ";
             }
-            // line 210
+            // line 237
             echo "                    </td>
                     <td>
                         <a href=\"";
-            // line 212
+            // line 239
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "\"><span class=\"glyphicon glyphicon-remove\" style=\"color:#f33;float:right;\"></span></a>
                         <a href=\"";
-            // line 213
+            // line 240
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "\"><span class=\"glyphicon glyphicon-pencil\" style=\"margin-left:5px;\"></span></a>
                     </td>
@@ -327,7 +355,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['torneo'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 217
+        // line 244
         echo "            </tbody>
         </table>
         <ul class=\"pager\">
@@ -335,10 +363,10 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
             <li><a href=\"#\">Next</a></li>
         </ul>
         ";
-        // line 224
+        // line 251
         echo "  </div>
   ";
-        // line 226
+        // line 253
         echo "  <div class=\"tab-pane fade\" id=\"settings\">
 
   </div>
@@ -409,7 +437,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
 });
 </script>
 ";
-        // line 295
+        // line 322
         $this->env->loadTemplate("_footer.twig")->display($context);
         echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
     }
@@ -426,13 +454,13 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
 
     public function getDebugInfo()
     {
-        return array (  413 => 295,  342 => 226,  339 => 224,  331 => 217,  321 => 213,  317 => 212,  313 => 210,  309 => 208,  305 => 206,  303 => 205,  298 => 202,  294 => 200,  290 => 198,  286 => 196,  284 => 195,  278 => 191,  270 => 190,  265 => 187,  257 => 186,  252 => 184,  248 => 183,  244 => 182,  240 => 181,  236 => 180,  232 => 179,  228 => 178,  225 => 177,  221 => 176,  200 => 157,  180 => 138,  174 => 137,  172 => 136,  165 => 135,  160 => 134,  158 => 133,  112 => 89,  110 => 88,  105 => 84,  83 => 63,  72 => 61,  68 => 60,  31 => 25,  23 => 18,  21 => 2,  19 => 1,);
+        return array (  441 => 322,  370 => 253,  367 => 251,  359 => 244,  349 => 240,  345 => 239,  341 => 237,  337 => 235,  333 => 233,  331 => 232,  326 => 229,  322 => 227,  318 => 225,  314 => 223,  312 => 222,  306 => 218,  298 => 217,  293 => 214,  285 => 213,  280 => 211,  276 => 210,  272 => 209,  268 => 208,  264 => 207,  260 => 206,  256 => 205,  253 => 204,  249 => 203,  228 => 184,  208 => 165,  202 => 164,  200 => 163,  193 => 162,  188 => 161,  186 => 160,  140 => 116,  138 => 115,  133 => 111,  111 => 90,  100 => 88,  96 => 87,  59 => 52,  51 => 45,  25 => 19,  23 => 18,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* admin.twig */
-class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124ef353_749993809 extends Twig_Template
+class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124ef353_594209526 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -513,6 +541,6 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
 
     public function getDebugInfo()
     {
-        return array (  499 => 14,  495 => 13,  491 => 12,  486 => 11,  483 => 10,  477 => 8,  472 => 7,  469 => 6,  464 => 4,  461 => 3,  413 => 295,  342 => 226,  339 => 224,  331 => 217,  321 => 213,  317 => 212,  313 => 210,  309 => 208,  305 => 206,  303 => 205,  298 => 202,  294 => 200,  290 => 198,  286 => 196,  284 => 195,  278 => 191,  270 => 190,  265 => 187,  257 => 186,  252 => 184,  248 => 183,  244 => 182,  240 => 181,  236 => 180,  232 => 179,  228 => 178,  225 => 177,  221 => 176,  200 => 157,  180 => 138,  174 => 137,  172 => 136,  165 => 135,  160 => 134,  158 => 133,  112 => 89,  110 => 88,  105 => 84,  83 => 63,  72 => 61,  68 => 60,  31 => 25,  23 => 18,  21 => 2,  19 => 1,);
+        return array (  527 => 14,  523 => 13,  519 => 12,  514 => 11,  511 => 10,  505 => 8,  500 => 7,  497 => 6,  492 => 4,  489 => 3,  441 => 322,  370 => 253,  367 => 251,  359 => 244,  349 => 240,  345 => 239,  341 => 237,  337 => 235,  333 => 233,  331 => 232,  326 => 229,  322 => 227,  318 => 225,  314 => 223,  312 => 222,  306 => 218,  298 => 217,  293 => 214,  285 => 213,  280 => 211,  276 => 210,  272 => 209,  268 => 208,  264 => 207,  260 => 206,  256 => 205,  253 => 204,  249 => 203,  228 => 184,  208 => 165,  202 => 164,  200 => 163,  193 => 162,  188 => 161,  186 => 160,  140 => 116,  138 => 115,  133 => 111,  111 => 90,  100 => 88,  96 => 87,  59 => 52,  51 => 45,  25 => 19,  23 => 18,  21 => 2,  19 => 1,);
     }
 }

@@ -25,8 +25,7 @@ class lsProfile extends lsSystem {
         //$tuser = $this->getTwitchUser($us);
         //$twitchtv = $twitch->getUserObject_Authd($tuser['twitch_user'],$tuser['token'],$tuser['twitch_code']);
         /***************************/
-        var_dump($this->getUserMessagesById($user['id']));
-            exit();
+        
         $datos = array(
             'online' => $this->getUserOnline($us),
             'id' => $user['id'],
@@ -209,18 +208,23 @@ class lsProfile extends lsSystem {
     function getUserMessagesById($id){
         parent::setNames();
         $sql = "SELECT
-        um.msj_id AS id,
-        um.msj_prioridad AS prioridad,
-        um.msj_icono AS icono,
-        um.msj_titulo AS titulo,
-        um.msj_mensaje AS mensaje,
-        um.msj_fecha AS fecha,
-        um.msj_estado AS estado,
-        u.usuario_nick AS nick,
-        u.usuario_nick_clean AS nickclean
-        FROM usuario_mensajes AS um
-        INNER JOIN usuarios AS u ON (u.usuario_id = um.msj_id_usuario_env)
-        WHERE um.msj_id_usuario_res = ?";
+                	um.msj_id AS id,
+                    um.msj_id_usuario_env AS envia,
+                	um.msj_prioridad AS prioridad,
+                	um.msj_icono AS icono,
+                	um.msj_titulo AS titulo,
+                	um.msj_mensaje AS mensaje,
+                	um.msj_fecha AS fecha,
+                	um.msj_estado AS estado,
+                	u.usuario_nick AS nick,
+                	u.usuario_nick_clean AS nickclean
+                FROM
+                	usuario_mensajes AS um
+                LEFT JOIN usuarios AS u ON (
+                	u.usuario_id = um.msj_id_usuario_env
+                )
+                WHERE
+                	um.msj_id_usuario_res = ?";
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$id,PDO::PARAM_INT);
         $res->execute();

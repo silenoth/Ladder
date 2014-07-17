@@ -12,25 +12,29 @@ class lsAdmin extends lsSystem {
     function showAdmin(){
         $datos = array(
             'cat' => $this->getCategories(),
-            'torneos' => $this->getTournaments()
+            'torneos' => $this->getTournaments(),
+            'addnewsok' => !empty($_SESSION['addnewsok']) ? true:false
         );
         $this->loadTemplate('admin',$datos);
     }
     //Noticias
     function addNews($datos){
-        $image = $datos['imagen'];
+        $imagen = $datos['imagen'];
         if (!empty($imagen)) {
             $cad = $this->randString(10,4);
-            $tamano = $image['size']; // Leemos el tamaño del fichero
-            $tamaño_max="50000000000"; // Tamaño maximo permitido
-            if( $tamano < $tamaño_max){ // Comprobamos el tamaño
-                $destino = 'images/news' ; // Carpeta donde se guarda
-                $sep=explode('image/',$image['type']); // Separamos image/
-                $tipo=$sep[1]; // Optenemos el tipo de imagen que es
-                if($tipo == "gif" || $tipo == "jpeg" || $tipo == "bmp" || $tipo == "png"){ // Si el tipo de imagen a subir es el mismo de los permitidos, segimos. Puedes agregar mas tipos de imagen
-                    move_uploaded_file ($image['tmp_name'], $destino . '/' .$cad.'.'.$tipo);  // Subimos el archivo
-                    $imagen = $cad.'.'.$tipo;
-                }
+            include('upload.class.php');
+            $handled = new upload($imagen);
+            if($handled->uploaded){
+                $handled->image_convert = 'jpg';
+                $handled->file_new_name_body = $cad;
+                $handled->image_resize = true;
+                $handled->image_x = 260;
+                $handled->image_ratio_y = true;
+                $handled->process('images/news');
+                $handled->clean();
+                $imagen = $cad.'.jpg';
+            } else {
+                echo('error: '.$handled->error);
             }
         } else {
             $imagen = "default.jpg";
@@ -58,6 +62,7 @@ class lsAdmin extends lsSystem {
         $res->bindParam(7,$datos['autor'],PDO::PARAM_STR);
         $res->bindParam(8,$datos['activa'],PDO::PARAM_INT);
         $res->execute();
+        $_SESSION['addnewsok'] = 'ok';
         header("Location ".$this->whereuFrom());
     }
     //categorias
@@ -73,9 +78,29 @@ class lsAdmin extends lsSystem {
     }
     //Torneos
     function addTournaments($torneo){
+        $logo = $torneo['t_logo'];
+        if (!empty($logo)) {
+            $cad = $this->randString(10,4);
+            include('upload.class.php');
+            $handled = new upload($logo);
+            if($handled->uploaded){
+                $handled->image_convert = 'jpg';
+                $handled->file_new_name_body = $cad;
+                $handled->image_resize = true;
+                $handled->image_x = 260;
+                $handled->image_ratio_y = true;
+                $handled->process('images/tourney/banners');
+                $handled->clean();
+                $logo = $cad.'.jpg';
+            } else {
+                echo('error: '.$handled->error);
+            }
+        } else {
+            $logo = "default.jpg";
+        }
         $ds = array(
             't_link' => $this->cleanString($torneo['t_titulo']),
-            't_logo' => 'default.jpg',
+            't_logo' => $torneo['t_logo'],
             't_juego' => 'Hearthstone',
             't_ubicacion' => 'Antofagasta',
             't_ganadores' => 3,
@@ -104,7 +129,7 @@ class lsAdmin extends lsSystem {
         $res->bindParam(1,$torneo['t_autor'],PDO::PARAM_STR);
         $res->bindParam(2,$ds['t_link'],PDO::PARAM_STR);
         $res->bindParam(3,$torneo['t_titulo'],PDO::PARAM_STR);
-        $res->bindParam(4,$ds['t_logo'],PDO::PARAM_STR);
+        $res->bindParam(4,$logo,PDO::PARAM_STR);
         $res->bindParam(5,$torneo['t_descripcion'],PDO::PARAM_STR);
         $res->bindParam(6,$ds['t_juego'],PDO::PARAM_STR);
         $res->bindParam(7,$ds['t_ubicacion'],PDO::PARAM_STR);

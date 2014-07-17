@@ -82,12 +82,31 @@ class lsBracket extends lsSystem {
     public function showBrackets(){
         $id = $_GET['id'];
         $link = $_GET['link'];
-
+        $bracket = $this->getTournament($id,$link);
         $datos = array(
             'mensajes' => array(
                     'success' => !empty($_SESSION['success']) ? true : false
                 ),
-            'bracket' => $this->getTournament($id,$link),
+            'bracket' => array(
+                'id' => $bracket['id'],
+                'autor' => $bracket['autor'],
+                'link' => $bracket['link'],
+                'titulo' => $bracket['titulo'],
+                'logo' => $bracket['logo'],
+                'descripcion' => str_replace(PHP_EOL,'<br />',$bracket['descripcion']),
+                'juego' => $bracket['juego'],
+                'fecha' => $bracket['fecha'],
+                'ubicacion' => $bracket['ubicacion'],
+                'subida' => $bracket['subida'],
+                'bajada' => $bracket['bajada'],
+                'ganadores' => $bracket['ganadores'],
+                'equipos' => $bracket['equipos'],
+                'registrados' => $bracket['registrados'],
+                'confirmados' => $bracket['confirmados'],
+                'modo' => $bracket['modo'],
+                'activo' => $bracket['activo'],
+                'terminado' => $bracket['terminado']
+            ),
             'datos' => $this->getUserInTourney($id),
             'estado' => !empty($_SESSION['usuario']) ? $this->getIfUserAreIn($id,$_SESSION['usuario']):$_SESSION['invitado']
 
