@@ -8,8 +8,14 @@ if(!empty($_SESSION['usuario']) && $admin->getUserAccess($_SESSION['usuario'])){
     $admin->showAdmin();
     if (!empty($_SESSION['addnewsok'])){
         unset($_SESSION['addnewsok']);
+    } elseif (!empty($_SESSION['addtourneyok'])){
+        unset($_SESSION['addtourneyok']);
+    } elseif (!empty($_SESSION['deletetourney'])){
+        unset($_SESSION['deletetourney']);
+    } elseif (!empty($_SESSION['editmailmsgok'])){
+        unset($_SESSION['editmailmsgok']);
     }
-    
+
     if(isset($_POST)){
         if(isset($_POST['addnews']) && $_POST['addnews'] == 1){
             if(!empty($_POST['titulo']) || !empty($_POST['preview']) || !empty($_POST['contenido'])){
@@ -44,6 +50,10 @@ if(!empty($_SESSION['usuario']) && $admin->getUserAccess($_SESSION['usuario'])){
             } else {
                 header("Location: ".$admin->whereuFrom());
             }
+        } elseif (isset($_POST['deletetourney']) && $_POST['deletetourney'] == 1){
+
+        } elseif (isset($_POST['editmailok']) && $_POST['editmailok'] == 1) {
+            $admin->editEmailMsg($_POST['editmail']);
         }
 
     }

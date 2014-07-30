@@ -113,7 +113,7 @@ class lsBracket extends lsSystem {
         );
         $this->loadTemplate('brackets', $datos);
     }
-    
+
     //Verificar si usuario esta en el torneo
     private function getIfUserAreIn($id,$user){
         $user = $this->getIdUser($user);
@@ -133,7 +133,7 @@ class lsBracket extends lsSystem {
             return true;
         }
     }
-    
+
     //buscar usuario en torneo
     private function getUserInTourney($torneo){
         $torneo = $_GET['id'];
@@ -174,12 +174,12 @@ class lsBracket extends lsSystem {
             return false;
         }
     }
-    
+
     //posicion aleatoria e ingreso de usuario al torneo
     function randomIn($id,$link,$user){
         //obtenemos la cantidad de equipos
         $bracket = $this->getTournament($id,$link);
-        
+
         inicio:
         //numero aleatorio
         $random = mt_rand(1, $bracket['equipos']);
@@ -193,10 +193,10 @@ class lsBracket extends lsSystem {
         $ra = $this->con->prepare($sqla);
         $ra->bindParam(1,$id,PDO::PARAM_INT);
         $ra->execute();
-        
+
         $datos = array();
         while($rowa = $ra->fetch(PDO::FETCH_ASSOC)){
-            $datos[] = $rowa;     
+            $datos[] = $rowa;
         }
         //leemos las posiciones
         for($i=0;$i<count($datos);$i++){
@@ -219,21 +219,21 @@ class lsBracket extends lsSystem {
         $rb->execute();
         //seleccionamos el numero actual del contador
         $sqlc = "SELECT t.tnmt_registrados_cont AS contador
-                FROM torneos AS t 
+                FROM torneos AS t
                 WHERE t.tnmt_id = ? AND t.tnmt_link = ?";
         $rc = $this->con->prepare($sqlc);
         $rc->bindParam(1,$id,PDO::PARAM_INT);
         $rc->bindParam(2,$link,PDO::PARAM_STR);
         $rc->execute();
-        
+
         while($rowc = $rc->fetch(PDO::FETCH_ASSOC)){
             $d[] = $rowc;
         }
         //aumentamos el contador en 1
         $cont = $d[0]['contador']+1;
         //actualizamos el contador en la bd
-        $sqld = "UPDATE torneos 
-        SET tnmt_registrados_cont = ? 
+        $sqld = "UPDATE torneos
+        SET tnmt_registrados_cont = ?
         WHERE tnmt_id = ? AND tnmt_link = ?";
         $rd = $this->con->prepare($sqld);
         $rd->bindParam(1,$cont,PDO::PARAM_INT);
@@ -241,8 +241,7 @@ class lsBracket extends lsSystem {
         $rd->bindParam(3,$link,PDO::PARAM_STR);
         $rd->execute();
         
-        $this->sendPrivateMessage(
-        array(
+        $array = array(
             'envia' => 0,
             'recibe' => $user,
             'prioridad' => 1,
@@ -250,10 +249,27 @@ class lsBracket extends lsSystem {
             'titulo' => 'Confirmar participacion',
             'mensaje' => 'Hola no olvides confirmar participacion',
             'estado' => 0
-        ));
+        );
         
+        $this->sendPrivateMessage($array);
+        
+        $sqle = "SELECT u.usuario_email AS email,
+                u.usuario_nick AS nick,
+                u.usuario_nick_clean AS clean
+                FROM usuarios AS u WHERE u.usuario_id = ?";
+        $re = $this->con->prepare($sqle);
+        $re->bindParam(1,$user,PDO::PARAM_STR);
+        $re->execute();
+        while($rowe = $re->fetch(PDO::FETCH_ASSOC)){
+            $datose[] = $rowe;
+        }
+        $this->sendEmail(
+        $datose[0]['email'],
+        $array['titulo'],
+        'Haz recibido un nuevo mensaje en tu bandeja de entrada. click <a href="{url}/perfil/'. $datose[0]['clean'] .'">aqui</a> para ver el mensaje.<br/> Atte. el staff de {titulo}'
+        );
         $_SESSION['success'] = 'torneo';
-        
+
         header("Location: ".$this->whereuFrom());
     }
 }

@@ -18,7 +18,7 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
         // line 1
         $context["active"] = "home";
         // line 2
-        $this->env->loadTemplate("home.twig", "1275713191")->display($context);
+        $this->env->loadTemplate("home.twig", "1716117204")->display($context);
         // line 7
         echo "    ";
         // line 8
@@ -41,9 +41,8 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
               </div>
             </div>
             ";
-        // line 25
-        echo " 
-        </div>
+        // line 26
+        echo "        </div>
         <script>
         \$('.carousel').carousel({
           interval: ";
@@ -138,13 +137,13 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
         echo "    </div>
     ";
         // line 70
-        echo "      
+        echo "
     <div class=\"row\">
     ";
         // line 72
         if ((($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "actual") <= twig_last($this->env, $this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "ultima"))) && ($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "inicial") >= 1))) {
-            echo "  
-        <div class=\"col-md-8\"><h3 style=\"margin-bottom:0;\">Artículos recientes</h3></div>
+            // line 73
+            echo "        <div class=\"col-md-8\"><h3 style=\"margin-bottom:0;\">Artículos recientes</h3></div>
     </div>
     <div class=\"row\">
         ";
@@ -174,9 +173,9 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "imagen"), "html", null, true);
                 echo "\" alt=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "titulo"), "html", null, true);
-                echo "\" class=\"img-thumbnail\" style=\"margin-top:20px;width:260px;height:130px;\" />  
+                echo "\" class=\"img-thumbnail\" style=\"margin-top:20px;width:260px;height:130px;\" />
                 </div>
-            </a>  
+            </a>
             <div class=\"col-lg-8\">
             ";
                 // line 86
@@ -211,8 +210,8 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["noticia"]) ? $context["noticia"] : null), "fecha"), "d \\d\\e M \\d\\e Y"), "html", null, true);
                 echo "</div>
                 </div>
-                
-            </div> 
+
+            </div>
             ";
                 // line 97
                 if (((isset($context["acceso"]) ? $context["acceso"] : null) == true)) {
@@ -220,8 +219,8 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
                     echo twig_escape_filter($this->env, (isset($context["n"]) ? $context["n"] : null), "html", null, true);
                     echo "\" class=\"glyphicon glyphicon-pencil\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Editar noticia\" style=\"bottom:0;float:right;padding-top:10px;cursor:pointer;\"></span>";
                 }
-                echo "  
-        </div>
+                // line 98
+                echo "        </div>
         <script>
         \$('#eliminar";
                 // line 100
@@ -282,7 +281,7 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
             echo "        ";
         }
         // line 115
-        echo "                
+        echo "
     </div>
     ";
         // line 117
@@ -304,13 +303,13 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
 
     public function getDebugInfo()
     {
-        return array (  291 => 118,  289 => 117,  285 => 115,  282 => 114,  279 => 113,  276 => 112,  273 => 110,  262 => 109,  252 => 108,  249 => 107,  247 => 106,  245 => 105,  239 => 104,  237 => 103,  232 => 101,  228 => 100,  218 => 97,  209 => 93,  202 => 89,  198 => 88,  189 => 87,  183 => 86,  172 => 82,  163 => 80,  160 => 79,  155 => 78,  152 => 77,  145 => 72,  141 => 70,  138 => 68,  132 => 67,  130 => 66,  120 => 59,  114 => 56,  109 => 54,  103 => 51,  93 => 48,  86 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  290 => 118,  288 => 117,  284 => 115,  281 => 114,  278 => 113,  275 => 112,  272 => 110,  261 => 109,  251 => 108,  248 => 107,  246 => 106,  244 => 105,  238 => 104,  236 => 103,  231 => 101,  227 => 100,  223 => 98,  217 => 97,  208 => 93,  201 => 89,  197 => 88,  188 => 87,  182 => 86,  171 => 82,  162 => 80,  159 => 79,  154 => 78,  151 => 77,  146 => 73,  144 => 72,  140 => 70,  137 => 68,  131 => 67,  129 => 66,  119 => 59,  113 => 56,  108 => 54,  102 => 51,  92 => 48,  85 => 46,  76 => 45,  71 => 44,  69 => 43,  66 => 42,  64 => 41,  50 => 29,  45 => 26,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* home.twig */
-class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950d27f5_1275713191 extends Twig_Template
+class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950d27f5_1716117204 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -353,6 +352,6 @@ class __TwigTemplate_ba4b2b879a744d916fc8d106924d51c6c92ecf32676c942c8d0bb659950
 
     public function getDebugInfo()
     {
-        return array (  340 => 4,  337 => 3,  291 => 118,  289 => 117,  285 => 115,  282 => 114,  279 => 113,  276 => 112,  273 => 110,  262 => 109,  252 => 108,  249 => 107,  247 => 106,  245 => 105,  239 => 104,  237 => 103,  232 => 101,  228 => 100,  218 => 97,  209 => 93,  202 => 89,  198 => 88,  189 => 87,  183 => 86,  172 => 82,  163 => 80,  160 => 79,  155 => 78,  152 => 77,  145 => 72,  141 => 70,  138 => 68,  132 => 67,  130 => 66,  120 => 59,  114 => 56,  109 => 54,  103 => 51,  93 => 48,  86 => 46,  77 => 45,  72 => 44,  70 => 43,  67 => 42,  65 => 41,  51 => 29,  45 => 25,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
+        return array (  339 => 4,  336 => 3,  290 => 118,  288 => 117,  284 => 115,  281 => 114,  278 => 113,  275 => 112,  272 => 110,  261 => 109,  251 => 108,  248 => 107,  246 => 106,  244 => 105,  238 => 104,  236 => 103,  231 => 101,  227 => 100,  223 => 98,  217 => 97,  208 => 93,  201 => 89,  197 => 88,  188 => 87,  182 => 86,  171 => 82,  162 => 80,  159 => 79,  154 => 78,  151 => 77,  146 => 73,  144 => 72,  140 => 70,  137 => 68,  131 => 67,  129 => 66,  119 => 59,  113 => 56,  108 => 54,  102 => 51,  92 => 48,  85 => 46,  76 => 45,  71 => 44,  69 => 43,  66 => 42,  64 => 41,  50 => 29,  45 => 26,  36 => 18,  25 => 8,  23 => 7,  21 => 2,  19 => 1,);
     }
 }

@@ -13,7 +13,12 @@ class lsAdmin extends lsSystem {
         $datos = array(
             'cat' => $this->getCategories(),
             'torneos' => $this->getTournaments(),
-            'addnewsok' => !empty($_SESSION['addnewsok']) ? true:false
+            'conf' => array(
+                'email' => $this->getEmailMsg()
+            ),
+            'addnewsok' => !empty($_SESSION['addnewsok']) ? true:false,
+            'addtourneyok' => !empty($_SESSION['addtourneyok']) ? true:false,
+            'deletetourney' => !empty($_SESSION['deletetourney']) ? true:false
         );
         $this->loadTemplate('admin',$datos);
     }
@@ -140,6 +145,47 @@ class lsAdmin extends lsSystem {
         $res->bindParam(12,$ds['t_modo'],PDO::PARAM_INT);
         $res->bindParam(13,$torneo['t_activo'],PDO::PARAM_INT);
         $res->execute();
+        $_SESSION['addtourneyok'] = 'ok';
+        header("Location: ".$this->whereuFrom());
+    }
+
+    private function getEmailMsg(){
+        parent::setNames();
+        $sql = "SELECT a.ajuste_email AS email, a.ajuste_email_mensaje AS emailmsg FROM ajustes AS a";
+        $res = $this->con->query($sql);
+        $res->execute();
+
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+
+        return $datos[0];
+    }
+
+    public function editEmailMsg($datos){
+        $sql = "UPDATE ajustes SET ajustes.ajuste_email_mensaje = ?";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$datos,PDO::PARAM_STR);
+        $res->execute();
+
+        $_SESSION['editmailmsgok'] == 'ok';
+        header("Location: ". $this->whereuFrom());
+    }
+
+    private function deleteTourney($id){
+        $sql1 = "DELETE * FROM torneos WHERE torneos.tnmt_id = ?";
+        $r1 = $this->con->prepare($sql);
+        $r1->bindParam(1,$id,PDO::PARAM_INT);
+        $r1->execute();
+        $sql2 = "DELETE * FROM usuario_torneos WHERE usuario_torneos.ut_id_torneo = ?";
+        $r2 = $this->con->prepare($sq2);
+        $r2->bindParam(1,$id,PDO::PARAM_INT);
+        $r2->execute();
+        $sql3 = "DELETE usuarios.usuario_torneo FROM usuarios WHERE usuarios.usuario_torneo = ?";
+        $r3 = $this->con->prepare($sql);
+        $r3->bindParam(1,$id,PDO::PARAM_INT);
+        $r3->execute();
+        $_SESSION['deletetourney'] = 'ok';
         header("Location: ".$this->whereuFrom());
     }
 }

@@ -10,61 +10,61 @@
 //
 // $num = Array();
 // reset($num);
-// for($i=1;$i<=10;$i++) 
+// for($i=1;$i<=10;$i++)
 // {
 //   $num[$i]=rand(1,100);
-//    if($i>1) 
+//    if($i>1)
 //    {
 //       for($x=1; $x<$i; $x++)
 //       {
-//         if($num[$i]==$num[$x]) 
-//         { 
-//           $i--; 
-//           break; 
+//         if($num[$i]==$num[$x])
+//         {
+//           $i--;
+//           break;
 //         }
 //      }
 //   }
 // }
-// foreach($num as $valor) 
+// foreach($num as $valor)
 // {
 //   echo "$valor<BR>";
 // }
 
-// $ar=array(0,1,2,3,4,5,6,8); 
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
-//echo '<br/>';  
-//shuffle($ar); 
-//print array_shift($ar); 
+// $ar=array(0,1,2,3,4,5,6,8);
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
+//echo '<br/>';
+//shuffle($ar);
+//print array_shift($ar);
 //echo '<br/>';
 
 //$para  = 'silenoth@gmail.com' . ', '; // atención a la coma
 $para = 'satanichails@gmail.com';
- 
+
 // Asunto
 $titulo = 'Atencion con cambio de tarifas';
- 
+
 // Cuerpo o mensaje
 $mensaje = '
 <!doctype html>
@@ -97,16 +97,15 @@ $mensaje = '
 </body>
 </html>
 ';
- 
+
 // Cabecera que especifica que es un HMTL
 $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
- 
+
 // Cabeceras adicionales
 $cabeceras .= 'From: Recordatorio <tarifas@example.com>' . "\r\n";
 //$cabeceras .= 'Cc: archivotarifas@example.com' . "\r\n";
 //$cabeceras .= 'Bcc: copiaoculta@example.com' . "\r\n";
- 
+
 // enviamos el correo!
 mail($para, $titulo, $mensaje, $cabeceras);
-  

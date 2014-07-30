@@ -495,7 +495,7 @@ class lsSystem {
             return $datos[0]['nickclean'];
         }
    }
-   
+
    public function getIdUser($user){
         self::setNames();
         $sql = "SELECT u.usuario_id AS id_usuario
@@ -550,7 +550,7 @@ class lsSystem {
             $back = $this->whereuFrom();
             header("Location: ".$back);
         } else {
-            $_SESSION['errorlogin'] = 'ok';            
+            $_SESSION['errorlogin'] = 'ok';
             $back = $this->whereuFrom();
             header("Location: ".$back);
         }
@@ -795,7 +795,7 @@ class lsSystem {
         }
         return $datos;
    }
-   
+
    public function getTournamentsById($id){
         self::setNames();
         $sql = "SELECT
@@ -827,48 +827,69 @@ class lsSystem {
         while ($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
-        return $datos;
+        $rc = $res->rowCount();
+        if($rc > 0 ){
+            return $datos;
+        } else {
+            return false;
+        }
+
    }
-   
+
    public function sendEmail($para, $titulo, $mensaje){
-        $para = 'satanichails@gmail.com';
-        // Asunto
-        $titulo = 'Atencion con cambio de tarifas';
-         
-        // Cuerpo o mensaje
-        $mensaje = '
-        <html>
-        <head>
-          <title>'.$titulo.'</title>
-        </head>
-        <body>
-          <p>¡todos los vendedores a leer las tarifas segun empresas!</p>
-          <table>
-            <tr>
-              <th>Empresa</th><th>Tarifa Anterior</th><th>Nueva Tarifa</th><th>Comision</th>
-            </tr>
-            <tr>
-              <td>Repsol</td><td>3.3</td><td>3.5</td><td>10%</td>
-            </tr>
-            <tr>
-              <td>Telefonica</td><td>17.45</td><td>18.1</td><td>11%</td>
-            </tr>
-          </table>
-        </body>
-        </html>
-        ';
-         
+        $sql = "SELECT a.ajuste_titulo AS titulo, a.ajuste_email AS email, a.ajuste_slogan AS slogan FROM ajustes AS a";
+        $res = $this->con->query($sql);
+        $res->execute();
+        while($row = $res->fetch(PDO::FETCH_ASSOC)){
+            $datos[] = $row;
+        }
+
+        $s = "SELECT u.usuario_nick AS nick FROM usuarios AS u WHERE u.usuario_email = ?";
+        $r = $this->con->prepare($s);
+        $r->bindParam(1,$para,PDO::PARAM_STR);
+        $r->execute();
+        while($fila = $r->fetch(PDO::FETCH_ASSOC)){
+            $d[] = $fila;
+        }
+
+        $mensaje = str_replace(
+        array(
+            '{usuario}',
+            '{email}',
+            '{url}',
+            '{titulo}',
+            '{slogan}',
+            '{enlace}'
+            ), array(
+            $d[0]['nick'],
+            $para,
+            $this->getUrl(),
+            $datos[0]['titulo'],
+            $datos[0]['slogan'],
+            $this->getUrl().$code
+            ), $mensaje
+        );
+        $msj = '<!doctype html>'
+        .'<html>'
+        .'<head>'
+        .'<meta charset="utf-8"/>'
+        .'<title>' . $titulo . '</title>'
+        .'</head>'
+        . $this->bbcode(str_replace(PHP_EOL, '<br />',$mensaje))
+        .'</body>'
+        .'</html>';
         // Cabecera que especifica que es un HMTL
         $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
         $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-         
+        //sql
+
         // Cabeceras adicionales
-        $cabeceras .= 'From: Recordatorio <tarifas@example.com>' . "\r\n";
+        $cabeceras .= 'From: ' . $datos[0]['titulo'] . ' <' . $datos[0]['email'] . '>' . "\r\n";
         //$cabeceras .= 'Cc: archivotarifas@example.com' . "\r\n";
         //$cabeceras .= 'Bcc: copiaoculta@example.com' . "\r\n";
-         
+
         // enviamos el correo!
-        mail($para, $titulo, $mensaje, $cabeceras);
+        mail($para, $titulo, $msj, $cabeceras);
    }
 
     public function sendPrivateMessage($datos){
@@ -892,7 +913,7 @@ class lsSystem {
         $res->bindParam(6,$datos['mensaje'],PDO::PARAM_STR);
         $res->bindParam(7,$datos['estado'],PDO::PARAM_INT);
         $res->execute();
-        
+
         return true;
     }
         //dias trasncurridos

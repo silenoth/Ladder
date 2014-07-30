@@ -151,6 +151,14 @@ class lsRegister extends lsSystem {
             $res->bindParam(12,$reputa,PDO::PARAM_INT);
             $res->bindParam(13,$nivel,PDO::PARAM_INT);
             $res->execute();
+            //OBTENER EMAIL Y MENSAJE
+            $s = "SELECT a.ajuste_email_titulo AS emailtitle, a.ajuste_email_mensaje AS emailmsg FROM ajustes AS a";
+            $r = $this->con->query($s);
+            $r->execute();
+            while($row = $r->fetch(PDO::FETCH_ASSOC)){
+                $env[] = $row;
+            }
+            $this->sendEmail($email, $env[0]['emailtitle'],$env[0]['emailmsg']);
             header('Location: '.$this->getUrl().'/exito');
         } else {
             header("Location: register.php?error=emailsyntax");
