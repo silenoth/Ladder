@@ -1,0 +1,59 @@
+{% embed '_header.twig' %}
+    {% block titulo %}
+        <title>Administracion</title>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" href="{{url}}/plugins/editor/minified/themes/default.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{url}}/css/bootstrap-multiselect.css" type="text/css" />
+        <link rel="stylesheet" href="{{url}}/{{template}}/css/forums.css" type="text/css" />
+    {% endblock %}
+    {% block js %}
+        <script type="text/javascript" src="{{url}}/js/jquery.confirm.min.js"/></script>
+    {% endblock %}
+{% endembed %}
+<div class="row">
+	<div class="col-md-8">
+	{% for foro in ls.foros %}
+	 	{% if foro.activo == 1 %}
+		<h3>{{ foro.nombre }}</h3>
+	  	<div class="sep"></div>
+	  		{% for categoria in ls.categorias %}
+	  		{% if categoria.foro == foro.id %}
+			<div class="panel panel-default panel_bg">
+			  <div class="panel-body">
+				  	<div class="col-xs-12 col-md-8">
+					  	<div class="row">
+							<div class="col-md-8">
+								<span class="glyphicon glyphicon-{{ categoria.icono }} red"></span>
+							  	<a href="{{ url }}/foro/{{ categoria.id }}/{{ categoria.nombreclean }}">{{ categoria.nombre }}</a>
+							  	<p class="small_text">{{ categoria.descripcion }}</p>
+							</div>
+							<div class="col-md-4">
+								<p class="small_text">(5 temas y 154 respuestas)</p>
+							</div>
+						</div>
+				  	</div>
+				  	<div class="col-xs-6 col-md-4">
+					  	<div class="row">
+						  	<div class="col-xs-6">
+						  		<a href="#">
+						    		<img class="img_forum_index" alt="">
+						    	</a>
+						    </div>
+						  	<div class="col-xs-6">
+								<p>Silenoth</p>
+						  	</div>
+						</div>
+				    </div>
+			  </div>
+			</div>
+	  		{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+	</div>
+	<div class="col-md-4">
+	{# google ads #}
+	</div>
+</div>
+{% include '_footer.twig' %}

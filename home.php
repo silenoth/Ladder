@@ -9,7 +9,7 @@ $home->whereuFrom();
 $home->showHome();
 if (!empty($_SESSION['errorlogin'])) {
     unset($_SESSION['errorlogin']);
-} 
+}
 if (!empty($_SESSION['usuario'])){
     if(isset($_GET['code'])){
         //twitch api
@@ -27,7 +27,7 @@ if (!empty($_SESSION['usuario'])){
             $userId = $twitch->getUserObject($user['name']);
             //obtener scopes
             $scopes = implode(";",explode(" ", $_GET['scope']));
-            
+
             $values = array(
             'twitch_id' => $userId['_id'],
             'twitch_user' => $user['name'],

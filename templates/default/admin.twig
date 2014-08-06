@@ -160,6 +160,32 @@ $( document ).ready(function() {
 </div>
 {% endif %}
 {# FIN ADD ADDTOURNEY OK #}
+{# INICIO ADDTOURNEY OK #}
+{% if ls.editmailmsgok == true %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#editmailmsgok').modal('show');
+    });
+</script>
+<!-- Modal error login -->
+<div class="modal fade" id="editmailmsgok" tabindex="-1" role="dialog" aria-labelledby="editmailmsgokLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:0;">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="editmailmsgokLabel">Datos ingresados correctamente</h4>
+      </div>
+      <div class="modal-body">
+        El mensaje del email del confirmacion se ha editado correctamente.
+      </div>
+      <div class="modal-footer" style="border:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{# FIN ADD ADDTOURNEY OK #}
 {#TABS#}
 <ul class="nav nav-tabs">
   <li class="active"><a href="#home" data-toggle="tab">Home</a></li>

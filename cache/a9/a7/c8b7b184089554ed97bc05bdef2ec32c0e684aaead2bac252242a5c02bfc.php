@@ -18,7 +18,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
         // line 1
         ob_start();
         // line 2
-        $this->env->loadTemplate("brackets.twig", "1262397537")->display($context);
+        $this->env->loadTemplate("brackets.twig", "304235784")->display($context);
         // line 113
         $context["success"] = $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "mensajes"), "success");
         // line 114
@@ -50,7 +50,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
         echo "<div class=\"tab-content\">
 \t<div class=\"tab-pane fade in active\" id=\"descripcion\">
 \t\t<div style=\"margin-top:30px;\"></div>
-        
+
     ";
         // line 132
         echo "    ";
@@ -1315,7 +1315,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
 
 
 /* brackets.twig */
-class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c02bfc_1262397537 extends Twig_Template
+class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c02bfc_304235784 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -1364,7 +1364,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
     ";
         } elseif (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "equipos") == 64)) {
             // line 12
-            echo "    
+            echo "
     ";
         } elseif (($this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "bracket"), "equipos") == 32)) {
             // line 14
@@ -1397,7 +1397,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
 \tdisplay: inline-block;
 \tmargin-bottom: 10px;
 \tmargin-right:0;
-\t
+
 \tfont-weight: normal;
 \t/*line-height: 1.428571429;*/
 \twhite-space: nowrap;
@@ -1457,7 +1457,7 @@ class __TwigTemplate_a9a7c8b7b184089554ed97bc05bdef2ec32c0e684aaead2bac252242a5c
         // line 92
         echo "<script type=\"text/javascript\">
 \$(document).ready(function(){
-    \$('#enviar_inscripcion').click(function(){    
+    \$('#enviar_inscripcion').click(function(){
         if(\$('input[name=chkaceptar]').is(':checked')){
             return true;
         } else {

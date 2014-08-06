@@ -109,9 +109,9 @@
               {%if ls.actual < ls.ultima|last %}<li><a href="{{url}}/inicio/p-{{ls.siguiente}}">Siguiente &rarr;</a></li>{%else%}<li class="disabled"><a href="#">Siguiente &rarr;</a></li>{%endif%}
             </ul>
         {#FINPAGINADOR#}
-        {%else%}
+        {% else %}
             {% include '404.twig' %}
-        {%endif%}
+        {% endif %}
 
     </div>
     {% include '_online.twig' %}

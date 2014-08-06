@@ -18,7 +18,8 @@ class lsAdmin extends lsSystem {
             ),
             'addnewsok' => !empty($_SESSION['addnewsok']) ? true:false,
             'addtourneyok' => !empty($_SESSION['addtourneyok']) ? true:false,
-            'deletetourney' => !empty($_SESSION['deletetourney']) ? true:false
+            'deletetourney' => !empty($_SESSION['deletetourney']) ? true:false,
+            'editmailmsgok' => !empty($_SESSION['editmailmsgok']) ? true:false
         );
         $this->loadTemplate('admin',$datos);
     }
@@ -168,7 +169,7 @@ class lsAdmin extends lsSystem {
         $res->bindParam(1,$datos,PDO::PARAM_STR);
         $res->execute();
 
-        $_SESSION['editmailmsgok'] == 'ok';
+        $_SESSION['editmailmsgok'] = 'ok';
         header("Location: ". $this->whereuFrom());
     }
 
@@ -185,7 +186,7 @@ class lsAdmin extends lsSystem {
         $r3 = $this->con->prepare($sql);
         $r3->bindParam(1,$id,PDO::PARAM_INT);
         $r3->execute();
-        $_SESSION['deletetourney'] = 'ok';
+        $_SESSION['deletetourney'] = $id;
         header("Location: ".$this->whereuFrom());
     }
 }

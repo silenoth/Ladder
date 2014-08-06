@@ -1,0 +1,33 @@
+.sep {
+	border-top:1px dashed #ddd;
+	margin-bottom:20px;
+}
+
+.panel_bg {
+	border:0;
+	background:#f8f8f8;
+}
+
+.img_forum_index {
+	height:50px;width:50px;
+}
+
+.small_text {
+	font-size: 11px;
+}
+/*colores*/
+.red {
+	color: #FF0000;
+}
+
+.ds {
+	margin-right: 20px;
+}
+
+.margen_bot30 {
+	margin-bottom: 30px;
+}
+
+.margen_top30 {
+	margin-top: 30px;
+}
