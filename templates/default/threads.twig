@@ -1,7 +1,7 @@
 {% spaceless %}
 {% embed '_header.twig' %}
     {% block titulo %}
-        <title>Administracion</title>
+        <title>Temas {{ ls.categoria.nombre }}</title>
     {% endblock %}
     {% block css %}
         <link rel="stylesheet" href="{{url}}/plugins/editor/minified/themes/default.css" type="text/css" media="all" />
@@ -35,7 +35,8 @@
                 var initEditor = function() {
                     $("textarea").sceditor({
                         plugins: 'bbcode',
-                        style: "{{url}}/plugins/editor/minified/jquery.sceditor.default.min.css"
+                        style: "{{url}}/plugins/editor/minified/jquery.sceditor.default.min.css",
+                        emoticonsRoot: "{{ url }}/"
                     });
                 };
 
@@ -52,20 +53,34 @@
 <h2>{{ ls.categoria.nombre }}</h2>
     <div class="sep"></div>
     <div class="panel panel-default panel_bg">
-        <table class="table table-hover">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr><th></th>
+                    <th>Asunto</th>
+                    <th>Autor</th>
+                    <th>Respuestas</th>
+                    <th>Visitas</th>
+                    <th>Ultima publicacion</th>
+                </tr>
+            </thead>
             <tbody>
             {% for tema in ls.temas %}
             {% set k = loop.index %}
-                <tr>
+                <tr{% if k is not odd %} class="active"{% endif %}>
+                <td style="width:30px;">
+                    <span class="glyphicon glyphicon-{{ tema.icono }}"></span>
+                </td>
                     <td>
-                        {% if tema.fijo == 1 %}
-                        <span class="label label-success">Fijo</span>
+                        {% if tema.cerrado == 1 %}
+                        <span class="label label-danger margen_right10"><span class="glyphicon glyphicon-lock"></span></span>
                         {% endif %}
-                        <span class="glyphicon glyphicon-{{ tema.icono }}"></span>
+                        {% if tema.fijo == 1 %}
+                        <span class="label label-success margen_right10">Fijo</span>
+                        {% endif %}
                         <a href="{{ url }}/tema/{{tema.id}}/{{tema.tituloclean}}" id="tematitulo{{ k }}" data-toggle="tooltip" data-placement="top" title="Ver tema {{ tema.titulo }}">{{ tema.titulo }}</a>
                     </td>
                     <td>
-                        Hace 1 dia por <a href="{{ url }}/perfil/{{ tema.creador }}">{{tema.nick}}</a>
+                        <a href="{{ url }}/perfil/{{ tema.autor }}">{{tema.nick}}</a>
                     </td>
                 </tr>
                 <script type="text/javascript">
@@ -91,7 +106,8 @@
             <textarea name="txtnuevotema" style="width:600px;height:300px;" required="required"></textarea>
             <label for="rdiconos" class="margen_top30">Iconos</label>
             <div id="rdiconos" class="margen_bot30">
-                <input type="radio" name="rdicono" value="music"><span class="glyphicon glyphicon-music ds"></span>
+                <input type="radio" name="rdicono" value="none" checked="checked" /><span class="ds">Ninguno</span>
+                <input type="radio" name="rdicono" value="music" /><span class="glyphicon glyphicon-music ds"></span>
                 <input type="radio" name="rdicono" value="fire"><span class="glyphicon glyphicon-fire ds"></span>
                 <input type="radio" name="rdicono" value="heart"><span class="glyphicon glyphicon-heart ds"></span>
                 <input type="radio" name="rdicono" value="star"><span class="glyphicon glyphicon-star ds"></span>
@@ -114,6 +130,15 @@
             <label for="chkactivo">Mostrar/Ocultar Tema</label>
             <div class="margen_bot30">
                 <input type="checkbox" id="chkmostrar" name="chkmostrar" checked="checked" value="1" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}">
+            </div>
+            <div class="margen_bot30">
+                <a href="javascript:void(0)" onclick="if ($(this).parent().find('div:first').is(':hidden')){$(this).parent().find('div:first').slideDown(300);}else{$(this).parent().find('div:first').slideUp(300);}">
+                    <span class="margen_bot30"><span class="glyphicon glyphicon-plus"></span> Agregar encuesta</span>
+                </a>
+                <div name="spoiler" style="display:none;">
+                    <label for="txtpregunta">Pregunta</label>
+                    <input type="text" id="txtpregunta" name="txtpregunta" class="form-control">
+                </div>
             </div>
             {% endif %}
             <input type="hidden" name="ok" value="1">

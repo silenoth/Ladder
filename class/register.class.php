@@ -108,7 +108,7 @@ class lsRegister extends lsSystem {
             //encriptamos la contraseña
             $md5psw = md5($pass);
             //no avatar
-            $noavatar = "no-avatar.jpg";
+            $noavatar = "no-avatar.png";
             //obtener la ip
             $myip = $_SERVER['REMOTE_ADDR'];
             $acceso = 7;

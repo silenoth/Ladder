@@ -22,6 +22,7 @@ Rewriterule ^competencia$ tournaments.php
 Rewriterule ^brackets/(.+)/(.+)$ brackets.php?id=$1&link=$2
 Rewriterule ^foros$ forums.php
 Rewriterule ^foro/(.+)/(.+)$ threads.php?id=$1&title=$2
+Rewriterule ^tema/(.+)/(.+)$ topics.php?id=$1&title=$2
 #---------modulos--------------
 Rewriterule ^modulos/adm$ admin.php
 #ErrorDocument nroError /err404.php

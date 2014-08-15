@@ -18,29 +18,38 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
         // line 1
         ob_start();
         // line 2
-        $this->env->loadTemplate("threads.twig", "1994301227")->display($context);
-        // line 47
+        $this->env->loadTemplate("threads.twig", "1698357255")->display($context);
+        // line 48
         echo "<div class=\"row\">
 <ol class=\"breadcrumb\">
   <li><a href=\"";
-        // line 49
+        // line 50
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/foros\">Foros</a></li>
   <li class=\"active\">";
-        // line 50
+        // line 51
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "categoria"), "nombre"), "html", null, true);
         echo "</li>
 </ol>
 <h2>";
-        // line 52
+        // line 53
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "categoria"), "nombre"), "html", null, true);
         echo "</h2>
     <div class=\"sep\"></div>
     <div class=\"panel panel-default panel_bg\">
-        <table class=\"table table-hover\">
+        <table class=\"table table-hover table-striped\">
+            <thead>
+                <tr><th></th>
+                    <th>Asunto</th>
+                    <th>Autor</th>
+                    <th>Respuestas</th>
+                    <th>Visitas</th>
+                    <th>Ultima publicacion</th>
+                </tr>
+            </thead>
             <tbody>
             ";
-        // line 57
+        // line 67
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "temas"));
         $context['loop'] = array(
@@ -57,25 +66,38 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["tema"]) {
-            // line 58
+            // line 68
             echo "            ";
             $context["k"] = $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index");
-            // line 59
-            echo "                <tr>
-                    <td>
-                        ";
-            // line 61
-            if (($this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "fijo") == 1)) {
-                // line 62
-                echo "                        <span class=\"label label-success\">Fijo</span>
-                        ";
+            // line 69
+            echo "                <tr";
+            if ((!((isset($context["k"]) ? $context["k"] : null) % 2 == 1))) {
+                echo " class=\"active\"";
             }
-            // line 64
-            echo "                        <span class=\"glyphicon glyphicon-";
+            echo ">
+                <td style=\"width:30px;\">
+                    <span class=\"glyphicon glyphicon-";
+            // line 71
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "icono"), "html", null, true);
             echo "\"></span>
-                        <a href=\"";
-            // line 65
+                </td>
+                    <td>
+                        ";
+            // line 74
+            if (($this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "cerrado") == 1)) {
+                // line 75
+                echo "                        <span class=\"label label-danger margen_right10\"><span class=\"glyphicon glyphicon-lock\"></span></span>
+                        ";
+            }
+            // line 77
+            echo "                        ";
+            if (($this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "fijo") == 1)) {
+                // line 78
+                echo "                        <span class=\"label label-success margen_right10\">Fijo</span>
+                        ";
+            }
+            // line 80
+            echo "                        <a href=\"";
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "/tema/";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "id"), "html", null, true);
@@ -90,11 +112,11 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
             echo "</a>
                     </td>
                     <td>
-                        Hace 1 dia por <a href=\"";
-            // line 68
+                        <a href=\"";
+            // line 83
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
             echo "/perfil/";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "creador"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "autor"), "html", null, true);
             echo "\">";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["tema"]) ? $context["tema"] : null), "nick"), "html", null, true);
             echo "</a>
@@ -102,7 +124,7 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
                 </tr>
                 <script type=\"text/javascript\">
                     \$('#tematitulo";
-            // line 72
+            // line 87
             echo twig_escape_filter($this->env, (isset($context["k"]) ? $context["k"] : null), "html", null, true);
             echo "').tooltip('hide');
                 </script>
@@ -119,14 +141,14 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['tema'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 75
+        // line 90
         echo "            </tbody>
         </table>
     </div>
     ";
-        // line 78
+        // line 93
         if ((!twig_test_empty((isset($context["sesion"]) ? $context["sesion"] : null)))) {
-            // line 79
+            // line 94
             echo "    <button class=\"btn btn-primary\" id=\"btncomenzarnuevotema\" type=\"submit\">Comenzar Nuevo Tema</button>
     <script type=\"text/javascript\">
         \$(\"#btncomenzarnuevotema\").click(function(){
@@ -142,7 +164,8 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
             <textarea name=\"txtnuevotema\" style=\"width:600px;height:300px;\" required=\"required\"></textarea>
             <label for=\"rdiconos\" class=\"margen_top30\">Iconos</label>
             <div id=\"rdiconos\" class=\"margen_bot30\">
-                <input type=\"radio\" name=\"rdicono\" value=\"music\"><span class=\"glyphicon glyphicon-music ds\"></span>
+                <input type=\"radio\" name=\"rdicono\" value=\"none\" checked=\"checked\" /><span class=\"ds\">Ninguno</span>
+                <input type=\"radio\" name=\"rdicono\" value=\"music\" /><span class=\"glyphicon glyphicon-music ds\"></span>
                 <input type=\"radio\" name=\"rdicono\" value=\"fire\"><span class=\"glyphicon glyphicon-fire ds\"></span>
                 <input type=\"radio\" name=\"rdicono\" value=\"heart\"><span class=\"glyphicon glyphicon-heart ds\"></span>
                 <input type=\"radio\" name=\"rdicono\" value=\"star\"><span class=\"glyphicon glyphicon-star ds\"></span>
@@ -154,9 +177,9 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
                 <input type=\"radio\" name=\"rdicono\" value=\"leaf\"><span class=\"glyphicon glyphicon-leaf ds\"></span>
             </div>
             ";
-            // line 105
+            // line 121
             if (((isset($context["acceso"]) ? $context["acceso"] : null) == 1)) {
-                // line 106
+                // line 122
                 echo "            <label for=\"chkfijar\">Fijar Tema</label>
             <div class=\"margen_bot30\">
                 <input type=\"checkbox\" id=\"chkfijar\" name=\"chkfijar\" value=\"0\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\">
@@ -169,24 +192,33 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
             <div class=\"margen_bot30\">
                 <input type=\"checkbox\" id=\"chkmostrar\" name=\"chkmostrar\" checked=\"checked\" value=\"1\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\">
             </div>
+            <div class=\"margen_bot30\">
+                <a href=\"javascript:void(0)\" onclick=\"if (\$(this).parent().find('div:first').is(':hidden')){\$(this).parent().find('div:first').slideDown(300);}else{\$(this).parent().find('div:first').slideUp(300);}\">
+                    <span class=\"margen_bot30\"><span class=\"glyphicon glyphicon-plus\"></span> Agregar encuesta</span>
+                </a>
+                <div name=\"spoiler\" style=\"display:none;\">
+                    <label for=\"txtpregunta\">Pregunta</label>
+                    <input type=\"text\" id=\"txtpregunta\" name=\"txtpregunta\" class=\"form-control\">
+                </div>
+            </div>
             ";
             }
-            // line 119
+            // line 144
             echo "            <input type=\"hidden\" name=\"ok\" value=\"1\">
             <button class=\"btn btn-primary\" type=\"submit\" name=\"btn\">Crear nuevo tema</button>
         </form>
     </div>
     ";
         } else {
-            // line 124
+            // line 149
             echo "    <div class=\"alert alert-warning\" role=\"alert\">Debes loguearte para comenzar un nuevo tema</div>
     ";
         }
-        // line 126
+        // line 151
         echo "</div>
 
 ";
-        // line 128
+        // line 153
         $this->env->loadTemplate("_footer.twig")->display($context);
         echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
     }
@@ -203,13 +235,13 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
 
     public function getDebugInfo()
     {
-        return array (  190 => 128,  186 => 126,  182 => 124,  175 => 119,  160 => 106,  158 => 105,  130 => 79,  128 => 78,  123 => 75,  106 => 72,  95 => 68,  79 => 65,  74 => 64,  70 => 62,  68 => 61,  64 => 59,  61 => 58,  44 => 57,  36 => 52,  31 => 50,  27 => 49,  23 => 47,  21 => 2,  19 => 1,);
+        return array (  222 => 153,  218 => 151,  214 => 149,  207 => 144,  183 => 122,  181 => 121,  152 => 94,  150 => 93,  145 => 90,  128 => 87,  117 => 83,  100 => 80,  96 => 78,  93 => 77,  89 => 75,  87 => 74,  81 => 71,  73 => 69,  70 => 68,  53 => 67,  36 => 53,  31 => 51,  27 => 50,  23 => 48,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* threads.twig */
-class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1b6210_1994301227 extends Twig_Template
+class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1b6210_1698357255 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -238,7 +270,9 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
     public function block_titulo($context, array $blocks = array())
     {
         // line 4
-        echo "        <title>Administracion</title>
+        echo "        <title>Temas ";
+        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "categoria"), "nombre"), "html", null, true);
+        echo "</title>
     ";
     }
 
@@ -306,7 +340,11 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
                         style: \"";
         // line 38
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-        echo "/plugins/editor/minified/jquery.sceditor.default.min.css\"
+        echo "/plugins/editor/minified/jquery.sceditor.default.min.css\",
+                        emoticonsRoot: \"";
+        // line 39
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
+        echo "/\"
                     });
                 };
 
@@ -328,6 +366,6 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
 
     public function getDebugInfo()
     {
-        return array (  308 => 38,  282 => 15,  278 => 14,  274 => 13,  269 => 12,  266 => 11,  258 => 9,  254 => 8,  249 => 7,  246 => 6,  241 => 4,  238 => 3,  190 => 128,  186 => 126,  182 => 124,  175 => 119,  160 => 106,  158 => 105,  130 => 79,  128 => 78,  123 => 75,  106 => 72,  95 => 68,  79 => 65,  74 => 64,  70 => 62,  68 => 61,  64 => 59,  61 => 58,  44 => 57,  36 => 52,  31 => 50,  27 => 49,  23 => 47,  21 => 2,  19 => 1,);
+        return array (  346 => 39,  342 => 38,  316 => 15,  312 => 14,  308 => 13,  303 => 12,  300 => 11,  292 => 9,  288 => 8,  283 => 7,  280 => 6,  273 => 4,  270 => 3,  222 => 153,  218 => 151,  214 => 149,  207 => 144,  183 => 122,  181 => 121,  152 => 94,  150 => 93,  145 => 90,  128 => 87,  117 => 83,  100 => 80,  96 => 78,  93 => 77,  89 => 75,  87 => 74,  81 => 71,  73 => 69,  70 => 68,  53 => 67,  36 => 53,  31 => 51,  27 => 50,  23 => 48,  21 => 2,  19 => 1,);
     }
 }

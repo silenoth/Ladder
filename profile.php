@@ -9,13 +9,13 @@ $profile->whereuFrom();
 $profile->showProfile();
 if (!empty($_SESSION['errorlogin'])) {
     unset($_SESSION['errorlogin']);
-} 
+}
 if(isset($_POST)){
     if(isset($_POST['signature']) and $_POST['signature'] == 1){
         $profile->updateSignature($_POST['firma'],$_SESSION['usuario']);
-        exit();        
+        exit();
     }
-    
+
     if(isset($_POST['contact']) and $_POST['contact'] == 1) {
         $values = array(
         'gametag' => $_POST['gametag'],

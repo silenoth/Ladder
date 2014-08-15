@@ -89,7 +89,7 @@ class __TwigTemplate_d44476f4a69e488e4300bcc7e685af07c43d342b58d205677fc77db13ed
         // line 47
         $this->env->loadTemplate("navbar.twig")->display($context);
         // line 49
-        echo "<div class=\"container\">";
+        echo "<div class=\"container\" style=\"width:1000px;\">";
     }
 
     // line 10

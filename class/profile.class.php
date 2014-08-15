@@ -25,7 +25,7 @@ class lsProfile extends lsSystem {
         //$tuser = $this->getTwitchUser($us);
         //$twitchtv = $twitch->getUserObject_Authd($tuser['twitch_user'],$tuser['token'],$tuser['twitch_code']);
         /***************************/
-        
+
         $datos = array(
             'online' => $this->getUserOnline($us),
             'id' => $user['id'],
@@ -78,7 +78,7 @@ class lsProfile extends lsSystem {
             'utorneo' => $user['utorneo'],
             'torneos' => $this->getTournamentsById($user['id']),
             'pm' => $this->getUserMessagesById($user['id'])
-            
+
             /*twich
             'twitch_login' => $getAuth,
             'twitch_islogin' => $isval,
@@ -204,7 +204,7 @@ class lsProfile extends lsSystem {
             return true;
         }
     }
-    
+
     function getUserMessagesById($id){
         parent::setNames();
         $sql = "SELECT
@@ -228,7 +228,7 @@ class lsProfile extends lsSystem {
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$id,PDO::PARAM_INT);
         $res->execute();
-        
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }

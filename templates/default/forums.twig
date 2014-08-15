@@ -1,6 +1,6 @@
 {% embed '_header.twig' %}
     {% block titulo %}
-        <title>Administracion</title>
+        <title>Foros</title>
     {% endblock %}
     {% block css %}
         <link rel="stylesheet" href="{{url}}/plugins/editor/minified/themes/default.css" type="text/css" media="all" />
@@ -18,34 +18,49 @@
 		<h3>{{ foro.nombre }}</h3>
 	  	<div class="sep"></div>
 	  		{% for categoria in ls.categorias %}
+	  		{% set id = loop.index %}
 	  		{% if categoria.foro == foro.id %}
 			<div class="panel panel-default panel_bg">
-			  <div class="panel-body">
-				  	<div class="col-xs-12 col-md-8">
-					  	<div class="row">
-							<div class="col-md-8">
-								<span class="glyphicon glyphicon-{{ categoria.icono }} red"></span>
-							  	<a href="{{ url }}/foro/{{ categoria.id }}/{{ categoria.nombreclean }}">{{ categoria.nombre }}</a>
-							  	<p class="small_text">{{ categoria.descripcion }}</p>
-							</div>
-							<div class="col-md-4">
-								<p class="small_text">(5 temas y 154 respuestas)</p>
-							</div>
-						</div>
-				  	</div>
-				  	<div class="col-xs-6 col-md-4">
-					  	<div class="row">
-						  	<div class="col-xs-6">
-						  		<a href="#">
-						    		<img class="img_forum_index" alt="">
+			  	<div class="panel-body" style="padding-bottom:0;">
+			  		<div>
+			  			<h4>
+			  				<span class="glyphicon glyphicon-{{ categoria.icono }} red"></span>
+							<a href="{{ url }}/foro/{{ categoria.id }}/{{ categoria.nombreclean }}">{{ categoria.nombre }}</a>
+						</h4>
+					</div>
+
+				  	<table class="table font_12">
+				  		<tr>
+				  			<td class="width_370">
+				  				<p>{{ categoria.descripcion }}</p>
+				  			</td>
+				  			<td>
+				  				<p>{{ categoria.totaltemas }} temas y {{ categoria.totalrespuestas }} respuestas</p>
+				  			</td>
+				  			<td>
+				  			{% if categoria.nick is not empty %}
+				  				<a href="{{ url }}/perfil/{{ categoria.nickclean }}">
+						    		<img class="img_forum_index float_right" src="{{ url }}/images/user/{{ categoria.avatar }}" alt="Avatar de {{ categoria.nick }}" data-toggle="tooltip" data-placement="top" title="Ver perfil de {{ categoria.nick }}" id="avatar{{ id }}" />
 						    	</a>
-						    </div>
-						  	<div class="col-xs-6">
-								<p>Silenoth</p>
-						  	</div>
-						</div>
-				    </div>
-			  </div>
+
+				  			</td>
+				  			<td style="width:176px;">
+				  				<div>{{ categoria.ultimopost }}</div>
+								<div>Por: <a href="{{ url }}/perfil/{{ categoria.nickclean }}" data-toggle="tooltip" data-placement="top" title="Ver perfil de {{ categoria.nick }}">{{ categoria.nick }}</a></div>
+								<div>El {{ categoria.ultimopostfecha|date("d/m/Y") }}</div>
+							{% else %}
+						    		<img class="img_forum_index float_right" src="{{ url }}/images/user/no-avatar.png" alt="Sin post para ver" />
+				  			</td>
+				  			<td style="width:176px;">
+								<p>Sin post para ver</p>
+							{% endif %}
+				  			</td>
+				  		</tr>
+				  	</table>
+				  	<script type="text/javascript">
+						  		$("#avatar{{ id }}").tooltip('hide');
+					</script>
+			  	</div>
 			</div>
 	  		{% endif %}
 			{% endfor %}

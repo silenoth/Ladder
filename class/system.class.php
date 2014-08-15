@@ -20,7 +20,7 @@ class lsSystem {
         }
     }
 
-     public function start() {
+    public function start() {
             $this->_timeparts = explode(" ",microtime());
             $this->_starttime = $this->_timeparts[1].substr($this->_timeparts[0],1);
             $this->_timeparts = explode(" ",microtime());
