@@ -148,6 +148,7 @@ class lsProfile extends lsSystem {
     }
     //acualizar firma
     function updateSignature($value,$nick){
+        $nick = $this->getNickClean($nick);
         parent::setNames();
         $sql = "UPDATE usuarios SET usuarios.usuario_firma = ? WHERE usuarios.usuario_nick_clean = ?";
         $res = $this->con->prepare($sql);
@@ -158,6 +159,7 @@ class lsProfile extends lsSystem {
     }
 
     function updateContact($values,$nick){
+        $nick = $this->getNickClean($nick);
         $chkgametag = $values['opciones']['chkgametag'];
         $chkskype = $values['opciones']['chkskype'];
         $chkfacebook = $values['opciones']['chkfacebook'];
@@ -224,7 +226,7 @@ class lsProfile extends lsSystem {
                 	u.usuario_id = um.msj_id_usuario_env
                 )
                 WHERE
-                	um.msj_id_usuario_res = ?";
+                	um.msj_id_usuario_res = ? ORDER BY  um.msj_estado ASC, um.msj_prioridad DESC, um.msj_fecha ASC";
         $res = $this->con->prepare($sql);
         $res->bindParam(1,$id,PDO::PARAM_INT);
         $res->execute();

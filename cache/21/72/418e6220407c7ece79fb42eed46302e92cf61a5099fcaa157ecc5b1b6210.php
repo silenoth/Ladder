@@ -18,7 +18,7 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
         // line 1
         ob_start();
         // line 2
-        $this->env->loadTemplate("threads.twig", "1698357255")->display($context);
+        $this->env->loadTemplate("threads.twig", "1145549501")->display($context);
         // line 48
         echo "<div class=\"row\">
 <ol class=\"breadcrumb\">
@@ -193,8 +193,8 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
                 <input type=\"checkbox\" id=\"chkmostrar\" name=\"chkmostrar\" checked=\"checked\" value=\"1\" onclick=\"if(this.checked==true){this.value=1;}else {this.value=0;}\">
             </div>
             <div class=\"margen_bot30\">
-                <a href=\"javascript:void(0)\" onclick=\"if (\$(this).parent().find('div:first').is(':hidden')){\$(this).parent().find('div:first').slideDown(300);}else{\$(this).parent().find('div:first').slideUp(300);}\">
-                    <span class=\"margen_bot30\"><span class=\"glyphicon glyphicon-plus\"></span> Agregar encuesta</span>
+                <a href=\"javascript:void(0)\" onclick=\"if (\$(this).parent().find('div:first').is(':hidden')){\$(this).parent().find('div:first').slideDown(300);\$('#ce').removeClass('glyphicon glyphicon-plus').addClass('glyphicon glyphicon-minus red');}else{\$(this).parent().find('div:first').slideUp(300);\$('#ce').removeClass('glyphicon glyphicon-minus red').addClass('glyphicon glyphicon-plus');}\">
+                    <span class=\"margen_bot30\"><span id=\"ce\" class=\"glyphicon glyphicon-plus\"></span> Agregar encuesta</span>
                 </a>
                 <div name=\"spoiler\" style=\"display:none;\">
                     <label for=\"txtpregunta\">Pregunta</label>
@@ -241,7 +241,7 @@ class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1
 
 
 /* threads.twig */
-class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1b6210_1698357255 extends Twig_Template
+class __TwigTemplate_2172418e6220407c7ece79fb42eed46302e92cf61a5099fcaa157ecc5b1b6210_1145549501 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

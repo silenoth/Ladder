@@ -197,7 +197,7 @@ class lsForums extends lsSystem {
 	}
 
 	public function addThread($datos){
-		$user = $_SESSION['usuario'];
+		$user = $this->getNickClean($_SESSION['usuario']);
 		$titulo = $this->cleanString($datos['titulo']);
 		$sql = "INSERT INTO
 		temas_foros(

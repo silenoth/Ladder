@@ -13,8 +13,9 @@ if (!empty($_SESSION['votook'])) {
 }
 if (isset($_POST)) {
 	$tema = $_GET['id'];
-	$usuario = $_SESSION['usuario'];
+
 	if (isset($_POST['hvotomas']) && $_POST['hvotomas'] == 1) {
+		$usuario = $_SESSION['usuario'];
 		$topics->addVotePlus($tema, $usuario);
 		exit();
 	}

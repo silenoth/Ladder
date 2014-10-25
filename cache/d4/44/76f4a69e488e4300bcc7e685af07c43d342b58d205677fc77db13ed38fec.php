@@ -32,7 +32,7 @@ class __TwigTemplate_d44476f4a69e488e4300bcc7e685af07c43d342b58d205677fc77db13ed
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/";
         echo twig_escape_filter($this->env, (isset($context["template"]) ? $context["template"] : null), "html", null, true);
-        echo "/img/ico/favicon.png\" />
+        echo "/img/ico/favicon.ico\" />
     ";
         // line 10
         $this->displayBlock('titulo', $context, $blocks);

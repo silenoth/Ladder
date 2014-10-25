@@ -42,7 +42,8 @@
                 var initEditor = function() {
                     $("textarea").sceditor({
                         plugins: 'bbcode',
-                        style: "{{url}}/plugins/editor/minified/jquery.sceditor.default.min.css"
+                        style: "{{url}}/plugins/editor/minified/jquery.sceditor.default.min.css",
+                        emoticonsRoot: "{{ url }}/"
                     });
                 };
 
@@ -116,6 +117,11 @@ $( document ).ready(function() {
 					{% endif %}
 				</div>
 				{# Fin Votacion #}
+				<div class="margen_top30">
+				{% if ls.tema.autor.nick == sesion %}
+					<button class="btn btn-primary">Editar mensaje</button>
+				{% endif %}
+				</div>
 				<div class="sep margen_top80"></div>
 				{{ ls.tema.autor.firma|raw }}
 			</div>
@@ -189,7 +195,7 @@ $( document ).ready(function() {
                 		    </a>
                 		{% endif %}
                 		{% if ls.tema.autor.opttwitter == 1 %}
-                		    <a href="http://twitter.com/{{ ls.tema.autor.twitter }}?call" class="margen_right5">
+                		    <a href="http://twitter.com/{{ ls.tema.autor.twitter }}" class="margen_right5">
                 		    	<img src="{{ url }}/{{ template }}/img/icons/twitter_square_16.png" id="twitter{{ ls.tema.autor.nick }}" data-toggle="tooltip" data-placement="top" title="@{{ ls.tema.autor.twitter }}" />
                 		    </a>
                 		{% endif %}
@@ -213,4 +219,22 @@ $( document ).ready(function() {
   		</div>
   	</div>
 </div>
+{% if sesion == true %}
+			{% if acceso == true or ls.tema.cerrado == 0 %}
+			<div id="respcontenedor">
+				<button class="btn btn-primary" onclick="if ($(this).parent().find('div:first').is(':hidden')){$(this).parent().find('div:first').slideDown(300);}else{$(this).parent().find('div:first').slideUp(300);}$(this).fadeOut();">Responder</button>
+				<div id="responder" style="display:none;">
+					<form action="post">
+						<textarea name="respuesta" id="respuesta" style="width:600px;height:300px;"></textarea>
+						<button class="btn btn-primary">Enviar respuesta</button>
+					</form>
+				</div>
+			{% else %}
+				<div class="alert alert-warning" role="alert">
+					Este tema esta cerrado y no admite respuestas.
+				</div>
+				<button class="btn btn-primary disabled">Responder <img src="{{ url }}/{{template}}/img/icons/trollface.png" alt="trollface"></button>
+			</div>
+			{% endif %}
+		{% endif %}
 {% include '_footer.twig' %}

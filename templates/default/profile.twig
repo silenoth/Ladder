@@ -188,31 +188,33 @@
     {% if sesion is not empty and sesion == ls.nick %}
     <div class="tab-pane fade in" id="mensajes">
         <div class="row">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Titulo</th>
-                    <th>De</th>
-                    <th>Mensaje</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Titulo</th>
+                        <th>De</th>
+                        <th>Mensaje</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for mensaje in ls.pm %}
+                <tr {% if mensaje.estado == 0 %}class="danger"{% endif %}>
+                    <td>{% if mensaje.prioridad == 1 %}<span style="color:#90D67A;font-size:16px;" class="glyphicon glyphicon-info-sign"></span>{% elseif mensaje.prioridad == 2 %}<span style="color:#6888EE;font-size:16px;" class="glyphicon glyphicon-exclamation-sign"></span>{% elseif mensaje.prioridad == 3 %}<span style="color:#FF0700;font-size:16px;" class="glyphicon glyphicon-warning-sign"></span>{% endif %}</td>
+                    <td>{{ mensaje.titulo|slice(0,20) }}</td>
+                    <td>{% if mensaje.envia == 0 %}System{% else %}<a href="{{ url }}/perfil/{{ mensaje.nickclean }}">{{ mensaje.nick }}</a>{% endif %}</td>
+                    <td>{{ mensaje.mensaje|slice(0,40) }}</td>
+                    <td>{{ mensaje.fecha }}</td>
+                    <td>{% if mensaje.estado == 0 %}<span class="label label-danger">No leído</span>{% else %}<span class="label label-success">Leído</span>{% endif %}</td>
+                    <td><a href="" data-toggle="modal" data-target="#modalmsj{{ loop.index }}"><span id="msj{{ loop.index }}" class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Vista rapida"></span></a></td>
+                    <script>$('#msj{{ loop.index }}').tooltip()</script>
                 </tr>
-            </thead>
-            <tbody>
-        {% for mensaje in ls.pm %}
-            <tr {%if mensaje.estado == 0%}class="danger"{%endif%}>
-                <td><img src="{{url}}/{{template}}/img/icons/{{mensaje.icono}}.png" /></td>
-                <td>{{mensaje.titulo|slice(0,20)}}</td>
-                <td>{%if mensaje.envia == 0%}System{%else%}<a href="{{url}}/perfil/{{mensaje.nickclean}}">{{mensaje.nick}}</a>{%endif%}</td>
-                <td>{{mensaje.mensaje|slice(0,40)}}</td>
-                <td>{{mensaje.fecha}}</td>
-                <td>{%if mensaje.estado == 0%}<span class="label label-danger">No leído</span>{%else%}<span class="label label-success">Leído</span>{%endif%}</td>
-            </tr>
-            {{mensaje.prioridad}}
-        {% endfor %}
-        </tbody>
-        </table>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
     {% endif %}
@@ -378,3 +380,23 @@
 <script type="text/javascript">$('#reputacion').tooltip('hide');$('#nivel').tooltip('hide');$('#dinero').tooltip('hide');$('#linkfacebook').tooltip('hide');$('#linktwitter').tooltip('hide');$('#linkweb').tooltip('hide');$('#chkgametag').tooltip('hide');$('#chkskype').tooltip('hide');$('#chkfacebook').tooltip('hide');$('#chktwitter').tooltip('hide');$('#chkweb').tooltip('hide');</script>
 {% include '_footer.twig' %}
 {% endspaceless %}
+<!-- Modal Mensajes -->
+{% for modal in ls.pm %}
+<div class="modal fade" id="modalmsj{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="modalmsjlbl{{ loop.index }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="modalmsjlbl{{ loop.index }}">{% if modal.envia == 0 %}System {% else %}<a href="{{ url }}/perfil/{{ modal.nickclean }}">{{ modal.nick }}</a> {% endif %}dijo: {{ modal.titulo}} </h4>
+      </div>
+      <div class="modal-body">
+        {{ modal.mensaje|raw }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Responder</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

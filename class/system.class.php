@@ -12,11 +12,13 @@ class lsSystem {
                 try {
                     $this->con = new PDO ('mysql:host='.$db['host'].';dbname='.$db['name'], $db['user'], $db['pass']);
                     $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    require_once $this->getLang();
                 }catch(PDOException $e){
                     echo "ERROR: " . $e->getMessage();
                 }
             } else {
             echo "El archivo de configuracion no existe.";
+            die();
         }
     }
 
@@ -86,6 +88,7 @@ class lsSystem {
         $tmplfldr = _TEMPLATESFOLDER._DS.$this->templateFolder();
 
         if(!empty($_SESSION['usuario'])){
+            $id = $this->getIdUser($this->getNickClean($_SESSION['usuario']));
            echo $tmpl->render(
             array(
                 'ls' => $datos,
@@ -96,7 +99,10 @@ class lsSystem {
                 'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
                 'total' => $this->countOnline(),
-                'template' => $tmplfldr)
+                'template' => $tmplfldr,
+                'mp' => $this->getNewMessage($id),
+                //Errores
+                'error404' => _ERROR404)
             );
         } else {
         // Twitch: Instancize the class as an object
@@ -126,13 +132,15 @@ class lsSystem {
             array(
                 'ls' => $datos,
                 'url' => $url,
-                'errorlogin' => !empty($_SESSION['errorlogin']) ? true : false,
                 'twitch_auth' => $getAuth,
                 //'facebook_auth' => $loginUrl,
                 'online' => $this->addOnline(),
                 'uonline' => $this->nickUserOnline(),
                 'total' => $this->countOnline(),
-                'template' => $tmplfldr)
+                'template' => $tmplfldr,
+                //Errores
+                'errorlogin' => !empty($_SESSION['errorlogin']) ? true : false,
+                'error404' => _ERROR404)
             );
         }
 
@@ -196,10 +204,12 @@ class lsSystem {
             } else {
                 print(_ERRNOFILELANG);
                 self::closeCon();
+                die();
             }
         } else {
             print(_ERRNOLANGFOLDERDB);
             self::closeCon();
+            die();
         }
 
     }
@@ -840,6 +850,7 @@ class lsSystem {
         $sql = "SELECT a.ajuste_titulo AS titulo, a.ajuste_email AS email, a.ajuste_slogan AS slogan FROM ajustes AS a";
         $res = $this->con->query($sql);
         $res->execute();
+
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
@@ -916,8 +927,26 @@ class lsSystem {
 
         return true;
     }
-        //dias trasncurridos
-   // public function daysElapsed($desde, $hasta){
+
+    private function getNewMessage($userid){
+        $sql = "SELECT
+                    COUNT(um.msj_id_usuario_res) AS mensajenuevo
+                FROM
+                    usuario_mensajes AS um
+                WHERE
+                    um.msj_id_usuario_res = ?
+                AND um.msj_estado = 0";
+        $res = $this->con->prepare($sql);
+        $res->bindParam(1,$userid,PDO::PARAM_INT);
+        $res->execute();
+
+        while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
+            $datos[] = $row;
+        }
+        return $datos[0]['mensajenuevo'];
+    }
+//dias trasncurridos
+// public function daysElapsed($desde, $hasta){
 //        $dias	= (strtotime($desde)-strtotime($hasta))/86400;
 //        $dias 	= abs($dias); $dias = floor($dias);
 //        return $dias;

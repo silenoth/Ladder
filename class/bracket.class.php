@@ -240,19 +240,19 @@ class lsBracket extends lsSystem {
         $rd->bindParam(2,$id,PDO::PARAM_INT);
         $rd->bindParam(3,$link,PDO::PARAM_STR);
         $rd->execute();
-        
+
         $array = array(
             'envia' => 0,
             'recibe' => $user,
-            'prioridad' => 1,
-            'icono' => 'warning',
+            'prioridad' => 3,
+            'icono' => 'info-sign',
             'titulo' => 'Confirmar participacion',
             'mensaje' => 'Hola no olvides confirmar participacion',
             'estado' => 0
         );
-        
+
         $this->sendPrivateMessage($array);
-        
+
         $sqle = "SELECT u.usuario_email AS email,
                 u.usuario_nick AS nick,
                 u.usuario_nick_clean AS clean
