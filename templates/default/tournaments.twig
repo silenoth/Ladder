@@ -9,7 +9,7 @@
 {%for torneo in ls.torneos %}
 {% set registrados = torneo.registrados * 100 / torneo.equipos %}
 {% set confirmados = torneo.confirmados * 100 / torneo.equipos %}
-<div class="jumbotron" style="background:url('{{url}}/plugins/binarybeast/img/bgt.jpg');color:white;box-shadow: 1px 1px 10px #000;">
+<div class="jumbotron" style="background:url('{{url}}/{{template}}/img/bgt.jpg');color:white;box-shadow: 1px 1px 10px #000;">
   <h1>{{torneo.titulo}}</h1>
   <p>{{torneo.descripcion|slice(0,80)}}...</p>
   <span class="label label-danger">{% if torneo.terminado == 1 %}Finalizado{% else %}Inscripciones abiertas{% endif %}</span>

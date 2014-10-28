@@ -45,7 +45,7 @@ class lsSystem {
 
     //leer carpetas de los templates
     function getFoldersFromTemplate(){
-        $directorio = _TEMPLATEFOLDER._DS;
+        $directorio = _TEMPLATESFOLDER._DS;
         $dires=array();
         $midir=opendir($directorio);
         $i=0;
@@ -944,6 +944,25 @@ class lsSystem {
             $datos[] = $row;
         }
         return $datos[0]['mensajenuevo'];
+    }
+
+    public function getSlider(){
+        self::setNames();
+        $sql = "SELECT
+        s.slider_img1 AS img1,
+        s.slider_img2 AS img2,
+        s.slider_img3 AS img3,
+        s.slider_img4 AS img4,
+        s.slider_interval AS intervalo
+        FROM slider AS s LIMIT 1";
+        $res = $this->con->query($sql);
+        $res->execute();
+
+        while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
+            $datos[] = $row;
+        }
+
+        return $datos[0];
     }
 //dias trasncurridos
 // public function daysElapsed($desde, $hasta){

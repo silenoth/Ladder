@@ -6,10 +6,12 @@
     {% block css %}
         <link rel="stylesheet" href="{{url}}/plugins/editor/minified/themes/default.css" type="text/css" media="all" />
         <link rel="stylesheet" href="{{url}}/css/bootstrap-multiselect.css" type="text/css" />
+        <link rel="stylesheet" href="{{url}}/{{template}}/css/rangeslider.css">
     {% endblock %}
     {% block js %}
         <script src="{{url}}/js/bootstrapValidator.js" type="text/javascript"></script>
         <script src="{{url}}/plugins/editor/minified/jquery.sceditor.bbcode.js"></script>
+        <script src="{{url}}/{{template}}/js/rangeslider.min.js"></script>
         <script type="text/javascript">
         // Source: http://www.backalleycoder.com/2011/03/20/link-tag-css-stylesheet-load-event/
 			var loadCSS = function(url, callback){
@@ -173,10 +175,10 @@ $( document ).ready(function() {
     <div class="modal-content">
       <div class="modal-header" style="border:0;">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="editmailmsgokLabel">Datos ingresados correctamente</h4>
+        <h4 class="modal-title" id="editmailmsgokLabel">Preferencias guardadas exitosamente</h4>
       </div>
       <div class="modal-body">
-        El mensaje del email del confirmacion se ha editado correctamente.
+        Se han modificado las preferencias exitosamente.
       </div>
       <div class="modal-footer" style="border:0;">
         <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
@@ -192,6 +194,7 @@ $( document ).ready(function() {
   <li><a href="#perfil" data-toggle="tab">Profile</a></li>
   <li><a href="#torneos" data-toggle="tab">Torneos</a></li>
   <li><a href="#settings" data-toggle="tab">Configuración</a></li>
+  <li><a href="#slider" data-toggle="tab">Slider</a></li>
 </ul>
 {#TABS PANELS#}
 <div class="tab-content">
@@ -400,12 +403,64 @@ $( document ).ready(function() {
   <div class="tab-pane fade" id="settings">
     <div class="row">
         <div class="col-xs-12 col-md-8">
+          <h2>Configuracion del sitio</h2>
+          <form action="" method="post" name="settings" id="settings" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="txtsitetitle">Titulo del Sitio</label>
+            <input type="text" class="form-control" value="{{ls.conf.titulositio}}">
+          </div>
+          <div class="form-group">
+            <label for="txtslogan">Slogan del Sitio</label>
+            <input type="text" class="form-control" value="{{ls.conf.slogan}}">
+          </div>
+          <div class="form-group">
+            <label for="txturl">Url</label>
+            <input type="text" class="form-control" value="{{ls.conf.url}}">
+          </div>
+          <div class="form-group">
+            <label for="txtemail">Email</label>
+            <input type="text" class="form-control" value="{{ls.conf.email}}">
+          </div>
+          <div class="form-group">
+            <label for="rngrep">Reputacion maxima de los usuarios</label>
+            <input type="range" min="0" max="20000" value="{{ls.conf.maxrep}}" step="100" data-rangeslider>
+            <output></output>
+          </div>
+          <div class="form-group">
+            <label for="rnglvl">Nivel maximo de usuarios</label>
+            <input type="range" min="0" max="20000" value="{{ls.conf.maxlvl}}" step="100" data-rangeslider>
+            <output></output>
+          </div>
+          <div class="form-group">
+            <label for="rngmoney">Dinero maximo</label>
+            <input type="range" min="0" max="20000" value="{{ls.conf.maxmoney}}" step="100" data-rangeslider>
+            <output></output>
+          </div>
+          <div class="form-group">
+            <label for="lang">Lenguaje</label>
+            <select class="form-control" name="lang" id="lang">
+            {% for lang in ls.conf.lang %}
+                <option value="{{lang}}" {% if lang == ls.conf.dblang %}selected="selected"{% endif %}>{{lang}}</option>
+            {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="template">Template</label>
+            <select class="form-control" name="template" id="template">
+            {% for template in ls.conf.template %}
+                <option value="{{template}}" >{{template}}</option>
+            {% endfor %}
+            </select>
+          </div>
+          </form>
+        </div>
+        <div class="col-xs-12 col-md-8">
             <h2>Editar email/mensaje</h2>
             <form method="post" name="editmailform" id="editmailform">
                 <label for="editmail">Editar mensaje de confirmacion</label>
-                <textarea name="editmail" id="editmail" style="width:649px; height:200px;">{{ls.conf.email.emailmsg}}</textarea>
+                <textarea name="editmail" id="editmail" style="width:649px; height:200px;">{{ls.conf.emailmsg}}</textarea>
                 <input type="hidden" value="1" name="editmailok" id="editmailok">
-                <button class="btn btn-primary" style="float:right;margin-top:20px;" type="submit" name="btneditmail" id="btneditmail">Guardar</button>
+                <button class="btn btn-primary" style="float:right;margin-top:20px;" type="submit" name="btneditmail" id="btneditmail">Guardar Preferencias</button>
             </form>
         </div>
         <div class="col-xs-6 col-md-4">
@@ -421,6 +476,26 @@ $( document ).ready(function() {
                 </ul>
             </div>
         </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="slider">
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <div class="form-group">
+          <img src="..." alt="..." class="img-thumbnail"><br />
+          <input type="file" name="file" id="file" class="btn-primary" title="Subir imagen preliminar" />
+
+        </div>
+        <div class="form-group">
+          <img src="..." alt="..." class="img-thumbnail"><br />
+          <input type="file" name="file" id="file" class="btn-primary" title="Subir imagen preliminar" />
+        </div>
+        <div class="form-group">
+          <label for="rnginterval">Intervalo de slider</label>
+          <input type="range" min="1" max="10" value="{{ls.conf.intervalo}}" step="1" data-rangeslider>
+          <output></output>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -466,6 +541,14 @@ $(document).ready(function() {
         }
     });
 
+    $('#settings')
+    .find('[name="lang"]')
+    .multiselect()
+    .end()
+    .find('[name="template"]')
+    .multiselect()
+    .end()
+
     $('#noticia')
     .find('[name="categoria"]')
     .multiselect()
@@ -488,6 +571,48 @@ $(document).ready(function() {
     .multiselect()
     .end()
 });
-</script>
+
+    $(function() {
+
+        var $document   = $(document),
+            selector    = '[data-rangeslider]',
+            $element    = $(selector);
+
+// Example functionality to demonstrate a value feedback
+        function valueOutput(element) {
+            var value = element.value,
+                output = element.parentNode.getElementsByTagName('output')[0];
+            output.innerHTML = value;
+        }
+        for (var i = $element.length - 1; i >= 0; i--) {
+            valueOutput($element[i]);
+        };
+        $document.on('change', 'input[type="range"]', function(e) {
+            valueOutput(e.target);
+        });
+        // Basic rangeslider initialization
+        $element.rangeslider({
+
+            // Deactivate the feature detection
+            polyfill: false,
+
+            // Callback function
+            onInit: function() {},
+
+            // Callback function
+            // onSlide: function(position, value) {
+                // console.log('onSlide');
+                // console.log('position: ' + position, 'value: ' + value);
+            // },
+
+            // Callback function
+            // onSlideEnd: function(position, value) {
+            //     console.log('onSlideEnd');
+            //     console.log('position: ' + position, 'value: ' + value);
+            // }
+        });
+
+    });
+    </script>
 {% include '_footer.twig' %}
 {% endspaceless %}

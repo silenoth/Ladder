@@ -60,52 +60,78 @@
 //echo '<br/>';
 
 //$para  = 'silenoth@gmail.com' . ', '; // atención a la coma
-$para = 'satanichails@gmail.com';
+// $para = 'satanichails@gmail.com';
 
-// Asunto
-$titulo = 'Atencion con cambio de tarifas';
+// // Asunto
+// $titulo = 'Atencion con cambio de tarifas';
 
-// Cuerpo o mensaje
-$mensaje = '
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8"/>
-<title>Atención con el Cambio de Tarifas y Comisiones</title>
-</head>
-<style type="text/css">
-    .button{
-        color: #fff;
-        font-size: 14px;
-        border: 0;
-        background-color: #0080FF;
-        padding: 10px;;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        cursor:pointer;
-    }
-</style>
-<body>
-<div style="margin:20px;">Header
-    <div class="well">
-      <h1>Saludos {{usuario}}, bienvenido a {{sitio}}</h1>
-      <h3>Ahora solo nos queda confirmar tu email</h3>
-      <a href="{{url}}"><button class="button">Confirmar mail</button></a>
-    </div>
-</div>
-</body>
-</html>
-';
+// // Cuerpo o mensaje
+// $mensaje = '
+// <!doctype html>
+// <html>
+// <head>
+// <meta charset="utf-8"/>
+// <title>Atención con el Cambio de Tarifas y Comisiones</title>
+// </head>
+// <style type="text/css">
+//     .button{
+//         color: #fff;
+//         font-size: 14px;
+//         border: 0;
+//         background-color: #0080FF;
+//         padding: 10px;;
+//         -webkit-border-radius: 5px;
+//         -moz-border-radius: 5px;
+//         border-radius: 5px;
+//         cursor:pointer;
+//     }
+// </style>
+// <body>
+// <div style="margin:20px;">Header
+//     <div class="well">
+//       <h1>Saludos {{usuario}}, bienvenido a {{sitio}}</h1>
+//       <h3>Ahora solo nos queda confirmar tu email</h3>
+//       <a href="{{url}}"><button class="button">Confirmar mail</button></a>
+//     </div>
+// </div>
+// </body>
+// </html>
+// ';
 
-// Cabecera que especifica que es un HMTL
-$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+// // Cabecera que especifica que es un HMTL
+// $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+// $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-// Cabeceras adicionales
-$cabeceras .= 'From: Recordatorio <tarifas@example.com>' . "\r\n";
-//$cabeceras .= 'Cc: archivotarifas@example.com' . "\r\n";
-//$cabeceras .= 'Bcc: copiaoculta@example.com' . "\r\n";
+// // Cabeceras adicionales
+// $cabeceras .= 'From: Recordatorio <tarifas@example.com>' . "\r\n";
+// //$cabeceras .= 'Cc: archivotarifas@example.com' . "\r\n";
+// //$cabeceras .= 'Bcc: copiaoculta@example.com' . "\r\n";
 
-// enviamos el correo!
-mail($para, $titulo, $mensaje, $cabeceras);
+// // enviamos el correo!
+// mail($para, $titulo, $mensaje, $cabeceras);
+//Creamos un objeto de la clase ZipArchive()
+$enzipado = new ZipArchive();
+
+//Abrimos el archivo a descomprimir
+$enzipado->open('test/test.zip');
+
+//Extraemos el contenido del archivo dentro de la carpeta especificada
+$extraido = $enzipado->extractTo("test/");
+
+/* Si el archivo se extrajo correctamente listamos los nombres de los
+ * archivos que contenia de lo contrario mostramos un mensaje de error
+*/
+if($extraido == TRUE){
+ for ($x = 0; $x < $enzipado->numFiles; $x++) {
+ $archivo = $enzipado->statIndex($x);
+ echo 'Extraido: '.$archivo['name'].'</br>';
+
+ }
+ echo $enzipado->numFiles ." archivos descomprimidos en total";
+$mode  = 0666;
+chmod('test/test.zip',$mode);
+ unlink('test/test.zip');
+}
+else {
+ 'Ocurrió un error y el archivo no se pudó descomprimir';
+}

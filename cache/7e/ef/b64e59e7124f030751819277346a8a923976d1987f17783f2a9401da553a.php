@@ -194,7 +194,7 @@ class __TwigTemplate_7eefb64e59e7124f030751819277346a8a923976d1987f17783f2a9401d
         if (twig_test_empty((isset($context["sesion"]) ? $context["sesion"] : null))) {
             // line 96
             echo "<div class=\"modal fade\" id=\"mlogin\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
-  <div class=\"modal-dialog\">
+  <div class=\"modal-dialog\" style=\"width:400px;\">
     <div class=\"modal-content\">
       <div class=\"modal-header\">
         <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>

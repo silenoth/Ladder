@@ -1,0 +1,118 @@
+{% set active = 'home' %}
+{% embed '_header.twig' %}
+{% block titulo %}
+<title>Inicio - Noticias</title>
+{% endblock %}
+{% endembed %}
+    {# INICIO SLIDER CAROUSEL #}
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            {# INICIO AGREGANDO ITEMS #}
+            <div class="item active">
+                <img src="http://g3ar.co.za/wp-content/uploads/2013/09/Hearthstone-feature.jpg" />
+                <div class="carousel-caption">
+                    <h3>Hola</h3>
+                    <p>Este es un saludillo test</p>
+              </div>
+            </div>
+            {# FIN AGREGANDO ITEMS #}
+        </div>
+        <script>
+        $('.carousel').carousel({
+          interval: {{ls.interval}}
+        });
+        </script>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+    {# ****FIN SLIDER COROUSEL**** #}
+    {# INICIO ULTIMAS 3 PUBLICACIONES #}
+    <div class="row" style="margin-top: 30px; margin-bottom:30px;">
+    {% set i = 1 %}
+    {% for prev in ls.preview %}
+    <a href="{{url}}/articulo/{{prev.id}}/{{prev.url}}" style="text-decoration:none;">
+        <div class="col-sm-6 col-md-4" id="preview{{i}}" data-toggle="tooltip" data-placement="bottom" title="Continuar leyendo {{prev.titulo|slice(0,25)}}..." style="word-break: break-word;">
+            <div class="thumbnail">
+                <img src="{{url}}/images/news/{{prev.imagen}}" alt="{{prev.titulo}}" style="width:260px;height:130px;" />
+                <div class="caption">
+                    <div style="overflow:hidden;max-height:50px;min-height:50px">
+                        <h4>{{ prev.titulo }}</h4>
+                    </div>
+                    <div style="overflow:hidden;max-height:40px;">
+                        <p>{{ prev.preview }}</p>
+                    </div>
+                    <script>$('#preview{{i}}').tooltip('hide')</script>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            {{prev.fecha|date("d \\d\\e M \\d\\e Y")}}
+                        </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+        </a>
+        {% set i = i + 1 %}
+    {% endfor %}
+    </div>
+    {# **FIN ULTIMAS 3 PUBLICACIONES*** #}
+
+    <div class="row">
+    {%if ls.actual <= ls.ultima|last and ls.inicial >= 1 %}
+        <div class="col-md-8"><h3 style="margin-bottom:0;">Artículos recientes</h3></div>
+    </div>
+    <div class="row">
+        {# INICIO AGREGANDO NOTICIAS #}
+        {% set n = 1 %}
+        {% for noticia in ls.paginada %}
+        <div class="panel-body thumbnail" style="word-break: break-word;padding-top:0;">
+            <a href="{{url}}/articulo/{{noticia.id}}/{{noticia.url}}" style="color:inherit; text-decoration:none;">
+                <div class="col-lg-4" style="padding-left:0;">
+                    <img src="{{url}}/images/news/{{noticia.imagen}}" alt="{{noticia.titulo}}" class="img-thumbnail" style="margin-top:20px;width:260px;height:130px;" />
+                </div>
+            </a>
+            <div class="col-lg-8">
+            {%if acceso == true%}<span id="eliminar{{n}}" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="left" title="Eliminar noticia" style="bottom:0;float:right;padding-top:10px;padding-left:20px;cursor:pointer;"></span>{%endif%}
+                <a href="{{url}}/articulo/{{noticia.id}}/{{noticia.url}}" style="color:inherit; text-decoration:none;">
+                    <h3 style="padding-top:0;">{{noticia.titulo}}</h3>
+                    <p style="padding-top:0;">{{noticia.preview}}
+                       </p>
+                </a>
+                <div class="row">
+                    <div class="col-lg-8">Escrito por {{noticia.autor}} el {{noticia.fecha|date("d \\d\\e M \\d\\e Y")}}</div>
+                </div>
+
+            </div>
+            {%if acceso == true%}<span id="editar{{n}}" class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="left" title="Editar noticia" style="bottom:0;float:right;padding-top:10px;cursor:pointer;"></span>{%endif%}
+        </div>
+        <script>
+        $('#eliminar{{n}}').tooltip('hide')
+        $('#editar{{n}}').tooltip('hide');
+        </script>
+        {% set n = n + 1 %}
+        {% endfor %}
+        {# FIN AGREGANDO NOTICIAS #}
+        {# PAGINADOR #}
+            <ul class="pager">
+              {%if ls.inicial > 1 %}<li><a href="{{url}}/inicio/p-{{ls.anterior}}">&larr; Anterior</a></li>{%else%}<li class="disabled"><a href="#">&larr; Anterior</a></li>{%endif%}
+              {%if ls.actual < ls.ultima|last %}<li><a href="{{url}}/inicio/p-{{ls.siguiente}}">Siguiente &rarr;</a></li>{%else%}<li class="disabled"><a href="#">Siguiente &rarr;</a></li>{%endif%}
+            </ul>
+        {#FINPAGINADOR#}
+        {% else %}
+            {% include '404.twig' %}
+        {% endif %}
+
+    </div>
+    {% include '_online.twig' %}
+    {% include '_footer.twig' %}

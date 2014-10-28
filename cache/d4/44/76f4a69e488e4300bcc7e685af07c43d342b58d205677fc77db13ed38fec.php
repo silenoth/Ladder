@@ -38,10 +38,12 @@ class __TwigTemplate_d44476f4a69e488e4300bcc7e685af07c43d342b58d205677fc77db13ed
         $this->displayBlock('titulo', $context, $blocks);
         // line 13
         echo "    <!-- Bootstrap core CSS -->
-    <link href=\"";
+<link href=\"";
         // line 14
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/css/bootstrap.css\" rel=\"stylesheet\" />
+
+<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css\">
     <style id=\"holderjs-style\" type=\"text/css\"></style>
     <style type=\"text/css\">
     .bs-footer {
@@ -57,9 +59,9 @@ class __TwigTemplate_d44476f4a69e488e4300bcc7e685af07c43d342b58d205677fc77db13ed
         }
     </style>
     ";
-        // line 29
+        // line 31
         $this->displayBlock('css', $context, $blocks);
-        // line 32
+        // line 34
         echo "    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src=\"https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js\"></script>
@@ -67,28 +69,28 @@ class __TwigTemplate_d44476f4a69e488e4300bcc7e685af07c43d342b58d205677fc77db13ed
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src=\"";
-        // line 38
+        // line 40
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/jquery-2.1.0.min.js\" type=\"text/javascript\"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src=\"";
-        // line 40
+        // line 42
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/bootstrap.min.js\"></script>
     <script src=\"";
-        // line 41
+        // line 43
         echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "/js/bootbox.min.js\"></script>
     ";
-        // line 42
+        // line 44
         $this->displayBlock('js', $context, $blocks);
-        // line 45
+        // line 47
         echo "  </head>
   <body>
 ";
-        // line 47
-        $this->env->loadTemplate("navbar.twig")->display($context);
         // line 49
+        $this->env->loadTemplate("navbar.twig")->display($context);
+        // line 51
         echo "<div class=\"container\" style=\"width:1000px;\">";
     }
 
@@ -101,18 +103,18 @@ class __TwigTemplate_d44476f4a69e488e4300bcc7e685af07c43d342b58d205677fc77db13ed
     ";
     }
 
-    // line 29
+    // line 31
     public function block_css($context, array $blocks = array())
     {
-        // line 30
+        // line 32
         echo "    <!-- Extras css files -->
     ";
     }
 
-    // line 42
+    // line 44
     public function block_js($context, array $blocks = array())
     {
-        // line 43
+        // line 45
         echo "    <!-- Extras js files -->
     ";
     }
@@ -129,6 +131,6 @@ class __TwigTemplate_d44476f4a69e488e4300bcc7e685af07c43d342b58d205677fc77db13ed
 
     public function getDebugInfo()
     {
-        return array (  116 => 43,  113 => 42,  108 => 30,  105 => 29,  99 => 11,  96 => 10,  92 => 49,  90 => 47,  86 => 45,  84 => 42,  80 => 41,  76 => 40,  71 => 38,  63 => 32,  61 => 29,  43 => 14,  40 => 13,  38 => 10,  32 => 9,  22 => 1,);
+        return array (  118 => 45,  115 => 44,  110 => 32,  107 => 31,  101 => 11,  98 => 10,  94 => 51,  92 => 49,  88 => 47,  86 => 44,  82 => 43,  78 => 42,  73 => 40,  65 => 34,  63 => 31,  43 => 14,  40 => 13,  38 => 10,  32 => 9,  22 => 1,);
     }
 }

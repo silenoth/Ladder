@@ -1,0 +1,493 @@
+{% spaceless %}
+{% embed '_header.twig' %}
+    {% block titulo %}
+        <title>Administracion</title>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" href="{{url}}/plugins/editor/minified/themes/default.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{url}}/css/bootstrap-multiselect.css" type="text/css" />
+    {% endblock %}
+    {% block js %}
+        <script src="{{url}}/js/bootstrapValidator.js" type="text/javascript"></script>
+        <script src="{{url}}/plugins/editor/minified/jquery.sceditor.bbcode.js"></script>
+        <script type="text/javascript">
+        // Source: http://www.backalleycoder.com/2011/03/20/link-tag-css-stylesheet-load-event/
+			var loadCSS = function(url, callback){
+				var link = document.createElement('link');
+				link.type = 'text/css';
+				link.rel = 'stylesheet';
+				link.href = url;
+				link.id = 'theme-style';
+
+				document.getElementsByTagName('head')[0].appendChild(link);
+
+				var img = document.createElement('img');
+				img.onerror = function(){
+					if(callback) callback(link);
+				}
+				img.src = url;
+			}
+
+			$(document).ready(function() {
+				var initEditor = function() {
+					$("textarea").sceditor({
+						plugins: 'bbcode',
+						style: "{{url}}/plugins/editor/minified/jquery.sceditor.default.min.css"
+					});
+				};
+
+				$("#preview").change(function() {
+					var theme = "../minified/themes/" + $(this).val() + ".min.css";
+
+					$("textarea").sceditor("instance").destroy();
+					$("link:first").remove();
+					$("#theme-style").remove();
+
+					loadCSS(theme, initEditor);
+				});
+
+                $("#contenido").change(function() {
+					var theme = "../minified/themes/" + $(this).val() + ".min.css";
+
+					$("textarea").sceditor("instance").destroy();
+					$("link:first").remove();
+					$("#theme-style").remove();
+
+					loadCSS(theme, initEditor);
+				});
+                $("#t_descripcion").change(function() {
+					var theme = "../minified/themes/" + $(this).val() + ".min.css";
+
+					$("textarea").sceditor("instance").destroy();
+					$("link:first").remove();
+					$("#theme-style").remove();
+
+					loadCSS(theme, initEditor);
+				});
+                $("#editmail").change(function() {
+					var theme = "../minified/themes/" + $(this).val() + ".min.css";
+
+					$("textarea").sceditor("instance").destroy();
+					$("link:first").remove();
+					$("#theme-style").remove();
+
+					loadCSS(theme, initEditor);
+				});
+				initEditor();
+			});
+        </script>
+        <script type="text/javascript" src="{{url}}/js/bootstrap.file-input.js"></script>
+        <script type="text/javascript" src="{{url}}/js/bootstrap-multiselect.js"></script>
+        <script type="text/javascript" src="{{url}}/js/jquery.confirm.min.js"/></script>
+    {% endblock %}
+{% endembed %}
+{# INICIO ADDNEWS OK #}
+{% if ls.addnewsok == true %}
+<script type="text/javascript">
+$( document ).ready(function() {
+    $('#addnewsok').modal('show');
+});
+
+</script>
+<!-- Modal error login -->
+<div class="modal fade" id="addnewsok" tabindex="-1" role="dialog" aria-labelledby="addnewsokLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:0;">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="errorloginLabel">Datos ingresados correctamente</h4>
+      </div>
+      <div class="modal-body">
+        Se ha agregado una nueva entrada exitosamente.
+      </div>
+      <div class="modal-footer" style="border:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{# FIN ADD NEWS OK #}
+{# INICIO DELTOURNEY OK #}
+{% if ls.deletetourney == true %}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('#deletetourney').modal('show');
+        });
+    </script>
+<!-- Modal delete tourney -->
+<div class="modal fade" id="deletetourney" tabindex="-1" role="dialog" aria-labelledby="deletetourneyLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:0;">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="errorloginLabel">Datos ingresados correctamente</h4>
+      </div>
+      <div class="modal-body">
+        Se han eliminado los datos correctamente.
+      </div>
+      <div class="modal-footer" style="border:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+{# FIN DELTOURNEY OK #}
+{% endif %}
+{# INICIO ADDTOURNEY OK #}
+{% if ls.addtourneyok == true %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#addtourneyok').modal('show');
+    });
+</script>
+<!-- Modal error login -->
+<div class="modal fade" id="addtourneyok" tabindex="-1" role="dialog" aria-labelledby="addtourneyokLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:0;">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="errorloginLabel">Datos ingresados correctamente</h4>
+      </div>
+      <div class="modal-body">
+        Se ha agregado un nuevo torneo exitosamente.
+      </div>
+      <div class="modal-footer" style="border:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{# FIN ADD ADDTOURNEY OK #}
+{# INICIO ADDTOURNEY OK #}
+{% if ls.editmailmsgok == true %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#editmailmsgok').modal('show');
+    });
+</script>
+<!-- Modal error login -->
+<div class="modal fade" id="editmailmsgok" tabindex="-1" role="dialog" aria-labelledby="editmailmsgokLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:0;">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="editmailmsgokLabel">Datos ingresados correctamente</h4>
+      </div>
+      <div class="modal-body">
+        El mensaje del email del confirmacion se ha editado correctamente.
+      </div>
+      <div class="modal-footer" style="border:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{# FIN ADD ADDTOURNEY OK #}
+{#TABS#}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+  <li><a href="#perfil" data-toggle="tab">Profile</a></li>
+  <li><a href="#torneos" data-toggle="tab">Torneos</a></li>
+  <li><a href="#settings" data-toggle="tab">Configuración</a></li>
+</ul>
+{#TABS PANELS#}
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="home">
+        <div class="row" style="padding-left:20px;">
+          <div class="col-xs-12 col-md-8">
+            <h2>Agregar noticia</h2>
+            <form name="noticia" id="noticia" method="post" role="form" class="form-horizontal" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Ingresa un titulo" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="file" name="file" id="file" class="btn-primary" title="Subir imagen preliminar" /><br /><span>La imagen debe ser de 260x130 px</span>
+                </div>
+                <div class="form-group">
+                    <textarea name="preview" id="preview" style="width:100%; height:200px;"></textarea>
+
+                </div>
+                <div class="form-group">
+                    <textarea name="contenido" id="contenido" style="width:100%; height:200px;"></textarea>
+
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="categoria">
+                        <option value="0" disabled="disabled" selected="selected">Selecciona una categoría</option>
+                        {%for categorias in ls.cat%}
+                        <option value="{{categorias.id}}">{{categorias.nombre}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="activa" name="activa" checked="checked" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" data-toggle="tooltip" data-placement="top" title="Hacer pública" /> Mostrar noticia en el indice
+                </div>
+                <input type="hidden" name="addnews" value="1" />
+                <button class="btn btn-primary" name="enviar" id="enviar" type="submit">Agregar noticia</button>
+            </form>
+          </div>
+          <div class="col-xs-6 col-md-4">
+          <p>Agrega contenido nuevo cada día, manten actualizada la página con noticias frescas tu usuarios lo agradecerán.</p>
+              <ul>
+                <li>Titulo: Tiene que ser un titulo que atraiga al publico cuando lo vea. No puede exeder los 50 caracteres.</li>
+                <li>Imagen: Agregua una imagen que identifique la noticia. Formatos permitidos *.jpg, *.png, *.gif</li>
+                <li>Preview: Crea un resumen atractivo para que los usuarios les den ganas de leer la noticia completa. No puede exeder de los 500 caracteres.</li>
+                <li>Contenido: Agrega imagenes, videos o solo texto, se libre usa tu imaginación.</li>
+              </ul>
+          </div>
+        </div>
+  </div>
+  {# TAB PERFIL #}
+  <div class="tab-pane fade" id="perfil">
+
+  </div>
+  {# FIN TAB PERFIL #}
+  {# TAB TORNEOS #}
+  <div class="tab-pane fade" id="torneos">
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="#">Crear torneo</a></li>
+          <li><a href="#tablatorneos">Lista de torneos</a></li>
+        </ol>
+        <div class="col-xs-12 col-md-8">
+            <h2>Crear torneo</h2>
+            <form method="post" id="torneos" role="form" name="torneos" action="" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="t_titulo" id="t_titulo" placeholder="Nombre del torneo" />
+                </div>
+                <div class="form-group">
+                    <input type="file" name="tfile" id="tfile" class="btn-primary" title="Logo del torneo" /><br /><span>La imagen debe ser de 260x130 px</span>
+                </div>
+                <div class="form-group">
+                    <label for="t_descripcion">Descripcion</label>
+                    <textarea id="t_descripcion" name="t_descripcion" style="width:649px; height:200px;" required="required"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="t_juego">Juego</label>
+                    <select class="form-control" name="t_juego" id="t_juego">
+                        <option value="Hs" disabled="disabled">Hearthstone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_subida">Subir replays</label>
+                    <select class="form-control" name="t_subida" id="t_subida">
+                        <option value="0">Imposibilitado</option>
+                        <option value="1">Opcional</option>
+                        <option value="2">Obligatorio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_bajada">Bajar replays</label>
+                    <select class="form-control" name="t_bajada" id="t_bajada">
+                        <option value="0">Imposibilitado</option>
+                        <option value="1">Posibilitado</option>
+                        <option value="2">Cuando finalice</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_equipos">Max. de equipos</label>
+                    <select class="form-control" name="t_equipos" id="t_equipos">
+                        {% set equipos = 2 %}
+                        {% for i in 1..7 %}
+                        <option value="{{ equipos }}">{{ equipos }}</option>
+                        {% set equipos = equipos * 2 %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t_modo">Modo</label>
+                    <select class="form-control" name="t_modo" id="t_modo">
+                        <option value="0">1v1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="t_activo" name="t_activo" checked="checked" onclick="if(this.checked==true){this.value=1;}else {this.value=0;}" />Habilitar
+                </div>
+                <input type="hidden" value="1" name="addtorneo" />
+                <button type="submit" class="btn btn-primary">Crear torneo</button>
+            </form>
+        </div>
+        <div class="col-xs-6 col-md-4">
+        </div>
+    </div>
+        {# INICIO TABLA LISTA TORNEOS #}
+        <h2 style="margin-top:100px;" id="tablatorneos">Lista de torneos</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Torneo</th>
+                    <th>Informacion</th>
+                    <th>Creado</th>
+                    <th>Por</th>
+                    <th>Cupos</th>
+                    <th>Ubicacion</th>
+                    <th>Subida replays</th>
+                    <th>Bajada replays</th>
+                    <th>Modo</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for torneo in ls.torneos %}
+                <tr>
+                    <td>{{ torneo.id }}</td>
+                    <td>{{ torneo.titulo }}</td>
+                    <td>{{ torneo.descripcion|slice(0,50) }}...</td>
+                    <td>{{ torneo.fecha|date("d \\d\\e M \\d\\e\\l Y") }}</td>
+                    <td>{{ torneo.autor }}</td>
+                    <td>{{ torneo.equipos }}</td>
+                    <td>{{ torneo.ubicacion }}</td>
+                    <td>
+                        <span class="label label-warning">{% if torneo.subida == 0 %}No se puede{% elseif torneo.subida == 1 %}Opcional{% elseif torneo.subida == 2 %}Obligatorio{% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="label label-warning">{% if torneo.bajada == 0 %}No se puede{% elseif torneo.bajada == 1 %}Se puede{% elseif torneo.bajada == 2 %}Al final{% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="label label-primary">
+                        {% if torneo.modo == 0 %}
+                        1v1
+                        {% elseif torneo.modo == 1 %}
+                        2v2
+                        {% elseif torneo.modo == 2 %}
+                        3v3
+                        {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if torneo.activo == 1 %}
+                        <span class="label label-success">Activo</span>
+                        {% else %}
+                        <span class="label label-danger">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td><form method="post" action="" name="del_t{{torneo.id}}" id="del_t{{torneo.id}}">
+                            <button class="confirm" name="delete_t" id="delete_t{{torneo.id}}" type="submit" style="color:#FF282E;float:right;border:0;width:20px;background:#fff;"><span class="glyphicon glyphicon-remove"></span></button>
+                            <script type="text/javascript">
+                                $("#delete_t{{torneo.id}}").confirm({
+                                    text: "Estas a punto de eliminar completamente el torneo <br /><b>ID:</b> {{torneo.id}}<br /><b>Titulo:</b> {{torneo.titulo}}<br />Esta accion no se podrá deshacer, ¿estas completamente seguro de continuar?",
+                                    confirm: function(button) {
+                                        $( "#del_t{{torneo.id}}" ).submit();
+                                    },
+                                    confirmButton: "Si, lo estoy ;)",
+                                    cancelButton: "No :c",
+                                    post: true
+                                });
+                            </script>
+                        </form>
+                        <form method="post" action="" name="ed_t" id="ed_t">
+                        <button name="edit_t" id="edit_t" type="submit" style="color:#4F91F2;margin-left:5px;border:0;width:20px;background:#fff;margin-top:10px;"><span class="glyphicon glyphicon-pencil"></span></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li><a href="#">Previous</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+        {# FIN TABLA LISTA TORNEOS#}
+  </div>
+  {# FIN TAB TORNEOS #}
+  <div class="tab-pane fade" id="settings">
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <h2>Editar email/mensaje</h2>
+            <form method="post" name="editmailform" id="editmailform">
+                <label for="editmail">Editar mensaje de confirmacion</label>
+                <textarea name="editmail" id="editmail" style="width:649px; height:200px;">{{ls.conf.email.emailmsg}}</textarea>
+                <input type="hidden" value="1" name="editmailok" id="editmailok">
+                <button class="btn btn-primary" style="float:right;margin-top:20px;" type="submit" name="btneditmail" id="btneditmail">Guardar</button>
+            </form>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div style="height:200px;">
+            <h3>Variables posibles</h3>
+                <ul>
+                    <li>{usuario}: Nick del detinatario</li>
+                    <li>{email}: Email del destinatario</li>
+                    <li>{url}: Enlace del sitio</li>
+                    <li>{titulo}: Titulo del sitio</li>
+                    <li>{slogan}: Slogan del sitio</li>
+                    <li>{enlace}: Enlace de confirmacion</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<script>
+$('input[type=file]').bootstrapFileInput();
+$(document).ready(function() {
+    $('#noticia').bootstrapValidator({
+        message: 'Este valor no es valido',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+          titulo: {
+                validators: {
+                    notEmpty: {
+                        message: 'Este campo no puede quedar vacío'
+                    }
+                }
+            },
+          preview: {
+                message: 'Preview no es valida',
+                validators: {
+                    notEmpty: {
+                        message: 'Este campo no puede quedar vacío'
+                    },
+                    stringLength: {
+                        min: 100,
+                        max: 500,
+                        message: 'Debe tener al menos 100 caractares y maximo 500 caracteres'
+                    }
+                }
+            },
+          categoria: {
+                validators: {
+                    notEmpty: {
+                        message: 'Elije una categoria'
+                    }
+                }
+          }
+        /********/
+        }
+    });
+
+    $('#noticia')
+    .find('[name="categoria"]')
+    .multiselect()
+    .end()
+    /*********/
+    $('#torneos')
+    .find('[name="t_subida"]')
+    .multiselect()
+    .end()
+    .find('[name="t_juego"]')
+    .multiselect()
+    .end()
+    .find('[name="t_bajada"]')
+    .multiselect()
+    .end()
+    .find('[name="t_equipos"]')
+    .multiselect()
+    .end()
+    .find('[name="t_modo"]')
+    .multiselect()
+    .end()
+});
+</script>
+{% include '_footer.twig' %}
+{% endspaceless %}

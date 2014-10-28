@@ -10,11 +10,25 @@ class lsAdmin extends lsSystem {
     }
     //Mostrar template
     function showAdmin(){
+        $settings = $this->getSettingsDB();
+        $slider = $this->getSlider();
         $datos = array(
             'cat' => $this->getCategories(),
             'torneos' => $this->getTournaments(),
             'conf' => array(
-                'email' => $this->getEmailMsg()
+                'emailmsg' => $settings['emailmsg'],
+                'lang' => $this->getLangFolders(),
+                'dblang' => $settings['lang'],
+                'template' => $this->getFoldersFromTemplate(),
+                'dbtemplate' => $settings['template'],
+                'titulositio' => $settings['title'],
+                'slogan' => $settings['slogan'],
+                'url' => $settings['url'],
+                'email' => $settings['email'],
+                'maxrep' => $settings['maxrep'],
+                'maxlvl' => $settings['maxlvl'],
+                'maxmoney' => $settings['maxmoney'],
+                'intervalo' => $slider['intervalo']
             ),
             'addnewsok' => !empty($_SESSION['addnewsok']) ? true:false,
             'addtourneyok' => !empty($_SESSION['addtourneyok']) ? true:false,
@@ -150,19 +164,6 @@ class lsAdmin extends lsSystem {
         header("Location: ".$this->whereuFrom());
     }
 
-    private function getEmailMsg(){
-        parent::setNames();
-        $sql = "SELECT a.ajuste_email AS email, a.ajuste_email_mensaje AS emailmsg FROM ajustes AS a";
-        $res = $this->con->query($sql);
-        $res->execute();
-
-        while($row = $res->fetch(PDO::FETCH_ASSOC)){
-            $datos[] = $row;
-        }
-
-        return $datos[0];
-    }
-
     public function editEmailMsg($datos){
         $sql = "UPDATE ajustes SET ajustes.ajuste_email_mensaje = ?";
         $res = $this->con->prepare($sql);
@@ -189,4 +190,49 @@ class lsAdmin extends lsSystem {
         $_SESSION['deletetourney'] = $id;
         header("Location: ".$this->whereuFrom());
     }
+
+    private function getLangFolders(){
+        $directorio = _LANGFOLDER._DS;
+        $dires=array();
+        $midir=opendir($directorio);
+        $i=0;
+        while($archivo=readdir($midir)){
+            if (is_dir($directorio.$archivo) && $archivo!="." && $archivo!="..")
+                $dires[$i++]=$archivo;
+        }
+        closedir($midir);
+        return $dires;
+    }
+
+    private function getSettingsDB(){
+        parent::setNames();
+        $sql = "SELECT
+                    a.ajuste_lang AS lang,
+                    a.ajuste_template AS template,
+                    a.ajuste_url AS url,
+                    a.ajuste_app_id AS appid,
+                    a.ajuste_plugins_folder AS plugindir,
+                    a.ajuste_max_rep AS maxrep,
+                    a.ajuste_max_lvl AS maxlvl,
+                    a.ajuste_max_din AS maxmoney,
+                    a.ajuste_twich_client_id AS twitchid,
+                    a.ajuste_twich_client_secret AS twitchsecret,
+                    a.ajuste_email AS email,
+                    a.ajuste_email_titulo AS emailtitle,
+                    a.ajuste_email_mensaje AS emailmsg,
+                    a.ajuste_titulo AS title,
+                    a.ajuste_slogan AS slogan
+                FROM
+                    ajustes AS a
+                LIMIT 1";
+        $res = $this->con->query($sql);
+        $res->execute();
+
+        while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
+            $datos[] = $row;
+        }
+
+        return $datos[0];
+    }
+
 }

@@ -1,0 +1,1 @@
+hola {{ls.usuario.nombre}} {{ls.usuario.apellido}}

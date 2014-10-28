@@ -20,7 +20,7 @@ class __TwigTemplate_de03ca344df0ad049dd9c6e765a14917a5a1c0ab833e13a1c44baf692d7
         // line 2
         $context["active"] = "bracket";
         // line 3
-        $this->env->loadTemplate("tournaments.twig", "1120718915")->display($context);
+        $this->env->loadTemplate("tournaments.twig", "1910280378")->display($context);
         // line 8
         $context["id"] = 1;
         // line 9
@@ -34,7 +34,9 @@ class __TwigTemplate_de03ca344df0ad049dd9c6e765a14917a5a1c0ab833e13a1c44baf692d7
             // line 12
             echo "<div class=\"jumbotron\" style=\"background:url('";
             echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
-            echo "/plugins/binarybeast/img/bgt.jpg');color:white;box-shadow: 1px 1px 10px #000;\">
+            echo "/";
+            echo twig_escape_filter($this->env, (isset($context["template"]) ? $context["template"] : null), "html", null, true);
+            echo "/img/bgt.jpg');color:white;box-shadow: 1px 1px 10px #000;\">
   <h1>";
             // line 13
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["torneo"]) ? $context["torneo"] : null), "titulo"), "html", null, true);
@@ -151,13 +153,13 @@ class __TwigTemplate_de03ca344df0ad049dd9c6e765a14917a5a1c0ab833e13a1c44baf692d7
 
     public function getDebugInfo()
     {
-        return array (  138 => 39,  132 => 37,  127 => 35,  123 => 34,  113 => 31,  106 => 27,  92 => 26,  87 => 24,  79 => 23,  68 => 19,  64 => 18,  60 => 17,  56 => 16,  48 => 15,  44 => 14,  40 => 13,  35 => 12,  33 => 11,  31 => 10,  27 => 9,  25 => 8,  23 => 3,  21 => 2,  19 => 1,);
+        return array (  140 => 39,  134 => 37,  129 => 35,  125 => 34,  115 => 31,  108 => 27,  94 => 26,  89 => 24,  81 => 23,  70 => 19,  66 => 18,  62 => 17,  58 => 16,  50 => 15,  46 => 14,  42 => 13,  35 => 12,  33 => 11,  31 => 10,  27 => 9,  25 => 8,  23 => 3,  21 => 2,  19 => 1,);
     }
 }
 
 
 /* tournaments.twig */
-class __TwigTemplate_de03ca344df0ad049dd9c6e765a14917a5a1c0ab833e13a1c44baf692d7113ee_1120718915 extends Twig_Template
+class __TwigTemplate_de03ca344df0ad049dd9c6e765a14917a5a1c0ab833e13a1c44baf692d7113ee_1910280378 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -212,6 +214,6 @@ class __TwigTemplate_de03ca344df0ad049dd9c6e765a14917a5a1c0ab833e13a1c44baf692d7
 
     public function getDebugInfo()
     {
-        return array (  198 => 6,  192 => 5,  186 => 4,  138 => 39,  132 => 37,  127 => 35,  123 => 34,  113 => 31,  106 => 27,  92 => 26,  87 => 24,  79 => 23,  68 => 19,  64 => 18,  60 => 17,  56 => 16,  48 => 15,  44 => 14,  40 => 13,  35 => 12,  33 => 11,  31 => 10,  27 => 9,  25 => 8,  23 => 3,  21 => 2,  19 => 1,);
+        return array (  200 => 6,  194 => 5,  188 => 4,  140 => 39,  134 => 37,  129 => 35,  125 => 34,  115 => 31,  108 => 27,  94 => 26,  89 => 24,  81 => 23,  70 => 19,  66 => 18,  62 => 17,  58 => 16,  50 => 15,  46 => 14,  42 => 13,  35 => 12,  33 => 11,  31 => 10,  27 => 9,  25 => 8,  23 => 3,  21 => 2,  19 => 1,);
     }
 }
