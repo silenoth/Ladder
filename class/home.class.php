@@ -29,7 +29,11 @@ class lsHome extends lsSystem {
             $array[] = $row;
         }
 
-        return $array;
+        if (!empty($array)) {
+            return $array;
+        } else {
+            return null;
+        }
         parent::closeCon();
     }
 

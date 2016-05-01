@@ -16,7 +16,7 @@ class __TwigTemplate_246ab3da1245c88adfa4596bfc674835c522339a04cfab2e3edb49a5848
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("forums.twig", "1125451252")->display($context);
+        $this->env->loadTemplate("forums.twig", "595466808")->display($context);
         // line 14
         echo "<div class=\"row\">
 \t<div class=\"col-md-8\">
@@ -217,7 +217,7 @@ class __TwigTemplate_246ab3da1245c88adfa4596bfc674835c522339a04cfab2e3edb49a5848
 
 
 /* forums.twig */
-class __TwigTemplate_246ab3da1245c88adfa4596bfc674835c522339a04cfab2e3edb49a5848b87f9_1125451252 extends Twig_Template
+class __TwigTemplate_246ab3da1245c88adfa4596bfc674835c522339a04cfab2e3edb49a5848b87f9_595466808 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
