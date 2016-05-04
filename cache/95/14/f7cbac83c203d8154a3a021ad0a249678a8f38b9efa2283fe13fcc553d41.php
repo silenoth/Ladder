@@ -18,7 +18,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
         // line 1
         $context["active"] = "news";
         // line 2
-        $this->env->loadTemplate("register.twig", "241746606")->display($context);
+        $this->env->loadTemplate("register.twig", "196272896")->display($context);
         // line 25
         echo "<div class=\"row\">
     <div class=\"col-lg-8\">
@@ -94,7 +94,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
         // line 59
         echo "            ";
         // line 60
-        echo "        
+        echo "
     <form class=\"form-horizontal\" role=\"form\" method=\"post\" id=\"formulario\" name=\"formulario\">
         <div class=\"form-group ";
         // line 62
@@ -102,7 +102,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
             echo "has-error";
         }
         echo "\">
-            <input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Nombre\" name=\"name\" required=\"required\" />                               
+            <input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Nombre\" name=\"name\" required=\"required\" />
         </div>
         <div class=\"form-group ";
         // line 65
@@ -110,7 +110,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
             echo "has-error";
         }
         echo "\">
-            <input type=\"text\" id=\"email\" class=\"form-control\" placeholder=\"Email\" name=\"email\" required=\"required\" />                               
+            <input type=\"text\" id=\"email\" class=\"form-control\" placeholder=\"Email\" name=\"email\" required=\"required\" />
         </div>
         <div class=\"form-group ";
         // line 68
@@ -118,7 +118,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
             echo "has-error";
         }
         echo "\">
-            <input type=\"text\" id=\"nick\" class=\"form-control\" placeholder=\"Nick\" name=\"nick\" required=\"required\" />                               
+            <input type=\"text\" id=\"nick\" class=\"form-control\" placeholder=\"Nick\" name=\"nick\" required=\"required\" />
         </div>
         <div class=\"form-group ";
         // line 71
@@ -126,7 +126,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
             echo "has-error";
         }
         echo "\">
-            <input type=\"password\" id=\"pass1\" class=\"form-control\" placeholder=\"Contraseña\" name=\"pass1\" required=\"required\" />                               
+            <input type=\"password\" id=\"pass1\" class=\"form-control\" placeholder=\"Contraseña\" name=\"pass1\" required=\"required\" />
         </div>
         <div class=\"form-group ";
         // line 74
@@ -134,7 +134,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
             echo "has-error";
         }
         echo "\">
-            <input type=\"password\" id=\"pass\" class=\"form-control\" placeholder=\"Confirmar contraseña\" name=\"pass\" required=\"required\" />                               
+            <input type=\"password\" id=\"pass\" class=\"form-control\" placeholder=\"Confirmar contraseña\" name=\"pass\" required=\"required\" />
         </div>
         <div class=\"form-group\">
             <select name=\"type\" class=\"form-control\">
@@ -169,14 +169,14 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
                     \$('#captcha').hide();
                     setTimeout(\"\$('#captcha-r').hide();\", 1500);
                     setTimeout(\"\$('#captcha').show();\", 1500);
-                }); 
+                });
             </script>
             <input type=\"text\" id=\"captcha\" class=\"form-control\" placeholder=\"Captcha\" name=\"captcha\" required />
         </div>
         <div class=\"form-group\">
             <button type=\"submit\" class=\"btn btn-primary btn-lg\" id=\"enviar\">Registrar</button>
         </div>
-    </form>        
+    </form>
     </div>
 </div>
 <script type=\"text/javascript\">
@@ -210,7 +210,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
                     emailAddress: {
                         message: 'El email ingresado no es valido'
                     }
-                }  
+                }
             },
             nick: {
                 message: 'El nick no es válido.',
@@ -258,7 +258,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
         }
     });
 });
-    
+
 </script>
 ";
         // line 193
@@ -283,7 +283,7 @@ class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc5
 
 
 /* register.twig */
-class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc553d41_241746606 extends Twig_Template
+class __TwigTemplate_9514f7cbac83c203d8154a3a021ad0a249678a8f38b9efa2283fe13fcc553d41_196272896 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

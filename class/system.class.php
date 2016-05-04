@@ -962,7 +962,11 @@ class lsSystem {
             $datos[] = $row;
         }
 
-        return $datos[0];
+        if (!empty($datos)) {
+            return $datos[0];
+        } else {
+            return null;
+        }
     }
 //dias trasncurridos
 // public function daysElapsed($desde, $hasta){

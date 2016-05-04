@@ -57,22 +57,22 @@
             </div>
             {% endif %}
             {# //VALIDACION PHP #}
-        
+
     <form class="form-horizontal" role="form" method="post" id="formulario" name="formulario">
         <div class="form-group {%if ls.error == "name"%}has-error{% endif %}">
-            <input type="text" id="name" class="form-control" placeholder="Nombre" name="name" required="required" />                               
+            <input type="text" id="name" class="form-control" placeholder="Nombre" name="name" required="required" />
         </div>
         <div class="form-group {%if ls.error == "email" or ls.error == "emailsyntax"%}has-error{% endif %}">
-            <input type="text" id="email" class="form-control" placeholder="Email" name="email" required="required" />                               
+            <input type="text" id="email" class="form-control" placeholder="Email" name="email" required="required" />
         </div>
         <div class="form-group {%if ls.error == "nick"%}has-error{% endif %}">
-            <input type="text" id="nick" class="form-control" placeholder="Nick" name="nick" required="required" />                               
+            <input type="text" id="nick" class="form-control" placeholder="Nick" name="nick" required="required" />
         </div>
         <div class="form-group {%if ls.error == "pass"%}has-error{% endif %}">
-            <input type="password" id="pass1" class="form-control" placeholder="Contraseña" name="pass1" required="required" />                               
+            <input type="password" id="pass1" class="form-control" placeholder="Contraseña" name="pass1" required="required" />
         </div>
         <div class="form-group {%if ls.error == "pass"%}has-error{% endif %}">
-            <input type="password" id="pass" class="form-control" placeholder="Confirmar contraseña" name="pass" required="required" />                               
+            <input type="password" id="pass" class="form-control" placeholder="Confirmar contraseña" name="pass" required="required" />
         </div>
         <div class="form-group">
             <select name="type" class="form-control">
@@ -99,14 +99,14 @@
                     $('#captcha').hide();
                     setTimeout("$('#captcha-r').hide();", 1500);
                     setTimeout("$('#captcha').show();", 1500);
-                }); 
+                });
             </script>
             <input type="text" id="captcha" class="form-control" placeholder="Captcha" name="captcha" required />
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg" id="enviar">Registrar</button>
         </div>
-    </form>        
+    </form>
     </div>
 </div>
 <script type="text/javascript">
@@ -140,7 +140,7 @@ $(document).ready(function() {
                     emailAddress: {
                         message: 'El email ingresado no es valido'
                     }
-                }  
+                }
             },
             nick: {
                 message: 'El nick no es válido.',
@@ -188,6 +188,6 @@ $(document).ready(function() {
         }
     });
 });
-    
+
 </script>
 {% include '_footer.twig' %}

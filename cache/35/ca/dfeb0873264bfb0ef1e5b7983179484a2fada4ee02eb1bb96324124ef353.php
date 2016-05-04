@@ -18,7 +18,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
         // line 1
         ob_start();
         // line 2
-        $this->env->loadTemplate("admin.twig", "1863111990")->display($context);
+        $this->env->loadTemplate("admin.twig", "739844597")->display($context);
         // line 87
         if (($this->getAttribute((isset($context["ls"]) ? $context["ls"] : null), "addnewsok") == true)) {
             // line 88
@@ -761,7 +761,7 @@ class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124
 
 
 /* admin.twig */
-class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124ef353_1863111990 extends Twig_Template
+class __TwigTemplate_35cadfeb0873264bfb0ef1e5b7983179484a2fada4ee02eb1bb96324124ef353_739844597 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {

@@ -94,7 +94,11 @@ class lsAdmin extends lsSystem {
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             $datos[] = $row;
         }
-        return $datos;
+        if (!empty($datos)) {
+            return $datos;
+        } else {
+            return null;
+        }
     }
     //Torneos
     function addTournaments($torneo){
@@ -215,8 +219,8 @@ class lsAdmin extends lsSystem {
                     a.ajuste_max_rep AS maxrep,
                     a.ajuste_max_lvl AS maxlvl,
                     a.ajuste_max_din AS maxmoney,
-                    a.ajuste_twich_client_id AS twitchid,
-                    a.ajuste_twich_client_secret AS twitchsecret,
+                    a.ajuste_twitch_client_id AS twitchid,
+                    a.ajuste_twitch_client_secret AS twitchsecret,
                     a.ajuste_email AS email,
                     a.ajuste_email_titulo AS emailtitle,
                     a.ajuste_email_mensaje AS emailmsg,
